@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import SpriteKit
 
 
 class GameViewController: UIViewController
 {
+    var skView: SKView!
+    var gameScene: GameScene!
+
+
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+
+        self.skView = self.view as! SKView
+        self.gameScene = GameScene(size: self.skView.frame.size, fieldSize: CGSizeMake(8, 8))
+
+        self.skView.presentScene(self.gameScene)
+    }
 }
