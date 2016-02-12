@@ -38,10 +38,29 @@ class Field
     }
 
 
-    func createBalls(count count: Int) -> [CGPoint]
+    func movementPathFromPoint(from: CGPoint, toPoint to: CGPoint) -> [CGPoint]
     {
-        var generatedBalls = [CGPoint]()
+        var movementPath = [CGPoint]()
 
-        return generatedBalls
+        return movementPath
+    }
+
+
+    func spawnBalls(count count: Int) -> [(CGPoint, Int)]
+    {
+        var spawnedBalls = [(CGPoint, Int)]()
+        spawnedBalls.append((CGPointMake(0, 0), 0))
+        spawnedBalls.append((CGPointMake(1, 1), 1))
+        spawnedBalls.append((CGPointMake(2, 2), 2))
+
+        return spawnedBalls
+    }
+
+
+    func lineAtPoint(point: CGPoint) -> [CGPoint]
+    {
+        var line = [CGPoint]()
+
+        return line
     }
 }
