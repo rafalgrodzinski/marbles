@@ -83,10 +83,66 @@ class Field
     }
 
 
-    func lineAtPoint(point: CGPoint) -> [CGPoint]
+    func removeAtPoint(point: CGPoint, lineLength: Int) -> [CGPoint]
     {
-        var line = [CGPoint]()
+        var points = [CGPoint]()
 
-        return line
+        let color = self.balls["\(Int(point.x))x\(Int(point.y))"]
+
+        var startX = Int(point.x)
+        for x in (0..<Int(point.x)).reverse() {
+            let currColor = self.balls["\(x)x\(Int(point.y))"]
+            if currColor == color {
+                startX = x
+            } else {
+                break
+            }
+        }
+
+        var endX = Int(point.x)
+        for x in Int(point.x)..<self.width {
+            let currColor = self.balls["\(x)x\(Int(point.y))"]
+            if currColor == color {
+                endX = x
+            } else {
+                break
+            }
+        }
+
+        var startY = Int(point.y)
+        for y in (0..<Int(point.y)).reverse() {
+            let currColor = self.balls["\(Int(point.x))x\(y)"]
+            if currColor == color {
+                startY = y
+            } else {
+                break
+            }
+        }
+
+        var endY = Int(point.y)
+        for y in Int(point.y)..<self.height {
+            let currColor = self.balls["\(Int(point.x))x\(y)"]
+            if currColor == color {
+                endY = y
+            } else {
+                break
+            }
+        }
+
+        if endX - startX >= lineLength-1 {
+            for x in startX...endX {
+                points.append(CGPointMake(CGFloat(x), point.y))
+                self.balls.removeValueForKey("\(x)x\(Int(point.y))")
+            }
+        }
+
+        if endY - startY >= lineLength-1 {
+            for y in startY...endY {
+                points.append(CGPointMake(point.x, CGFloat(y)))
+                self.balls.removeValueForKey("\(Int(point.x))x\(y)")
+            }
+        }
+
+        return points
     }
 }

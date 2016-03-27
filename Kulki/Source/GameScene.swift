@@ -22,11 +22,12 @@ class GameScene: SKScene
     var tileSize: CGFloat!
     var colorsCount: Int!
     var ballsPerSpawn: Int!
+    var lineLength: Int!
     var state = GameState.Spawning
     var selectedBall: SKPhysicsBody?
 
 
-    convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int, ballsPerSpawn: Int)
+    convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int, ballsPerSpawn: Int, lineLength: Int)
     {
         self.init(size: size)
 
@@ -37,7 +38,7 @@ class GameScene: SKScene
         self.tileSize = round(maxTileWidth < maxTileHeight ? maxTileWidth : maxTileHeight)
         self.colorsCount = colorsCount
         self.ballsPerSpawn = ballsPerSpawn
-
+        self.lineLength = lineLength
 
 
         for y in 0 ..< Int(field.height) {
@@ -74,9 +75,11 @@ class GameScene: SKScene
                 let touchLoc = touches.first!.locationInNode(self)
                     if let tileLoc = self.fieldPositionForPosition(touchLoc) {
 
-                        currentBody.node?.runAction(SKAction.scaleTo(1.0, duration: 0.2))
-                        self.moveBallFrom(self.fieldPositionForPosition(currentBody.node!.position)!,
-                                          to: tileLoc)
+                        self.moveBallFrom(self.fieldPositionForPosition(currentBody.node!.position)!, to: tileLoc) { () -> Void in
+                            self.removeBallAtPoint(tileLoc) { () -> Void in
+                                self.nextMove()
+                            }
+                        }
                 }
             }
         }
@@ -91,6 +94,7 @@ class GameScene: SKScene
         self.spawnBalls() { () -> Void in
             //Try removing balls
 
+            print("Balls count: \(self.field.balls.count)")
             //Allow movement
             self.state = .WaitingForInput
         }
@@ -105,10 +109,16 @@ class GameScene: SKScene
             print("New ball \(color) @ \(position.x)x\(position.y)")
             let ballNode = self.ballNodeForColor(color)
             ballNode.position = self.positionForFieldPosition(position)
+            ballNode.setScale(0.0)
             self.addChild(ballNode)
+
+            ballNode.runAction(SKAction.sequence([SKAction.scaleTo(1.0, duration: 0.2), SKAction.runBlock({ 
+                self.removeBallAtPoint(position, finished: { 
+                })
+            })]))
         }
 
-        finished()
+        self.runAction(SKAction.sequence([SKAction.waitForDuration(0.2), SKAction.runBlock(finished)]))
     }
 
 
@@ -150,14 +160,32 @@ class GameScene: SKScene
     }
 
 
-    func moveBallFrom(from: CGPoint, to: CGPoint)
+    func moveBallFrom(from: CGPoint, to: CGPoint, finished: () -> Void)
     {
         if self.field.canMoveFromPoint(from, toPoint: to) {
             let path = self.field.movementPathFromPoint(from, toPoint: to)
             self.state = .Moving
             self.selectedBall?.node?.position = self.positionForFieldPosition(to)
 
-            self.nextMove()
+            self.selectedBall?.node?.runAction(SKAction.sequence([SKAction.scaleTo(1.0, duration: 0.2), SKAction.runBlock(finished)]))
+        }
+    }
+
+
+    func removeBallAtPoint(point: CGPoint, finished: () -> Void)
+    {
+        let positions = self.field.removeAtPoint(point, lineLength: self.lineLength)
+
+        for position in positions {
+            if let body = self.physicsWorld.bodyAtPoint(self.positionForFieldPosition(position)) {
+                body.node?.runAction(SKAction.sequence([SKAction.scaleTo(0.0, duration: 0.2), SKAction.removeFromParent()]))
+            }
+        }
+
+        if positions.count > 0 {
+            self.runAction(SKAction.sequence([SKAction.waitForDuration(0.2), SKAction.runBlock(finished)]))
+        } else {
+            finished()
         }
     }
 }
