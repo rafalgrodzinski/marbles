@@ -21,20 +21,22 @@ class GameScene: SKScene
     var field: Field!
     var tileSize: CGFloat!
     var colorsCount: Int!
+    var ballsPerSpawn: Int!
     var state = GameState.Spawning
     var selectedBall: SKPhysicsBody?
 
 
-    convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int)
+    convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int, ballsPerSpawn: Int)
     {
         self.init(size: size)
 
         let maxTileWidth = size.width/fieldSize.width
         let maxTileHeight = size.height/fieldSize.height
 
-        self.field = Field(fieldSize: fieldSize)
+        self.field = Field(fieldSize: fieldSize, colorsCount: colorsCount)
         self.tileSize = round(maxTileWidth < maxTileHeight ? maxTileWidth : maxTileHeight)
         self.colorsCount = colorsCount
+        self.ballsPerSpawn = ballsPerSpawn
 
 
 
@@ -72,8 +74,9 @@ class GameScene: SKScene
                 let touchLoc = touches.first!.locationInNode(self)
                     if let tileLoc = self.fieldPositionForPosition(touchLoc) {
 
-                    self.moveBallFrom(self.fieldPositionForPosition(currentBody.node!.position)!,
-                                      to: tileLoc)
+                        currentBody.node?.runAction(SKAction.scaleTo(1.0, duration: 0.2))
+                        self.moveBallFrom(self.fieldPositionForPosition(currentBody.node!.position)!,
+                                          to: tileLoc)
                 }
             }
         }
@@ -85,7 +88,7 @@ class GameScene: SKScene
         self.state = .Spawning
 
         //Spawn new balls
-        self.spawnBalls(self.colorsCount) { () -> Void in
+        self.spawnBalls() { () -> Void in
             //Try removing balls
 
             //Allow movement
@@ -94,11 +97,12 @@ class GameScene: SKScene
     }
 
 
-    func spawnBalls(count: Int, finished: () -> Void)
+    func spawnBalls(finished: () -> Void)
     {
-        let spawnedBalls = self.field.spawnBalls(count: self.colorsCount)
+        let spawnedBalls = self.field.spawnBalls(self.ballsPerSpawn)
 
         for (position, color) in spawnedBalls {
+            print("New ball \(color) @ \(position.x)x\(position.y)")
             let ballNode = self.ballNodeForColor(color)
             ballNode.position = self.positionForFieldPosition(position)
             self.addChild(ballNode)
@@ -149,6 +153,7 @@ class GameScene: SKScene
     func moveBallFrom(from: CGPoint, to: CGPoint)
     {
         if self.field.canMoveFromPoint(from, toPoint: to) {
+            let path = self.field.movementPathFromPoint(from, toPoint: to)
             self.state = .Moving
             self.selectedBall?.node?.position = self.positionForFieldPosition(to)
 
