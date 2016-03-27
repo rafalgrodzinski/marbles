@@ -9,11 +9,20 @@
 import SpriteKit
 
 
+enum GameState {
+    case Spawning
+    case WaitingForInput
+    case Moving
+}
+
+
 class GameScene: SKScene
 {
     var field: Field!
     var tileSize: CGFloat!
     var colorsCount: Int!
+    var state = GameState.Spawning
+    var selectedBall: SKPhysicsBody?
 
 
     convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int)
@@ -49,22 +58,39 @@ class GameScene: SKScene
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-        if let body = self.physicsWorld.bodyAtPoint(touches.first!.locationInNode(self)) {
-            let seq = SKAction.sequence([SKAction.scaleTo(1.2, duration: 0.2), SKAction.scaleTo(1.0, duration: 0.2)])
-            body.node?.runAction(seq)
+        if self.state == .WaitingForInput {
+            if let body = self.physicsWorld.bodyAtPoint(touches.first!.locationInNode(self)) {
+                if let currentBody = self.selectedBall {
+                    currentBody.node?.runAction(SKAction.scaleTo(1.0, duration: 0.2))
+                }
+
+                let seq = SKAction.sequence([SKAction.scaleTo(1.2, duration: 0.2)])
+                body.node?.runAction(seq)
+
+                self.selectedBall = body
+            } else if let currentBody = self.selectedBall {
+                let touchLoc = touches.first!.locationInNode(self)
+                    if let tileLoc = self.fieldPositionForPosition(touchLoc) {
+
+                    self.moveBallFrom(self.fieldPositionForPosition(currentBody.node!.position)!,
+                                      to: tileLoc)
+                }
+            }
         }
     }
 
 
     func nextMove()
     {
+        self.state = .Spawning
+
         //Spawn new balls
         self.spawnBalls(self.colorsCount) { () -> Void in
+            //Try removing balls
+
+            //Allow movement
+            self.state = .WaitingForInput
         }
-
-        //Try removing balls
-
-        //Allow movement
     }
 
 
@@ -77,6 +103,8 @@ class GameScene: SKScene
             ballNode.position = self.positionForFieldPosition(position)
             self.addChild(ballNode)
         }
+
+        finished()
     }
 
 
@@ -100,5 +128,31 @@ class GameScene: SKScene
         let y = tileYOrigin + tileSize * fieldPosition.y
 
         return CGPointMake(x, y)
+    }
+
+
+    func fieldPositionForPosition(position: CGPoint) -> CGPoint?
+    {
+        let tileXOrigin = (size.width - CGFloat(self.field.width) * tileSize) / 2.0
+        let tileYOrigin = (size.height - CGFloat(self.field.height) * tileSize) / 2.0
+        let x = (position.x - tileXOrigin)/self.tileSize
+        let y = (position.y - tileYOrigin)/self.tileSize
+
+        guard x >= 0.0 && x <= CGFloat(self.field.width) && y >= 0.0 && y <= CGFloat(self.field.height) else {
+            return nil
+        }
+
+        return CGPointMake(floor(x), floor(y))
+    }
+
+
+    func moveBallFrom(from: CGPoint, to: CGPoint)
+    {
+        if self.field.canMoveFromPoint(from, toPoint: to) {
+            self.state = .Moving
+            self.selectedBall?.node?.position = self.positionForFieldPosition(to)
+
+            self.nextMove()
+        }
     }
 }
