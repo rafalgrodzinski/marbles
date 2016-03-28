@@ -103,7 +103,7 @@ class GameScene: SKScene
 
     func spawnBalls(finished: () -> Void)
     {
-        let spawnedBalls = self.field.spawnBalls(self.ballsPerSpawn)
+        let spawnedBalls = self.field.spawnBalls(self.ballsPerSpawn, colorsCount: self.colorsCount)
 
         for (position, color) in spawnedBalls {
             print("New ball \(color) @ \(position.x)x\(position.y)")
@@ -162,8 +162,7 @@ class GameScene: SKScene
 
     func moveBallFrom(from: CGPoint, to: CGPoint, finished: () -> Void)
     {
-        if self.field.canMoveFromPoint(from, toPoint: to) {
-            let path = self.field.movementPathFromPoint(from, toPoint: to)
+        if let path = self.field.moveBallFromPosition(from, toPosition: to) {
             self.state = .Moving
             self.selectedBall?.node?.position = self.positionForFieldPosition(to)
 
@@ -174,7 +173,7 @@ class GameScene: SKScene
 
     func removeBallAtPoint(point: CGPoint, finished: () -> Void)
     {
-        let positions = self.field.removeAtPoint(point, lineLength: self.lineLength)
+        let positions = self.field.removeLinesAtPosition(point, lineLength: self.lineLength)
 
         for position in positions {
             if let body = self.physicsWorld.bodyAtPoint(self.positionForFieldPosition(position)) {
