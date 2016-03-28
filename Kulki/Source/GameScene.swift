@@ -164,9 +164,15 @@ class GameScene: SKScene
     {
         if let path = self.field.moveBallFromPosition(from, toPosition: to) {
             self.state = .Moving
-            self.selectedBall?.node?.position = self.positionForFieldPosition(to)
 
-            self.selectedBall?.node?.runAction(SKAction.sequence([SKAction.scaleTo(1.0, duration: 0.2), SKAction.runBlock(finished)]))
+            self.selectedBall?.node?.runAction(SKAction.scaleTo(1.0, duration: 0.2))
+
+            for (index, position) in path.reverse().enumerate() {
+                let newPosition = self.positionForFieldPosition(position)
+                self.selectedBall?.node?.runAction(SKAction.sequence([SKAction.waitForDuration(0.2 * Double(index)),
+                    SKAction.moveTo(newPosition, duration: 0.2),
+                    SKAction.runBlock({if index == path.count-1 { finished() }})]))
+            }
         }
     }
 
