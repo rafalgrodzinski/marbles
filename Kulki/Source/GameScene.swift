@@ -173,6 +173,9 @@ class GameScene: SKScene
                     SKAction.moveTo(newPosition, duration: 0.2),
                     SKAction.runBlock({if index == path.count-1 { finished() }})]))
             }
+            //self.selectedBall?.node?.position = self.positionForFieldPosition(to)
+
+            //finished()
         }
     }
 

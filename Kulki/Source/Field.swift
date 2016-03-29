@@ -174,85 +174,68 @@ class Field
 
     func removeLinesAtPosition(position: CGPoint, lineLength: Int) -> [CGPoint]
     {
-        var removedPositions = [CGPoint]()
+        var removedPositions = Set<CGPoint>()
 
         let color = self.balls[position]
 
         // Check horizontal extent
         var startX = Int(position.x)
-        var xs = startX-1
-        while xs > 0 {
-            let currentPosition = CGPointMake(CGFloat(xs), position.y)
+        for x in (startX-1).stride(through: 0, by: -1) {
+            let currentPosition = CGPointMake(CGFloat(x), position.y)
             let currentColor = self.balls[currentPosition]
             if currentColor == color {
-                startX = xs
+                startX = x
             } else {
                 break
             }
-
-            xs -= 1
         }
 
         var endX = Int(position.x)
-        var xe = endX+1
-        while xe < self.width {
-            let currentPosition = CGPointMake(CGFloat(xe), position.y)
+        for x in (startX+1).stride(through: self.width-1, by: 1) {
+            let currentPosition = CGPointMake(CGFloat(x), position.y)
             let currentColor = self.balls[currentPosition]
             if currentColor == color {
-                endX = xe
+                endX = x
             } else {
                 break
             }
-
-            xe += 1
         }
 
         // Check vertial extent
         var startY = Int(position.y)
-        var ys = startY-1
-        while ys > 0 {
-            let currentPosition = CGPointMake(position.x, CGFloat(ys))
+        for y in (startY-1).stride(through: 0, by: -1) {
+            let currentPosition = CGPointMake(position.x, CGFloat(y))
             let currentColor = self.balls[currentPosition]
             if currentColor == color {
-                startY = ys
+                startY = y
             } else {
                 break
             }
-
-            ys -= 1
         }
 
         var endY = Int(position.y)
-        var ye = startY+1
-        while ye < self.height {
-            let currentPosition = CGPointMake(position.x, CGFloat(ye))
+        for y in (startY+1).stride(through: self.height-1, by: 1) {
+            let currentPosition = CGPointMake(position.x, CGFloat(y))
             let currentColor = self.balls[currentPosition]
             if currentColor == color {
-                endY = ye
+                endY = y
             } else {
                 break
             }
-
-            ye += 1
         }
 
         // Check if there is a horizontal line to be removed
         if endX - startX >= lineLength-1 {
             for x in startX...endX {
-                removedPositions.append(CGPointMake(CGFloat(x), position.y))
+                removedPositions.insert(CGPointMake(CGFloat(x), position.y))
             }
         }
 
         // Check if there is a vertical line to be removed
         if endY - startY >= lineLength-1 {
             for y in startY...endY {
-                removedPositions.append(CGPointMake(position.x, CGFloat(y)))
+                removedPositions.insert(CGPointMake(position.x, CGFloat(y)))
             }
-        }
-
-        // Add central ball if anything is removed
-        if removedPositions.count > 0 {
-            removedPositions.append(position)
         }
 
         // Remove all the relevant balls from the dictionary
@@ -260,6 +243,6 @@ class Field
             self.balls.removeValueForKey(position)
         }
 
-        return removedPositions
+        return removedPositions.map() { $0 }
     }
 }
