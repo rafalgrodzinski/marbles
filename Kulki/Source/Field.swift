@@ -70,72 +70,108 @@ class Field
         }
 
         // Check which directions can we move
+        var hasUpExecuted = false
+        var hasDownExecuted = false
+        var hasLeftExecuted = false
+        var hasRightExecuted = false
 
-        // Up
-        let isAtTopEdge = Int(from.y) >= self.height-1
-        let isUpVisited = map![CGPointMake(from.x, from.y + 1)] == true
-        let isUpOccupied = self.balls[CGPointMake(from.x, from.y + 1)] != nil
+        var isInUpDirection = to.y > from.y
+        var isInDownDirection = to.y < from.y
+        var isInLeftDirection = to.x < from.x
+        var isInRightDirection = to.x > from.x
 
-        let canMoveUp = !isAtTopEdge && !isUpVisited && !isUpOccupied
+        while true {
+            // Up
+            let isAtTopEdge = Int(from.y) >= self.height-1
+            let isUpVisited = map![CGPointMake(from.x, from.y + 1)] == true
+            let isUpOccupied = self.balls[CGPointMake(from.x, from.y + 1)] != nil
 
-        if canMoveUp {
-            var path = self.findPathFromPosition(CGPointMake(from.x, from.y+1), toPosition: to, visitedMap: map)
+            let canMoveUp = !isAtTopEdge && !isUpVisited && !isUpOccupied
 
-            // If path has been found, return it
-            if path != nil {
-                path!.append(from)
-                return path
+            if canMoveUp && isInUpDirection && !hasUpExecuted {
+                var path = self.findPathFromPosition(CGPointMake(from.x, from.y+1), toPosition: to, visitedMap: map)
+
+                // If path has been found, return it
+                if path != nil {
+                    path!.append(from)
+                    return path
+                }
+
+                hasUpExecuted = true
+            } else if !canMoveUp {
+                hasUpExecuted = true
             }
-        }
 
-        // Down
-        let isAtBottomEdge = from.y <= 0
-        let isDownVisited = map![CGPointMake(from.x, from.y - 1)] == true
-        let isDownOccupied = self.balls[CGPointMake(from.x, from.y - 1)] != nil
+            // Down
+            let isAtBottomEdge = from.y <= 0
+            let isDownVisited = map![CGPointMake(from.x, from.y - 1)] == true
+            let isDownOccupied = self.balls[CGPointMake(from.x, from.y - 1)] != nil
 
-        let canMoveDown = !isAtBottomEdge && !isDownVisited && !isDownOccupied
+            let canMoveDown = !isAtBottomEdge && !isDownVisited && !isDownOccupied
 
-        if canMoveDown {
-            var path = self.findPathFromPosition(CGPointMake(from.x, from.y-1), toPosition: to, visitedMap: map)
+            if canMoveDown && isInDownDirection && !hasDownExecuted {
+                var path = self.findPathFromPosition(CGPointMake(from.x, from.y-1), toPosition: to, visitedMap: map)
 
-            // If path has been found, return it
-            if path != nil {
-                path!.append(from)
-                return path
+                // If path has been found, return it
+                if path != nil {
+                    path!.append(from)
+                    return path
+                }
+
+                hasDownExecuted = true
+            } else if !canMoveDown {
+                hasDownExecuted = true
             }
-        }
 
-        // Left
-        let isAtLeftEdge = Int(from.x) <= 0
-        let isLeftVisited = map![CGPointMake(from.x-1, from.y)] == true
-        let isLeftOccupied = self.balls[CGPointMake(from.x-1, from.y)] != nil
+            // Left
+            let isAtLeftEdge = Int(from.x) <= 0
+            let isLeftVisited = map![CGPointMake(from.x-1, from.y)] == true
+            let isLeftOccupied = self.balls[CGPointMake(from.x-1, from.y)] != nil
 
-        let canMoveLeft = !isAtLeftEdge && !isLeftVisited && !isLeftOccupied
+            let canMoveLeft = !isAtLeftEdge && !isLeftVisited && !isLeftOccupied
 
-        if canMoveLeft {
-            var path = self.findPathFromPosition(CGPointMake(from.x-1, from.y), toPosition: to, visitedMap: map)
+            if canMoveLeft && isInLeftDirection && !hasLeftExecuted {
+                var path = self.findPathFromPosition(CGPointMake(from.x-1, from.y), toPosition: to, visitedMap: map)
 
-            // If path has been found, return it
-            if path != nil {
-                path!.append(from)
-                return path
+                // If path has been found, return it
+                if path != nil {
+                    path!.append(from)
+                    return path
+                }
+
+                hasLeftExecuted = true
+            } else if !canMoveLeft {
+                hasLeftExecuted = true
             }
-        }
 
-        // Right
-        let isAtRightEdge = Int(from.x) >= self.width-1
-        let isRightVisited = map![CGPointMake(from.x+1, from.y)] == true
-        let isRightOccupied = self.balls[CGPointMake(from.x+1, from.y)] != nil
+            // Right
+            let isAtRightEdge = Int(from.x) >= self.width-1
+            let isRightVisited = map![CGPointMake(from.x+1, from.y)] == true
+            let isRightOccupied = self.balls[CGPointMake(from.x+1, from.y)] != nil
 
-        let canMoveRight = !isAtRightEdge && !isRightVisited && !isRightOccupied
+            let canMoveRight = !isAtRightEdge && !isRightVisited && !isRightOccupied
 
-        if canMoveRight {
-            var path = self.findPathFromPosition(CGPointMake(from.x+1, from.y), toPosition: to, visitedMap: map)
+            if canMoveRight && isInRightDirection && !hasRightExecuted {
+                var path = self.findPathFromPosition(CGPointMake(from.x+1, from.y), toPosition: to, visitedMap: map)
 
-            // If path has been found, return it
-            if path != nil {
-                path!.append(from)
-                return path
+                // If path has been found, return it
+                if path != nil {
+                    path!.append(from)
+                    return path
+                }
+
+                hasRightExecuted = true
+            } else if !canMoveRight {
+                hasRightExecuted = true
+            }
+
+            if isInUpDirection && isInDownDirection && isInLeftDirection && isInRightDirection {
+                break
+            } else {
+                isInUpDirection = true
+                isInDownDirection = true
+                isInLeftDirection = true
+                isInRightDirection = true
             }
         }
 
