@@ -9,6 +9,24 @@
 import UIKit
 
 
+struct Point {
+    var x: Int
+    var y: Int
+}
+
+
+struct Size {
+    var width: Int
+    var height: Int
+
+    init(_ width: Int, _ height: Int)
+    {
+        self.width = width
+        self.height = height
+    }
+}
+
+
 // This enables us to store CGPoint as a key in dictionary
 extension CGPoint: Hashable
 {
@@ -24,17 +42,34 @@ class Field
         return self.balls.count >= self.width * self.height
     }
 
-    private(set) var width: Int
-    private(set) var height: Int
-    private(set) var balls: [CGPoint : Int] //position and color
+    private(set) var width: Int = 0
+    private(set) var height: Int = 0
+    private(set) var balls: [CGPoint : Int] = [:] //position and color
+
+    private let size: Size
+    private let colorsCount: Int
+    private let marblesPerSpawn: Int
+    private let lineLength: Int
+    private let marbleFactory: MarbleFactory
 
 
-    init(fieldSize: CGSize, colorsCount: Int)
+    // MARK: - Initialization -
+    init(size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int, marbleFactory: MarbleFactory)
+    {
+        self.size = size
+        self.colorsCount = colorsCount
+        self.marblesPerSpawn = marblesPerSpawn
+        self.lineLength = lineLength
+        self.marbleFactory = marbleFactory
+    }
+
+
+    /*init(fieldSize: CGSize, colorsCount: Int)
     {
         self.width = Int(fieldSize.width)
         self.height = Int(fieldSize.height)
         self.balls = [CGPoint : Int]()
-    }
+    }*/
 
 
     func moveBallFromPosition(from: CGPoint, toPosition to: CGPoint) -> [CGPoint]?

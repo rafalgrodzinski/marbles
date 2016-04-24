@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		B53891EE1C6A7D9000006380 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891ED1C6A7D9000006380 /* GameScene.swift */; };
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
+		B576D0D41CCC38BA001A5657 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D31CCC38BA001A5657 /* Game.swift */; };
+		B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D51CCC38E5001A5657 /* GameFactory.swift */; };
+		B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */; };
+		B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0DB1CCCC2DC001A5657 /* Marble.swift */; };
+		B576D0DE1CCCC2F8001A5657 /* SpriteKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0DD1CCCC2F8001A5657 /* SpriteKitMarble.swift */; };
+		B576D0E01CCCC342001A5657 /* MarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */; };
+		B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */; };
 		B57918D51C6A741A004214EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57918D41C6A741A004214EF /* Main.storyboard */; };
 		B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57918D61C6A7438004214EF /* LaunchScreen.storyboard */; };
 		B57918F71C6A76DC004214EF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57918F61C6A76DC004214EF /* GameViewController.swift */; };
@@ -18,7 +25,14 @@
 
 /* Begin PBXFileReference section */
 		B53891ED1C6A7D9000006380 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Source/GameScene.swift; sourceTree = "<group>"; };
-		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Field.swift; path = Source/Field.swift; sourceTree = "<group>"; };
+		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		B576D0D31CCC38BA001A5657 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		B576D0D51CCC38E5001A5657 /* GameFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
+		B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitGame.swift; sourceTree = "<group>"; };
+		B576D0DB1CCCC2DC001A5657 /* Marble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marble.swift; sourceTree = "<group>"; };
+		B576D0DD1CCCC2F8001A5657 /* SpriteKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitMarble.swift; sourceTree = "<group>"; };
+		B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarbleFactory.swift; sourceTree = "<group>"; };
+		B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitMarbleFactory.swift; sourceTree = "<group>"; };
 		B57918D41C6A741A004214EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Kulki/Assets/Main.storyboard; sourceTree = "<group>"; };
 		B57918D61C6A7438004214EF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Kulki/Assets/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B57918F61C6A76DC004214EF /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = Source/GameViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +53,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B576D0D91CCCC2B7001A5657 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				B576D0D51CCC38E5001A5657 /* GameFactory.swift */,
+				B576D0D31CCC38BA001A5657 /* Game.swift */,
+				B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */,
+			);
+			name = Game;
+			path = Source/Game;
+			sourceTree = "<group>";
+		};
+		B576D0DA1CCCC2C4001A5657 /* Marbles */ = {
+			isa = PBXGroup;
+			children = (
+				B576D0DB1CCCC2DC001A5657 /* Marble.swift */,
+				B576D0DD1CCCC2F8001A5657 /* SpriteKitMarble.swift */,
+				B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */,
+				B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */,
+			);
+			name = Marbles;
+			path = Source/Marbles;
+			sourceTree = "<group>";
+		};
+		B576D0E31CCCD8C1001A5657 /* Field */ = {
+			isa = PBXGroup;
+			children = (
+				B53891F01C6D520C00006380 /* Field.swift */,
+			);
+			name = Field;
+			path = Source/Field;
+			sourceTree = "<group>";
+		};
 		B58254641C5E58090065E283 = {
 			isa = PBXGroup;
 			children = (
@@ -63,7 +109,9 @@
 				B58254701C5E58090065E283 /* AppDelegate.swift */,
 				B57918F61C6A76DC004214EF /* GameViewController.swift */,
 				B53891ED1C6A7D9000006380 /* GameScene.swift */,
-				B53891F01C6D520C00006380 /* Field.swift */,
+				B576D0E31CCCD8C1001A5657 /* Field */,
+				B576D0D91CCCC2B7001A5657 /* Game */,
+				B576D0DA1CCCC2C4001A5657 /* Marbles */,
 			);
 			name = Source;
 			path = Kulki;
@@ -127,6 +175,9 @@
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
 			mainGroup = B58254641C5E58090065E283;
 			productRefGroup = B582546E1C5E58090065E283 /* Products */;
 			projectDirPath = "";
@@ -155,10 +206,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */,
 				B53891EE1C6A7D9000006380 /* GameScene.swift in Sources */,
+				B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */,
+				B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */,
+				B576D0D41CCC38BA001A5657 /* Game.swift in Sources */,
 				B57918F71C6A76DC004214EF /* GameViewController.swift in Sources */,
+				B576D0E01CCCC342001A5657 /* MarbleFactory.swift in Sources */,
 				B53891F11C6D520C00006380 /* Field.swift in Sources */,
+				B576D0DE1CCCC2F8001A5657 /* SpriteKitMarble.swift in Sources */,
 				B58254711C5E58090065E283 /* AppDelegate.swift in Sources */,
+				B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,7 +34,7 @@ class GameScene: SKScene
         let maxTileWidth = size.width/fieldSize.width
         let maxTileHeight = size.height/fieldSize.height
 
-        self.field = Field(fieldSize: fieldSize, colorsCount: colorsCount)
+        //self.field = Field(fieldSize: fieldSize, colorsCount: colorsCount)
         self.tileSize = round(maxTileWidth < maxTileHeight ? maxTileWidth : maxTileHeight)
         self.colorsCount = colorsCount
         self.ballsPerSpawn = ballsPerSpawn
