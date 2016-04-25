@@ -12,6 +12,12 @@ import UIKit
 struct Point {
     var x: Int
     var y: Int
+
+    init(_ x: Int, _ y: Int)
+    {
+        self.x = x
+        self.y = y
+    }
 }
 
 
@@ -46,11 +52,11 @@ class Field
     private(set) var height: Int = 0
     private(set) var balls: [CGPoint : Int] = [:] //position and color
 
-    private let size: Size
-    private let colorsCount: Int
-    private let marblesPerSpawn: Int
-    private let lineLength: Int
-    private let marbleFactory: MarbleFactory
+    let size: Size
+    let colorsCount: Int
+    let marblesPerSpawn: Int
+    let lineLength: Int
+    let marbleFactory: MarbleFactory
 
 
     // MARK: - Initialization -

@@ -34,8 +34,6 @@ class Game {
         self.setupView()
         assert(self.view != nil, "self.view must not be nil")
 
-        self.setupCustom()
-
         // Setup states
         let startupState = State()
         startupState.command = self.executeStartupState
@@ -98,6 +96,8 @@ class Game {
     // MARK: - Control -
     func startGame()
     {
+        self.setupCustom()
+
         self.states[0].execute()
     }
 
@@ -106,6 +106,8 @@ class Game {
     func executeStartupState(state: State, finished: (() -> Void)?)
     {
         self.currentState = state
+
+        self.showBoard()
 
         //finished!()
     }
@@ -162,5 +164,14 @@ class Game {
     func executeFinishedState(state: State, finished: (() -> Void)?)
     {
         self.currentState = state
+    }
+
+
+    // MARK: - Startup -
+
+    // MARK: <<Abstract>>
+    func showBoard()
+    {
+        assert(false, "<<Abstract method>>")
     }
 }
