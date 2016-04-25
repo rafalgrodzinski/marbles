@@ -53,13 +53,13 @@ class GameScene: SKScene
     }
 
 
-    override func didMoveToView(view: SKView)
+    /*override func didMoveToView(view: SKView)
     {
         self.nextMove()
-    }
+    }*/
 
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    /*override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         if self.state == .WaitingForInput {
             if let body = self.physicsWorld.bodyAtPoint(touches.first!.locationInNode(self)) {
@@ -83,10 +83,10 @@ class GameScene: SKScene
                 }
             }
         }
-    }
+    }*/
 
 
-    func nextMove()
+    /*func nextMove()
     {
         self.state = .Spawning
 
@@ -98,10 +98,10 @@ class GameScene: SKScene
             //Allow movement
             self.state = .WaitingForInput
         }
-    }
+    }*/
 
 
-    func spawnBalls(finished: () -> Void)
+    /*func spawnBalls(finished: () -> Void)
     {
         let spawnedBalls = self.field.spawnBalls(self.ballsPerSpawn, colorsCount: self.colorsCount)
 
@@ -119,7 +119,7 @@ class GameScene: SKScene
         }
 
         self.runAction(SKAction.sequence([SKAction.waitForDuration(0.2), SKAction.runBlock(finished)]))
-    }
+    }*/
 
 
     func ballNodeForColor(color: Int) -> SKNode

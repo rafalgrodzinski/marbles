@@ -7,4 +7,14 @@
 //
 
 class SpriteKitMarbleFactory: MarbleFactory {
+    weak var game: SpriteKitGame!
+
+    
+    override func marbleWithColor(color: Int, fieldPosition: Point) -> Marble!
+    {
+        return SpriteKitMarble(color: color,
+                               fieldPosition: fieldPosition,
+                               position: game.positionForFieldPosition(fieldPosition),
+                               size: game.tileSize)
+    }
 }

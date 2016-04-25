@@ -109,7 +109,7 @@ class Game {
 
         self.showBoard()
 
-        //finished!()
+        finished!()
     }
 
 
@@ -117,7 +117,8 @@ class Game {
     {
         self.currentState = state
 
-        finished!()
+        let spawnedMarbles = self.field.spawnMarbles()
+        self.showMarbles(spawnedMarbles, finished: finished!)
     }
 
 
@@ -125,7 +126,7 @@ class Game {
     {
         self.currentState = state
 
-        finished!()
+        //finished!()
     }
 
 
@@ -171,6 +172,15 @@ class Game {
 
     // MARK: <<Abstract>>
     func showBoard()
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: - Spawn -
+
+    // MARK: <<Abstract>>
+    func showMarbles(marbles: [Marble], finished: () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }

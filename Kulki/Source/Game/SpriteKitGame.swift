@@ -12,7 +12,7 @@ import SpriteKit
 class SpriteKitGame: Game {
     private var scene: SKScene!
 
-    private var tileSize: CGSize!
+    private(set) var tileSize: CGSize!
 
 
     // MARK: Initialization
@@ -48,6 +48,23 @@ class SpriteKitGame: Game {
 
                 self.scene.addChild(tile)
             }
+        }
+    }
+
+
+    override func showMarbles(marbles: [Marble], finished: () -> Void)
+    {
+        for (index, marble) in marbles.enumerate() {
+            let skMarble = marble as! SpriteKitMarble
+            skMarble.node.setScale(0.0)
+
+            self.scene.addChild(skMarble.node)
+
+            let waitAction = SKAction.waitForDuration(0.1 * NSTimeInterval(index))
+            let scaleAction = SKAction.scaleTo(1.0, duration: 0.2)
+            let runBlockAction = SKAction.runBlock { if index == marbles.count-1 { finished() } }
+
+            skMarble.node.runAction(SKAction.sequence([waitAction, scaleAction, runBlockAction]))
         }
     }
 

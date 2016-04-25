@@ -7,4 +7,13 @@
 //
 
 class Marble {
+    let color: Int
+    var fieldPosition: Point
+
+
+    init(color: Int, fieldPosition: Point)
+    {
+        self.color = color
+        self.fieldPosition = fieldPosition
+    }
 }

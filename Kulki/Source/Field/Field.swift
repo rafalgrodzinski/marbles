@@ -9,7 +9,7 @@
 import UIKit
 
 
-struct Point {
+struct Point: Hashable, Equatable {
     var x: Int
     var y: Int
 
@@ -18,6 +18,16 @@ struct Point {
         self.x = x
         self.y = y
     }
+
+    var hashValue: Int
+    {
+        return "\(x)\(y)".hash
+    }
+}
+
+func ==(lhs: Point, rhs: Point) -> Bool
+{
+    return lhs.x == rhs.x && lhs.y == rhs.y
 }
 
 
@@ -44,19 +54,22 @@ extension CGPoint: Hashable
 
 class Field
 {
+    let size: Size
+    let colorsCount: Int
+    let marblesPerSpawn: Int
+    let lineLength: Int
+    let marbleFactory: MarbleFactory
+
+    var marbles: [Point : Marble] = [:]
     var isFull: Bool {
-        return self.balls.count >= self.width * self.height
+        return self.marbles.count >= self.size.width * self.size.height
     }
 
     private(set) var width: Int = 0
     private(set) var height: Int = 0
     private(set) var balls: [CGPoint : Int] = [:] //position and color
 
-    let size: Size
-    let colorsCount: Int
-    let marblesPerSpawn: Int
-    let lineLength: Int
-    let marbleFactory: MarbleFactory
+
 
 
     // MARK: - Initialization -
@@ -76,6 +89,37 @@ class Field
         self.height = Int(fieldSize.height)
         self.balls = [CGPoint : Int]()
     }*/
+
+    // MARK: - Control -
+    func spawnMarbles() -> [Marble]
+    {
+        var spawnedMarbles = [Marble]()
+
+        for _ in 0 ..< self.marblesPerSpawn {
+            if self.isFull {
+                break
+            }
+
+            while true {
+                let x = random() % self.size.width
+                let y = random() % self.size.height
+                let position = Point(x, y)
+
+                if self.marbles[position] == nil {
+                    let color = random() % self.colorsCount
+
+                    let marble = self.marbleFactory.marbleWithColor(color, fieldPosition: position)
+
+                    self.marbles[position] = marble
+                    spawnedMarbles.append(marble)
+
+                    break
+                }
+            }
+        }
+        
+        return spawnedMarbles
+    }
 
 
     func moveBallFromPosition(from: CGPoint, toPosition to: CGPoint) -> [CGPoint]?
@@ -218,34 +262,6 @@ class Field
 
         // Nothing has been found, return nil
         return nil
-    }
-
-
-    func spawnBalls(count: Int, colorsCount: Int) -> [(CGPoint, Int)]
-    {
-        var spawnedBalls = [(CGPoint, Int)]()
-
-        for _ in 0..<count {
-            if self.isFull {
-                break
-            }
-
-            while true {
-                let x = random() % self.width
-                let y = random() % self.height
-                let position = CGPointMake(CGFloat(x), CGFloat(y))
-
-                if self.balls[position] == nil {
-                    let color = random() % colorsCount
-                    self.balls[position] = color
-
-                    spawnedBalls.append((position, color))
-                    break
-                }
-            }
-        }
-
-        return spawnedBalls
     }
 
 

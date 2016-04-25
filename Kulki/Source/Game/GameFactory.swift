@@ -36,8 +36,8 @@ class GameFactory {
 
         switch graphicsType {
             case .SpriteKit:
-
                 game = SpriteKitGame(field: field)
+                (marbleFactory as! SpriteKitMarbleFactory).game = game as! SpriteKitGame
             default:
                 assert(false, "Not implemented")
         }
