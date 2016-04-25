@@ -27,7 +27,7 @@ class GameScene: SKScene
     var selectedBall: SKPhysicsBody?
 
 
-    convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int, ballsPerSpawn: Int, lineLength: Int)
+    /*convenience init(size: CGSize, fieldSize: CGSize, colorsCount: Int, ballsPerSpawn: Int, lineLength: Int)
     {
         self.init(size: size)
 
@@ -50,7 +50,7 @@ class GameScene: SKScene
                 self.addChild(tile)
             }
         }
-    }
+    }*/
 
 
     /*override func didMoveToView(view: SKView)
@@ -133,7 +133,7 @@ class GameScene: SKScene
     }
 
 
-    func positionForFieldPosition(fieldPosition: CGPoint) -> CGPoint
+    /*func positionForFieldPosition(fieldPosition: CGPoint) -> CGPoint
     {
         let tileXOrigin = (size.width - CGFloat(self.field.width) * tileSize) / 2.0 + tileSize/2.0
         let tileYOrigin = (size.height - CGFloat(self.field.height) * tileSize) / 2.0 + tileSize/2.0
@@ -142,10 +142,10 @@ class GameScene: SKScene
         let y = tileYOrigin + tileSize * fieldPosition.y
 
         return CGPointMake(x, y)
-    }
+    }*/
 
 
-    func fieldPositionForPosition(position: CGPoint) -> CGPoint?
+    /*func fieldPositionForPosition(position: CGPoint) -> CGPoint?
     {
         let tileXOrigin = (size.width - CGFloat(self.field.width) * tileSize) / 2.0
         let tileYOrigin = (size.height - CGFloat(self.field.height) * tileSize) / 2.0
@@ -157,10 +157,10 @@ class GameScene: SKScene
         }
 
         return CGPointMake(floor(x), floor(y))
-    }
+    }*/
 
 
-    func moveBallFrom(from: CGPoint, to: CGPoint, finished: () -> Void)
+    /*func moveBallFrom(from: CGPoint, to: CGPoint, finished: () -> Void)
     {
         if let path = self.field.moveBallFromPosition(from, toPosition: to) {
             self.state = .Moving
@@ -177,10 +177,10 @@ class GameScene: SKScene
 
             //finished()
         }
-    }
+    }*/
 
 
-    func removeBallAtPoint(point: CGPoint, finished: () -> Void)
+    /*func removeBallAtPoint(point: CGPoint, finished: () -> Void)
     {
         let positions = self.field.removeLinesAtPosition(point, lineLength: self.lineLength)
 
@@ -195,5 +195,5 @@ class GameScene: SKScene
         } else {
             finished()
         }
-    }
+    }*/
 }

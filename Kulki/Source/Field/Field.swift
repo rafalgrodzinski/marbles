@@ -6,16 +6,7 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
-import UIKit
-
-
-// This enables us to store CGPoint as a key in dictionary
-extension CGPoint: Hashable
-{
-    public var hashValue: Int {
-        return "\(x)\(y)".hash
-    }
-}
+import Foundation
 
 
 class Field
@@ -26,16 +17,8 @@ class Field
     let lineLength: Int
     let marbleFactory: MarbleFactory
 
-    var marbles: [Point : Marble] = [:]
-    var isFull: Bool {
-        return self.marbles.count >= self.size.width * self.size.height
-    }
-
-    private(set) var width: Int = 0
-    private(set) var height: Int = 0
-    private(set) var balls: [CGPoint : Int] = [:] //position and color
-
-
+    var marbles = [Point : Marble]()
+    var isFull: Bool { return self.marbles.count >= self.size.width * self.size.height }
 
 
     // MARK: - Initialization -
@@ -48,13 +31,6 @@ class Field
         self.marbleFactory = marbleFactory
     }
 
-
-    /*init(fieldSize: CGSize, colorsCount: Int)
-    {
-        self.width = Int(fieldSize.width)
-        self.height = Int(fieldSize.height)
-        self.balls = [CGPoint : Int]()
-    }*/
 
     // MARK: - Control -
     func spawnMarbles() -> [Marble]
@@ -83,33 +59,33 @@ class Field
                 }
             }
         }
-        
+
         return spawnedMarbles
     }
 
 
-    func moveBallFromPosition(from: CGPoint, toPosition to: CGPoint) -> [CGPoint]?
+    func moveMarble(marble: Marble, toPosition to: Point) -> [Point]?
     {
-        let path = self.findPathFromPosition(from, toPosition: to)
+        let path = self.findPathFromPosition(marble.fieldPosition, toPosition: to)
 
         // If found a path, move the ball in dictionary
         if path != nil {
-            let ballColor = self.balls[from]
-            self.balls.removeValueForKey(from)
-            self.balls[to] = ballColor
+            self.marbles.removeValueForKey(marble.fieldPosition)
+            self.marbles[to] = marble
+            marble.fieldPosition = to
         }
 
         return path
     }
 
 
-    private func findPathFromPosition(from: CGPoint, toPosition to: CGPoint, visitedMap: [CGPoint: Bool]? = nil) -> [CGPoint]?
+    private func findPathFromPosition(from: Point, toPosition to: Point, visitedMap: [Point : Bool]? = nil) -> [Point]?
     {
         var map = visitedMap
 
         // Make sure the map is initialized
         if map == nil {
-            map = [CGPoint: Bool]()
+            map = [Point : Bool]()
         }
 
         // Mask current cell as visited
@@ -133,14 +109,14 @@ class Field
 
         while true {
             // Up
-            let isAtTopEdge = Int(from.y) >= self.height-1
-            let isUpVisited = map![CGPointMake(from.x, from.y + 1)] == true
-            let isUpOccupied = self.balls[CGPointMake(from.x, from.y + 1)] != nil
+            let isAtTopEdge = from.y >= self.size.height-1
+            let isUpVisited = map![Point(from.x, from.y + 1)] == true
+            let isUpOccupied = self.marbles[Point(from.x, from.y + 1)] != nil
 
             let canMoveUp = !isAtTopEdge && !isUpVisited && !isUpOccupied
 
             if canMoveUp && isInUpDirection && !hasUpExecuted {
-                var path = self.findPathFromPosition(CGPointMake(from.x, from.y+1), toPosition: to, visitedMap: map)
+                var path = self.findPathFromPosition(Point(from.x, from.y+1), toPosition: to, visitedMap: map)
 
                 // If path has been found, return it
                 if path != nil {
@@ -155,13 +131,13 @@ class Field
 
             // Down
             let isAtBottomEdge = from.y <= 0
-            let isDownVisited = map![CGPointMake(from.x, from.y - 1)] == true
-            let isDownOccupied = self.balls[CGPointMake(from.x, from.y - 1)] != nil
+            let isDownVisited = map![Point(from.x, from.y - 1)] == true
+            let isDownOccupied = self.marbles[Point(from.x, from.y - 1)] != nil
 
             let canMoveDown = !isAtBottomEdge && !isDownVisited && !isDownOccupied
 
             if canMoveDown && isInDownDirection && !hasDownExecuted {
-                var path = self.findPathFromPosition(CGPointMake(from.x, from.y-1), toPosition: to, visitedMap: map)
+                var path = self.findPathFromPosition(Point(from.x, from.y-1), toPosition: to, visitedMap: map)
 
                 // If path has been found, return it
                 if path != nil {
@@ -175,14 +151,14 @@ class Field
             }
 
             // Left
-            let isAtLeftEdge = Int(from.x) <= 0
-            let isLeftVisited = map![CGPointMake(from.x-1, from.y)] == true
-            let isLeftOccupied = self.balls[CGPointMake(from.x-1, from.y)] != nil
+            let isAtLeftEdge = from.x <= 0
+            let isLeftVisited = map![Point(from.x-1, from.y)] == true
+            let isLeftOccupied = self.marbles[Point(from.x-1, from.y)] != nil
 
             let canMoveLeft = !isAtLeftEdge && !isLeftVisited && !isLeftOccupied
 
             if canMoveLeft && isInLeftDirection && !hasLeftExecuted {
-                var path = self.findPathFromPosition(CGPointMake(from.x-1, from.y), toPosition: to, visitedMap: map)
+                var path = self.findPathFromPosition(Point(from.x-1, from.y), toPosition: to, visitedMap: map)
 
                 // If path has been found, return it
                 if path != nil {
@@ -196,14 +172,14 @@ class Field
             }
 
             // Right
-            let isAtRightEdge = Int(from.x) >= self.width-1
-            let isRightVisited = map![CGPointMake(from.x+1, from.y)] == true
-            let isRightOccupied = self.balls[CGPointMake(from.x+1, from.y)] != nil
+            let isAtRightEdge = from.x >= self.size.width-1
+            let isRightVisited = map![Point(from.x+1, from.y)] == true
+            let isRightOccupied = self.marbles[Point(from.x+1, from.y)] != nil
 
             let canMoveRight = !isAtRightEdge && !isRightVisited && !isRightOccupied
 
             if canMoveRight && isInRightDirection && !hasRightExecuted {
-                var path = self.findPathFromPosition(CGPointMake(from.x+1, from.y), toPosition: to, visitedMap: map)
+                var path = self.findPathFromPosition(Point(from.x+1, from.y), toPosition: to, visitedMap: map)
 
                 // If path has been found, return it
                 if path != nil {
@@ -231,7 +207,7 @@ class Field
     }
 
 
-    func removeLinesAtPosition(position: CGPoint, lineLength: Int) -> [CGPoint]
+    /*func removeLinesAtPosition(position: CGPoint, lineLength: Int) -> [CGPoint]
     {
         var removedPositions = Set<CGPoint>()
 
@@ -303,5 +279,5 @@ class Field
         }
 
         return removedPositions.map() { $0 }
-    }
+    }*/
 }

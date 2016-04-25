@@ -14,6 +14,8 @@ class Game {
     internal var field: Field
     internal var currentState: State?
     private var states: [State]!
+    private var isWaitingForMove = false
+    private var selectedMarble: Marble?
 
 
     // MARK: - Initialization -
@@ -113,7 +115,7 @@ class Game {
     {
         self.currentState = state
 
-        //finished!()
+        finished!()
     }
 
 
@@ -128,8 +130,7 @@ class Game {
     func executeWaitForMoveState(state: State, finished: (() -> Void)?)
     {
         self.currentState = state
-
-        finished!()
+        self.isWaitingForMove = true
     }
 
 
@@ -168,6 +169,58 @@ class Game {
 
     // MARK: <<Abstract>>
     func showMarbles(marbles: [Marble], finished: () -> Void)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: - Move -
+    func tappedFieldPosition(fieldPosition: Point)
+    {
+        if !self.isWaitingForMove {
+            return
+        }
+
+        // Are we trying to select a marble?
+        if let marble = self.field.marbles[fieldPosition] {
+            // Ignore if already selected
+            if marble === self.selectedMarble {
+                return
+            }
+
+            // Deselect currently selected marble
+            if let selectedMarble = self.selectedMarble {
+                self.deselectMarble(selectedMarble)
+            }
+
+            self.selectedMarble = marble
+            self.selectMarble(marble)
+        // Otherwise, might be trying to move a marble
+        } else if let selectedMarble = self.selectedMarble {
+            if let path = self.field.moveMarble(selectedMarble, toPosition: fieldPosition) {
+                self.selectedMarble = nil
+                self.moveMarble(selectedMarble, overFieldPath: path, finished: self.currentState!.nextState!.execute)
+            }
+        }
+    }
+
+
+    // MARK: <<Abstract>>
+    func selectMarble(marbe: Marble)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: <<Abstract>>
+    func deselectMarble(marbe: Marble)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: <<Abstract>>
+    func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }

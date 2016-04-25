@@ -26,6 +26,7 @@ struct Point: Hashable, Equatable {
     }
 }
 
+
 func ==(left: Point, right: Point) -> Bool
 {
     return left.x == right.x && left.y == right.y

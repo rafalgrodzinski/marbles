@@ -14,7 +14,7 @@ class SpriteKitMarbleFactory: MarbleFactory {
     {
         return SpriteKitMarble(color: color,
                                fieldPosition: fieldPosition,
-                               position: game.positionForFieldPosition(fieldPosition),
+                               position: game.positionForFieldPosition(fieldPosition)!,
                                size: game.tileSize * 0.80)
     }
 }
