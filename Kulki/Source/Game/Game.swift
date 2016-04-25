@@ -9,17 +9,6 @@
 import UIKit
 
 
-class State {
-    var command: ((state: State, finished: (() -> Void)?) -> Void)!
-    weak var nextState: State?
-
-    func execute()
-    {
-        self.command(state: self, finished: self.nextState?.execute)
-    }
-}
-
-
 class Game {
     internal(set) var view: UIView!
     internal var field: Field
@@ -107,9 +96,7 @@ class Game {
     {
         self.currentState = state
 
-        self.showBoard()
-
-        finished!()
+        self.showBoard(finished!)
     }
 
 
@@ -171,7 +158,7 @@ class Game {
     // MARK: - Startup -
 
     // MARK: <<Abstract>>
-    func showBoard()
+    func showBoard(finished: () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }

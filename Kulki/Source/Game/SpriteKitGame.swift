@@ -38,7 +38,7 @@ class SpriteKitGame: Game {
     }
 
 
-    override func showBoard()
+    override func showBoard(finished: () -> Void)
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
@@ -49,6 +49,8 @@ class SpriteKitGame: Game {
                 self.scene.addChild(tile)
             }
         }
+
+        self.scene.runAction(SKAction.sequence([SKAction.waitForDuration(1.0), SKAction.runBlock(finished)]))
     }
 
 

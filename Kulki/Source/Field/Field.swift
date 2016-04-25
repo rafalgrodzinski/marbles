@@ -9,40 +9,6 @@
 import UIKit
 
 
-struct Point: Hashable, Equatable {
-    var x: Int
-    var y: Int
-
-    init(_ x: Int, _ y: Int)
-    {
-        self.x = x
-        self.y = y
-    }
-
-    var hashValue: Int
-    {
-        return "\(x)\(y)".hash
-    }
-}
-
-func ==(lhs: Point, rhs: Point) -> Bool
-{
-    return lhs.x == rhs.x && lhs.y == rhs.y
-}
-
-
-struct Size {
-    var width: Int
-    var height: Int
-
-    init(_ width: Int, _ height: Int)
-    {
-        self.width = width
-        self.height = height
-    }
-}
-
-
 // This enables us to store CGPoint as a key in dictionary
 extension CGPoint: Hashable
 {
