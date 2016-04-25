@@ -25,11 +25,6 @@ class SpriteKitGame: Game {
     override func setupCustom()
     {
         self.scene = SKScene()
-    }
-
-
-    override func startGame()
-    {
         self.skView.presentScene(self.scene)
     }
 }
