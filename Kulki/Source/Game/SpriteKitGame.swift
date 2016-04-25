@@ -90,9 +90,7 @@ class SpriteKitGame: Game {
     {
         (marble as! SpriteKitMarble).node.runAction(SKAction.scaleTo(1.0, duration: 0.2))
 
-        var pathS = ""
         for (index, position) in fieldPath.reverse().enumerate() {
-            pathS += "\(position.x):\(position.y), "
             let newPosition = self.positionForFieldPosition(position)!
 
             let waitAction = SKAction.waitForDuration(0.2 * Double(index))
@@ -101,8 +99,6 @@ class SpriteKitGame: Game {
 
             (marble as! SpriteKitMarble).node.runAction(SKAction.sequence([waitAction, moveAction, runBlockAction]))
         }
-
-        print(pathS)
     }
 
 
