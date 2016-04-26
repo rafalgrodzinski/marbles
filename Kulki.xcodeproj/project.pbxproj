@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
+		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
+		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
+		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
 		B576D0D41CCC38BA001A5657 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D31CCC38BA001A5657 /* Game.swift */; };
 		B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D51CCC38E5001A5657 /* GameFactory.swift */; };
 		B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */; };
@@ -25,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
+		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
+		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
 		B576D0D31CCC38BA001A5657 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B576D0D51CCC38E5001A5657 /* GameFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
 		B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitGame.swift; sourceTree = "<group>"; };
@@ -56,9 +62,10 @@
 		B576D0D91CCCC2B7001A5657 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				B576D0D51CCC38E5001A5657 /* GameFactory.swift */,
 				B576D0D31CCC38BA001A5657 /* Game.swift */,
 				B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */,
+				B5521EED1CD01D8600244B9C /* SceneKitGame.swift */,
+				B576D0D51CCC38E5001A5657 /* GameFactory.swift */,
 			);
 			name = Game;
 			path = Source/Game;
@@ -69,8 +76,10 @@
 			children = (
 				B576D0DB1CCCC2DC001A5657 /* Marble.swift */,
 				B576D0DD1CCCC2F8001A5657 /* SpriteKitMarble.swift */,
+				B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */,
 				B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */,
 				B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */,
+				B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */,
 			);
 			name = Marbles;
 			path = Source/Marbles;
@@ -209,12 +218,15 @@
 				B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */,
 				B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */,
 				B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */,
+				B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */,
 				B576D0D41CCC38BA001A5657 /* Game.swift in Sources */,
 				B57918F71C6A76DC004214EF /* GameViewController.swift in Sources */,
 				B576D0E01CCCC342001A5657 /* MarbleFactory.swift in Sources */,
+				B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */,
 				B53891F11C6D520C00006380 /* Field.swift in Sources */,
 				B576D0DE1CCCC2F8001A5657 /* SpriteKitMarble.swift in Sources */,
 				B58254711C5E58090065E283 /* AppDelegate.swift in Sources */,
+				B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */,
 				B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */,
 				B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */,
 			);

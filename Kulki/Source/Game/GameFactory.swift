@@ -26,7 +26,7 @@ class GameFactory
             case .SpriteKit:
                 marbleFactory = SpriteKitMarbleFactory()
             default:
-                assert(false, "Not implemented")
+                marbleFactory = SceneKitMarbleFactory()
         }
 
         // Initialize field
@@ -40,7 +40,8 @@ class GameFactory
                 game = SpriteKitGame(field: field)
                 (marbleFactory as! SpriteKitMarbleFactory).game = game as! SpriteKitGame
             default:
-                assert(false, "Not implemented")
+                game = SceneKitGame(field: field)
+                (marbleFactory as! SceneKitMarbleFactory).game = game as! SceneKitGame
         }
 
         return game
