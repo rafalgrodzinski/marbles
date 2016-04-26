@@ -9,7 +9,8 @@
 import SpriteKit
 
 
-class SpriteKitGame: Game {
+class SpriteKitGame: Game
+{
     private var scene: SKScene!
 
     private(set) var tileSize: CGSize!
@@ -70,6 +71,18 @@ class SpriteKitGame: Game {
             let runBlockAction = SKAction.runBlock { if index == marbles.count-1 { finished() } }
 
             skMarble.node.runAction(SKAction.sequence([waitAction, scaleAction, runBlockAction]))
+        }
+    }
+
+
+    override func hideMarbles(marbles: [Marble], finished: () -> Void)
+    {
+        for (index, marble) in marbles.enumerate() {
+            let scaleAction = SKAction.scaleTo(0.0, duration: 0.2)
+            let removeAction = SKAction.removeFromParent()
+            let runBlockAction = SKAction.runBlock { if index == marbles.count-1 { finished() } }
+
+            (marble as! SpriteKitMarble).node.runAction(SKAction.sequence([scaleAction, removeAction, runBlockAction]))
         }
     }
 

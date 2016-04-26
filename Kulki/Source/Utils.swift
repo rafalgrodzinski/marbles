@@ -20,8 +20,7 @@ struct Point: Hashable, Equatable {
         self.y = y
     }
 
-    var hashValue: Int
-    {
+    var hashValue: Int {
         return "\(x)\(y)".hash
     }
 }
@@ -48,12 +47,17 @@ struct Size {
 
 // MARK: - State -
 class State {
-    var command: ((state: State, finished: (() -> Void)?) -> Void)!
+    var command: ((state: State) -> Void)?
     weak var nextState: State?
 
     func execute()
     {
-        self.command(state: self, finished: self.nextState?.execute)
+        self.command?(state: self)
+    }
+
+    func goToNextState()
+    {
+        self.nextState?.execute()
     }
 }
 

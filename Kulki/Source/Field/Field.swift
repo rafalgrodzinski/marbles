@@ -207,29 +207,29 @@ class Field
     }
 
 
-    /*func removeLinesAtPosition(position: CGPoint, lineLength: Int) -> [CGPoint]
+    func removeLinesAtPosition(position: Point) -> [Marble]
     {
-        var removedPositions = Set<CGPoint>()
+        var removedMarbles = Set<Marble>()
 
-        let color = self.balls[position]
+        let marble = self.marbles[position]!
 
         // Check horizontal extent
-        var startX = Int(position.x)
+        var startX = position.x
         for x in (startX-1).stride(through: 0, by: -1) {
-            let currentPosition = CGPointMake(CGFloat(x), position.y)
-            let currentColor = self.balls[currentPosition]
-            if currentColor == color {
+            let currentMarble = self.marbles[Point(x, position.y)]
+
+            if currentMarble?.color == marble.color {
                 startX = x
             } else {
                 break
             }
         }
 
-        var endX = Int(position.x)
-        for x in (startX+1).stride(through: self.width-1, by: 1) {
-            let currentPosition = CGPointMake(CGFloat(x), position.y)
-            let currentColor = self.balls[currentPosition]
-            if currentColor == color {
+        var endX = position.x
+        for x in (startX+1).stride(through: self.size.width-1, by: 1) {
+            let currentMarble = self.marbles[Point(x, position.y)]
+
+            if currentMarble?.color == marble.color {
                 endX = x
             } else {
                 break
@@ -237,22 +237,22 @@ class Field
         }
 
         // Check vertial extent
-        var startY = Int(position.y)
+        var startY = position.y
         for y in (startY-1).stride(through: 0, by: -1) {
-            let currentPosition = CGPointMake(position.x, CGFloat(y))
-            let currentColor = self.balls[currentPosition]
-            if currentColor == color {
+            let currentMarble = self.marbles[Point(position.x, y)]
+
+            if currentMarble?.color == marble.color {
                 startY = y
             } else {
                 break
             }
         }
 
-        var endY = Int(position.y)
-        for y in (startY+1).stride(through: self.height-1, by: 1) {
-            let currentPosition = CGPointMake(position.x, CGFloat(y))
-            let currentColor = self.balls[currentPosition]
-            if currentColor == color {
+        var endY = position.y
+        for y in (startY+1).stride(through: self.size.height-1, by: 1) {
+            let currentMarble = self.marbles[Point(position.x, y)]
+
+            if currentMarble?.color == marble.color {
                 endY = y
             } else {
                 break
@@ -260,24 +260,24 @@ class Field
         }
 
         // Check if there is a horizontal line to be removed
-        if endX - startX >= lineLength-1 {
+        if endX - startX >= self.lineLength-1 {
             for x in startX...endX {
-                removedPositions.insert(CGPointMake(CGFloat(x), position.y))
+                removedMarbles.insert(self.marbles[Point(x, position.y)]!)
             }
         }
 
         // Check if there is a vertical line to be removed
-        if endY - startY >= lineLength-1 {
+        if endY - startY >= self.lineLength-1 {
             for y in startY...endY {
-                removedPositions.insert(CGPointMake(position.x, CGFloat(y)))
+                removedMarbles.insert(self.marbles[Point(position.x, y)]!)
             }
         }
 
         // Remove all the relevant balls from the dictionary
-        for position in removedPositions {
-            self.balls.removeValueForKey(position)
+        for marble in removedMarbles {
+            self.marbles.removeValueForKey(marble.fieldPosition)
         }
 
-        return removedPositions.map() { $0 }
-    }*/
+        return removedMarbles.map() { $0 }
+    }
 }

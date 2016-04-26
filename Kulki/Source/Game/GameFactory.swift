@@ -15,7 +15,8 @@ enum GraphicsType {
 }
 
 
-class GameFactory {
+class GameFactory
+{
     class func gameWithGraphicsType(graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int) -> Game
     {
         // Initialize marble factory

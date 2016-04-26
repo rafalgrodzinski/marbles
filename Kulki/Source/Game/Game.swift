@@ -9,13 +9,17 @@
 import UIKit
 
 
-class Game {
+class Game
+{
     internal(set) var view: UIView!
     internal var field: Field
     internal var currentState: State?
     private var states: [State]!
+
+    // State data
     private var isWaitingForMove = false
     private var selectedMarble: Marble?
+    private var spawnedMarbles: [Marble]?
 
 
     // MARK: - Initialization -
@@ -38,11 +42,8 @@ class Game {
         let checkIfFinishedState = State()
         checkIfFinishedState.command = self.executeCheckIfFinishedState
 
-        let waitForMoveState = State()
-        waitForMoveState.command = self.executeWaitForMoveState
-
-        let movingState = State()
-        movingState.command = self.executeMovingState
+        let moveState = State()
+        moveState.command = self.executeMoveState
 
         let removeAfterMoveState = State()
         removeAfterMoveState.command = self.executeRemoveAfterMoveState
@@ -57,16 +58,14 @@ class Game {
         // Remove after spawn -> Check if finished
         removeAfterSpawnState.nextState = checkIfFinishedState
         // Check if finished -> Wait for move (or finished)
-        checkIfFinishedState.nextState = waitForMoveState
-        // Wait for move -> Moving
-        waitForMoveState.nextState = movingState
+        checkIfFinishedState.nextState = moveState
         // Moving -> Remove after move
-        movingState.nextState = removeAfterMoveState
+        moveState.nextState = removeAfterMoveState
         // Remove after move  -> Spawn
         removeAfterMoveState.nextState = spawnState
 
         self.states = [startupState, spawnState, removeAfterSpawnState, checkIfFinishedState,
-                       waitForMoveState, movingState, removeAfterMoveState, finishedState]
+                       moveState, removeAfterMoveState, finishedState]
     }
 
 
@@ -94,63 +93,77 @@ class Game {
 
 
     // MARK: - State -
-    func executeStartupState(state: State, finished: (() -> Void)?)
+    func executeStartupState(state: State)
     {
         self.currentState = state
 
-        self.showBoard(finished!)
+        self.showBoard(state.goToNextState)
     }
 
 
-    func executeSpawnState(state: State, finished: (() -> Void)?)
+    func executeSpawnState(state: State)
     {
         self.currentState = state
 
-        let spawnedMarbles = self.field.spawnMarbles()
-        self.showMarbles(spawnedMarbles, finished: finished!)
+        self.spawnedMarbles = self.field.spawnMarbles()
+        self.showMarbles(spawnedMarbles!, finished: state.goToNextState)
     }
 
 
-    func executeRemoveAfterSpawnState(state: State, finished: (() -> Void)?)
+    func executeRemoveAfterSpawnState(state: State)
     {
         self.currentState = state
 
-        finished!()
+        var removedMarbles = [Marble]()
+
+        for marble in self.spawnedMarbles! {
+            removedMarbles.appendContentsOf(self.field.removeLinesAtPosition(marble.fieldPosition))
+        }
+
+        if removedMarbles.count > 0 {
+            self.hideMarbles(removedMarbles, finished: state.goToNextState)
+        } else {
+            state.goToNextState()
+        }
     }
 
 
-    func executeCheckIfFinishedState(state: State, finished: (() -> Void)?)
+    func executeCheckIfFinishedState(state: State)
     {
         self.currentState = state
 
-        finished!()
+        if self.field.isFull {
+            print("Game is finished")
+        } else {
+            state.goToNextState()
+        }
     }
 
 
-    func executeWaitForMoveState(state: State, finished: (() -> Void)?)
+    func executeMoveState(state: State)
     {
         self.currentState = state
         self.isWaitingForMove = true
     }
 
 
-    func executeMovingState(state: State, finished: (() -> Void)?)
+    func executeRemoveAfterMoveState(state: State)
     {
-        self.currentState = state
+        var removedMarbles = [Marble]()
 
-        finished!()
+        for marble in self.spawnedMarbles! {
+            removedMarbles.appendContentsOf(self.field.removeLinesAtPosition(marble.fieldPosition))
+        }
+
+        if removedMarbles.count > 0 {
+            self.hideMarbles(removedMarbles, finished: state.goToNextState)
+        } else {
+            state.goToNextState()
+        }
     }
 
 
-    func executeRemoveAfterMoveState(state: State, finished: (() -> Void)?)
-    {
-        self.currentState = state
-
-        finished!()
-    }
-
-
-    func executeFinishedState(state: State, finished: (() -> Void)?)
+    func executeFinishedState(state: State)
     {
         self.currentState = state
     }
@@ -169,6 +182,15 @@ class Game {
 
     // MARK: <<Abstract>>
     func showMarbles(marbles: [Marble], finished: () -> Void)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: - Remove -
+
+    // MARK: <<Abstract>>
+    func hideMarbles(marbles: [Marble], finished: () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }
@@ -199,7 +221,7 @@ class Game {
         } else if let selectedMarble = self.selectedMarble {
             if let path = self.field.moveMarble(selectedMarble, toPosition: fieldPosition) {
                 self.selectedMarble = nil
-                self.moveMarble(selectedMarble, overFieldPath: path, finished: self.currentState!.nextState!.execute)
+                self.moveMarble(selectedMarble, overFieldPath: path, finished: self.currentState!.goToNextState)
             }
         }
     }
