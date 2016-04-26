@@ -9,7 +9,8 @@
 import SpriteKit
 
 
-class SpriteKitMarble: Marble {
+class SpriteKitMarble: Marble
+{
     let node: SKSpriteNode
 
 

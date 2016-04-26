@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B53891EE1C6A7D9000006380 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891ED1C6A7D9000006380 /* GameScene.swift */; };
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
 		B576D0D41CCC38BA001A5657 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D31CCC38BA001A5657 /* Game.swift */; };
 		B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D51CCC38E5001A5657 /* GameFactory.swift */; };
@@ -25,7 +24,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B53891ED1C6A7D9000006380 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Source/GameScene.swift; sourceTree = "<group>"; };
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		B576D0D31CCC38BA001A5657 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B576D0D51CCC38E5001A5657 /* GameFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 			children = (
 				B58254701C5E58090065E283 /* AppDelegate.swift */,
 				B57918F61C6A76DC004214EF /* GameViewController.swift */,
-				B53891ED1C6A7D9000006380 /* GameScene.swift */,
 				B5E6C1731CCE63A700410BBB /* Utils.swift */,
 				B576D0E31CCCD8C1001A5657 /* Field */,
 				B576D0D91CCCC2B7001A5657 /* Game */,
@@ -210,7 +207,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */,
-				B53891EE1C6A7D9000006380 /* GameScene.swift in Sources */,
 				B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */,
 				B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */,
 				B576D0D41CCC38BA001A5657 /* Game.swift in Sources */,

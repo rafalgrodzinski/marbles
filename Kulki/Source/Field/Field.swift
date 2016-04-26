@@ -43,12 +43,12 @@ class Field
             }
 
             while true {
-                let x = random() % self.size.width
-                let y = random() % self.size.height
+                let x = Int(arc4random()) % self.size.width
+                let y = Int(arc4random()) % self.size.height
                 let position = Point(x, y)
 
                 if self.marbles[position] == nil {
-                    let color = random() % self.colorsCount
+                    let color = Int(arc4random()) % self.colorsCount
 
                     let marble = self.marbleFactory.marbleWithColor(color, fieldPosition: position)
 
@@ -207,11 +207,11 @@ class Field
     }
 
 
-    func removeLinesAtPosition(position: Point) -> [Marble]
+    func removeLinesAtMarble(marble: Marble) -> [Marble]
     {
         var removedMarbles = Set<Marble>()
 
-        let marble = self.marbles[position]!
+        let position = marble.fieldPosition
 
         // Check horizontal extent
         var startX = position.x

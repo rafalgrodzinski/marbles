@@ -6,7 +6,8 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
-class MarbleFactory {
+class MarbleFactory
+{
     // MARK: <<Abstract method>>
     func marbleWithColor(color: Int, fieldPosition: Point) -> Marble!
     {

@@ -117,7 +117,7 @@ class Game
         var removedMarbles = [Marble]()
 
         for marble in self.spawnedMarbles! {
-            removedMarbles.appendContentsOf(self.field.removeLinesAtPosition(marble.fieldPosition))
+            removedMarbles.appendContentsOf(self.field.removeLinesAtMarble(marble))
         }
 
         if removedMarbles.count > 0 {
@@ -149,11 +149,7 @@ class Game
 
     func executeRemoveAfterMoveState(state: State)
     {
-        var removedMarbles = [Marble]()
-
-        for marble in self.spawnedMarbles! {
-            removedMarbles.appendContentsOf(self.field.removeLinesAtPosition(marble.fieldPosition))
-        }
+        let removedMarbles = self.field.removeLinesAtMarble(self.selectedMarble!)
 
         if removedMarbles.count > 0 {
             self.hideMarbles(removedMarbles, finished: state.goToNextState)
@@ -220,7 +216,7 @@ class Game
         // Otherwise, might be trying to move a marble
         } else if let selectedMarble = self.selectedMarble {
             if let path = self.field.moveMarble(selectedMarble, toPosition: fieldPosition) {
-                self.selectedMarble = nil
+                self.isWaitingForMove = false
                 self.moveMarble(selectedMarble, overFieldPath: path, finished: self.currentState!.goToNextState)
             }
         }

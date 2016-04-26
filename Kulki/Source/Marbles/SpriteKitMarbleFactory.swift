@@ -6,7 +6,8 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
-class SpriteKitMarbleFactory: MarbleFactory {
+class SpriteKitMarbleFactory: MarbleFactory
+{
     weak var game: SpriteKitGame!
 
     
