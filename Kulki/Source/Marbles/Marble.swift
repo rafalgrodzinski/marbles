@@ -6,10 +6,14 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
+import UIKit
+
+
 class Marble: Hashable, Equatable
 {
     let color: Int
     var fieldPosition: Point
+    let colors = [UIColor.redColor(), UIColor.greenColor(), UIColor.blueColor(), UIColor.yellowColor(), UIColor.purpleColor()]
 
     var hashValue: Int { return "\(self.fieldPosition.x)\(self.fieldPosition.y)\(self.color)".hash }
 

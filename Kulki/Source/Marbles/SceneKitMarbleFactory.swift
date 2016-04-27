@@ -13,6 +13,9 @@ class SceneKitMarbleFactory: MarbleFactory
 
     override func marbleWithColor(color: Int, fieldPosition: Point) -> Marble!
     {
-        return SceneKitMarble(color: color, fieldPosition: fieldPosition)
+        return SceneKitMarble(color: color,
+                              fieldPosition: fieldPosition,
+                              position: game.marblePositionForFieldPosition(fieldPosition)!,
+                              size: game.tileSize * 0.8)
     }
 }

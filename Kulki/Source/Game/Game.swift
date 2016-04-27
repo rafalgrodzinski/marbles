@@ -143,6 +143,7 @@ class Game
     func executeMoveState(state: State)
     {
         self.currentState = state
+        self.selectedMarble = nil
         self.isWaitingForMove = true
     }
 

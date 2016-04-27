@@ -17,11 +17,12 @@ class SpriteKitMarble: Marble
     init(color: Int, fieldPosition: Point, position: CGPoint, size: CGSize)
     {
         self.node = SKSpriteNode(imageNamed: "Ball \(color)")
+        super.init(color: color, fieldPosition: fieldPosition)
+
+        // Setup appearence
         self.node.position = position
         self.node.size = size
         self.node.physicsBody = SKPhysicsBody(rectangleOfSize: size)
         self.node.physicsBody?.affectedByGravity = false
-
-        super.init(color: color, fieldPosition: fieldPosition)
     }
 }

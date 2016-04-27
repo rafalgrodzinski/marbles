@@ -12,7 +12,6 @@ import SpriteKit
 class SpriteKitGame: Game
 {
     private var scene: SKScene!
-
     private(set) var tileSize: CGSize!
 
 
