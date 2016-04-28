@@ -13,6 +13,8 @@ class SceneKitGame: Game
     private var scene: SCNScene!
     private(set) var tileSize: CGSize!
 
+    private var centerNode: SCNNode!
+
 
     // MARK: Initialization
     override func setupView()
@@ -27,10 +29,40 @@ class SceneKitGame: Game
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
-        (self.view as! SCNView).autoenablesDefaultLighting = true
         (self.view as! SCNView).allowsCameraControl = true
 
         self.tileSize = CGSizeMake(1.0, 1.0)
+
+        self.centerNode = SCNNode()
+        self.scene.rootNode.addChildNode(self.centerNode)
+
+        // Create spot light
+        let spotLight = SCNLight()
+        spotLight.type = SCNLightTypeSpot
+        spotLight.shadowMode = .Deferred
+        spotLight.castsShadow = true
+        spotLight.spotInnerAngle = 45.0;
+        spotLight.spotOuterAngle = 90.0;
+        spotLight.shadowSampleCount = 8
+        spotLight.shadowRadius = 1.0
+        spotLight.attenuationFalloffExponent = 1
+
+        let spotLightNode = SCNNode()
+        spotLightNode.light = spotLight
+        spotLightNode.constraints = [SCNLookAtConstraint(target: self.centerNode)]
+
+        var spotLightPos = self.tilePositionForFieldPosition(Point(-self.field.size.width/2, -self.field.size.height/2))!
+        spotLightPos.z = Float((self.field.size.width + self.field.size.height) )
+        spotLightNode.position = spotLightPos
+        self.scene.rootNode.addChildNode(spotLightNode)
+
+        let ambientLight = SCNLight()
+        ambientLight.type = SCNLightTypeAmbient
+        ambientLight.color = UIColor(white: 0.2, alpha: 1.0)
+
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = ambientLight
+        self.scene.rootNode.addChildNode(ambientLightNode)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
@@ -124,13 +156,8 @@ class SceneKitGame: Game
     // MARK: - Utils -
     func tilePositionForFieldPosition(fieldPosition: Point) -> SCNVector3?
     {
-        guard fieldPosition.x >= 0 && fieldPosition.x < self.field.size.width &&
-            fieldPosition.y >= 0 && fieldPosition.y < self.field.size.height else {
-                return nil
-        }
-
-        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width) / 2.0
-        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height) / 2.0
+        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width - self.tileSize.width) / 2.0
+        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height - self.tileSize.height) / 2.0
 
         let x = tileXOrigin + self.tileSize.width * CGFloat(fieldPosition.x)
         let y = tileYOrigin + self.tileSize.height * CGFloat(fieldPosition.y)
@@ -146,8 +173,8 @@ class SceneKitGame: Game
                 return nil
         }
 
-        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width) / 2.0
-        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height) / 2.0
+        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width - self.tileSize.width) / 2.0
+        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height - self.tileSize.width) / 2.0
 
         let x = tileXOrigin + self.tileSize.width * CGFloat(fieldPosition.x)
         let y = tileYOrigin + self.tileSize.height * CGFloat(fieldPosition.y)
