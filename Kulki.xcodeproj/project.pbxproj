@@ -23,6 +23,7 @@
 		B57918F71C6A76DC004214EF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57918F61C6A76DC004214EF /* GameViewController.swift */; };
 		B58254711C5E58090065E283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58254701C5E58090065E283 /* AppDelegate.swift */; };
 		B582547C1C5E58090065E283 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
+		B586A05F1CD16BD30095DCA4 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B586A05E1CD16BD30095DCA4 /* Marble.scn */; };
 		B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E6C1731CCE63A700410BBB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		B58254701C5E58090065E283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kulki/Assets/Images.xcassets; sourceTree = "<group>"; };
 		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Kulki/Supporting Files/Info.plist"; sourceTree = "<group>"; };
+		B586A05E1CD16BD30095DCA4 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Kulki/Assets/Marble.scn; sourceTree = "<group>"; };
 		B5E6C1731CCE63A700410BBB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				B582547B1C5E58090065E283 /* Images.xcassets */,
 				B57918D41C6A741A004214EF /* Main.storyboard */,
 				B57918D61C6A7438004214EF /* LaunchScreen.storyboard */,
+				B586A05E1CD16BD30095DCA4 /* Marble.scn */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B586A05F1CD16BD30095DCA4 /* Marble.scn in Resources */,
 				B582547C1C5E58090065E283 /* Images.xcassets in Resources */,
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,

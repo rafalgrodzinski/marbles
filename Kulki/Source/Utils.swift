@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SceneKit
 
 
 // MARK - Point -
@@ -66,4 +67,18 @@ class State {
 func *(left: CGSize, right: CGFloat) -> CGSize
 {
     return CGSizeMake(left.width * right, left.height * right)
+}
+
+
+// MARK: - Extension -
+extension SCNNode
+{
+    func duplicate() -> SCNNode
+    {
+        let node = self.clone()
+        node.geometry = self.geometry?.copy() as? SCNGeometry
+        node.geometry?.firstMaterial = self.geometry?.firstMaterial?.copy() as? SCNMaterial
+
+        return node
+    }
 }

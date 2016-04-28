@@ -25,6 +25,7 @@ class SceneKitGame: Game
     {
         self.scene = SCNScene()
         (self.view as! SCNView).scene = self.scene!
+        (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
         (self.view as! SCNView).autoenablesDefaultLighting = true
         (self.view as! SCNView).allowsCameraControl = true

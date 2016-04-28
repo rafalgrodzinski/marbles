@@ -11,20 +11,25 @@ import SceneKit
 
 class SceneKitMarble: Marble
 {
+    static let marblePrototype: SCNNode = { let marbleScene = SCNScene(named: "Marble.scn")!
+        return marbleScene.rootNode.childNodeWithName("Marble", recursively: false)!}()
+
     let node: SCNNode
 
     init(color: Int, fieldPosition: Point, position: SCNVector3, size: CGSize)
     {
-        self.node = SCNNode()
+        self.node = SceneKitMarble.marblePrototype.duplicate()
+
         super.init(color: color, fieldPosition: fieldPosition)
 
-        // Setup geometry
-        self.node.geometry = SCNSphere(radius: size.width/2.0)
+        // Setup marble
         self.node.position = position
+        self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
+        self.node.scale = SCNVector3(0.8, 0.8, 0.8)
 
-        // Setup material
-        let material = SCNMaterial()
-        material.diffuse.contents = self.colors[color]
-        self.node.geometry?.firstMaterial = material
+        let xRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
+        let yRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
+        let zRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
+        self.node.eulerAngles = SCNVector3(xRot, yRot, zRot)
     }
 }
