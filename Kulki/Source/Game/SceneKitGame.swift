@@ -29,6 +29,8 @@ class SceneKitGame: Game
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
+        self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
+
         (self.view as! SCNView).allowsCameraControl = true
 
         self.tileSize = CGSizeMake(1.0, 1.0)
@@ -82,6 +84,11 @@ class SceneKitGame: Game
                 tileMaterial.doubleSided = true
                 tile.geometry!.firstMaterial = tileMaterial
 
+                let tileShape = SCNPhysicsShape(node: tile, options: nil)
+                let tilePhysics = SCNPhysicsBody(type: .Static, shape: tileShape)
+                tilePhysics.affectedByGravity = false
+                tile.physicsBody = tilePhysics
+
                 self.scene.rootNode.addChildNode(tile)
             }
         }
@@ -94,12 +101,30 @@ class SceneKitGame: Game
     {
         for (index, marble) in marbles.enumerate() {
             let scnMarble = marble as! SceneKitMarble
+            scnMarble.node.scale = SCNVector3Zero
+            scnMarble.node.position.z += 1.0
 
-            scnMarble.node.position = self.marblePositionForFieldPosition(marble.fieldPosition)!
+            let waitAction = SCNAction.waitForDuration(0.2 * NSTimeInterval(index))
+
+            let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
+            let fadeInAction = SCNAction.fadeInWithDuration(0.1)
+            let appearAction = SCNAction.group([scaleAction, fadeInAction])
+            let addGravityAction = SCNAction.runBlock { (node: SCNNode) in
+                let shape = SCNPhysicsShape(node: node, options: nil)
+                let physics = SCNPhysicsBody(type: .Dynamic, shape: shape)
+                node.physicsBody = physics }
+
+            let waitToSettle = SCNAction.waitForDuration(1.0)
+            let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
+            let moveToSpot = SCNAction.moveTo(self.marblePositionForFieldPosition(scnMarble.fieldPosition)!, duration: 0.1)
+
+            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
+
             self.scene.rootNode.addChildNode(scnMarble.node)
-        }
 
-        finished()
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, appearAction, addGravityAction,
+                waitToSettle, removeGravityAction, moveToSpot, runBlockAction]))
+        }
     }
 
 
@@ -108,10 +133,16 @@ class SceneKitGame: Game
         for (index, marble) in marbles.enumerate() {
             let scnMarble = marble as! SceneKitMarble
 
-            scnMarble.node.removeFromParentNode()
-        }
+            let waitAction = SCNAction.waitForDuration(0.1 * NSTimeInterval(index))
 
-        finished()
+            let scaleAction = SCNAction.scaleTo(0.0, duration: 0.2)
+            let fadeOutAction = SCNAction.fadeOutWithDuration(0.2)
+            let disappearAction = SCNAction.group([scaleAction, fadeOutAction])
+            let removeAction = SCNAction.removeFromParentNode()
+            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
+
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, disappearAction, removeAction, runBlockAction]))
+        }
     }
 
 

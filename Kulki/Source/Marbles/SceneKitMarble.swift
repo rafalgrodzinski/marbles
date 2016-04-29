@@ -25,7 +25,6 @@ class SceneKitMarble: Marble
         // Setup marble
         self.node.position = position
         self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
-        self.node.scale = SCNVector3(0.8, 0.8, 0.8)
 
         let xRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
         let yRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
