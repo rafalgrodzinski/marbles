@@ -80,14 +80,11 @@ class SceneKitGame: Game
 
                 let tileMaterial = SCNMaterial()
                 tileMaterial.diffuse.contents = UIImage(named: "Tile")
-                tileMaterial.normal.contents = UIImage(named: "Tile")
+                //tileMaterial.normal.contents = UIImage(named: "Tile")
                 tileMaterial.doubleSided = true
                 tile.geometry!.firstMaterial = tileMaterial
 
-                let tileShape = SCNPhysicsShape(node: tile, options: nil)
-                let tilePhysics = SCNPhysicsBody(type: .Static, shape: tileShape)
-                tilePhysics.affectedByGravity = false
-                tile.physicsBody = tilePhysics
+                tile.physicsBody = SCNPhysicsBody.staticBody()
 
                 self.scene.rootNode.addChildNode(tile)
             }
@@ -109,21 +106,17 @@ class SceneKitGame: Game
             let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
             let fadeInAction = SCNAction.fadeInWithDuration(0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
-            let addGravityAction = SCNAction.runBlock { (node: SCNNode) in
-                let shape = SCNPhysicsShape(node: node, options: nil)
-                let physics = SCNPhysicsBody(type: .Dynamic, shape: shape)
-                node.physicsBody = physics }
+            let addGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamicBody() }
 
             let waitToSettle = SCNAction.waitForDuration(1.0)
             let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
-            let moveToSpot = SCNAction.moveTo(self.marblePositionForFieldPosition(scnMarble.fieldPosition)!, duration: 0.1)
 
             let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
 
             self.scene.rootNode.addChildNode(scnMarble.node)
 
             scnMarble.node.runAction(SCNAction.sequence([waitAction, appearAction, addGravityAction,
-                waitToSettle, removeGravityAction, moveToSpot, runBlockAction]))
+                waitToSettle, removeGravityAction, runBlockAction]))
         }
     }
 
@@ -148,11 +141,13 @@ class SceneKitGame: Game
 
     override func selectMarble(marbe: Marble)
     {
+        (marbe as! SceneKitMarble).selected = true
     }
 
 
     override func deselectMarble(marbe: Marble)
     {
+        (marbe as! SceneKitMarble).selected = false
     }
 
 
