@@ -14,6 +14,8 @@ class SceneKitGame: Game
     private(set) var tileSize: CGSize!
 
     private var centerNode: SCNNode!
+    private var tileSelectionParticleNode: SCNNode!
+    private var tileSelectionParticle: SCNParticleSystem!
 
 
     // MARK: Initialization
@@ -29,6 +31,7 @@ class SceneKitGame: Game
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
+        self.scene.background.contents = "skybox01_cube.png"
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
 
         (self.view as! SCNView).allowsCameraControl = true
@@ -38,6 +41,12 @@ class SceneKitGame: Game
         self.centerNode = SCNNode()
         self.scene.rootNode.addChildNode(self.centerNode)
 
+        // Selection particle
+        self.tileSelectionParticleNode = SCNNode()
+        self.scene.rootNode.addChildNode(self.tileSelectionParticleNode)
+
+        self.tileSelectionParticle = SCNParticleSystem(named: "Selection.scnp", inDirectory: nil)
+
         // Create spot light
         let spotLight = SCNLight()
         spotLight.type = SCNLightTypeSpot
@@ -46,8 +55,12 @@ class SceneKitGame: Game
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
         spotLight.shadowSampleCount = 8
-        spotLight.shadowRadius = 1.0
-        spotLight.attenuationFalloffExponent = 1
+        spotLight.shadowRadius = 8.0
+        spotLight.attenuationEndDistance = 50.0
+        spotLight.attenuationStartDistance = 50.0
+        spotLight.zFar = 100.0
+        spotLight.attenuationFalloffExponent = 0
+        spotLight.shadowMapSize = CGSizeMake(4096, 4096)
 
         let spotLightNode = SCNNode()
         spotLightNode.light = spotLight
@@ -83,6 +96,7 @@ class SceneKitGame: Game
                 //tileMaterial.normal.contents = UIImage(named: "Tile")
                 tileMaterial.doubleSided = true
                 tile.geometry!.firstMaterial = tileMaterial
+                tile.castsShadow = false
 
                 tile.physicsBody = SCNPhysicsBody.staticBody()
 
@@ -153,6 +167,9 @@ class SceneKitGame: Game
 
     override func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
     {
+        self.tileSelectionParticleNode.position = self.tilePositionForFieldPosition(fieldPath.first!)!
+        self.tileSelectionParticleNode.addParticleSystem(self.tileSelectionParticle)
+
         for (index, position) in fieldPath.reverse().enumerate() {
             let newPosition = self.marblePositionForFieldPosition(position)!
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
+		B52C795C1CD4F0B000A86DAE /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = B52C795A1CD4F0B000A86DAE /* bokeh.png */; };
+		B52C795E1CD4F6BF00A86DAE /* skybox01_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = B52C795D1CD4F6BF00A86DAE /* skybox01_cube.png */; };
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
 		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
 		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
@@ -28,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B52C79591CD4F0B000A86DAE /* Selection.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Selection.scnp; path = Kulki/Assets/Selection.scnp; sourceTree = "<group>"; };
+		B52C795A1CD4F0B000A86DAE /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bokeh.png; path = Kulki/Assets/bokeh.png; sourceTree = "<group>"; };
+		B52C795D1CD4F6BF00A86DAE /* skybox01_cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skybox01_cube.png; sourceTree = "<group>"; };
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
@@ -135,6 +141,9 @@
 				B57918D41C6A741A004214EF /* Main.storyboard */,
 				B57918D61C6A7438004214EF /* LaunchScreen.storyboard */,
 				B586A05E1CD16BD30095DCA4 /* Marble.scn */,
+				B52C79591CD4F0B000A86DAE /* Selection.scnp */,
+				B52C795A1CD4F0B000A86DAE /* bokeh.png */,
+				B52C795D1CD4F6BF00A86DAE /* skybox01_cube.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -207,8 +216,11 @@
 			files = (
 				B586A05F1CD16BD30095DCA4 /* Marble.scn in Resources */,
 				B582547C1C5E58090065E283 /* Images.xcassets in Resources */,
+				B52C795E1CD4F6BF00A86DAE /* skybox01_cube.png in Resources */,
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,
+				B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,
+				B52C795C1CD4F0B000A86DAE /* bokeh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
