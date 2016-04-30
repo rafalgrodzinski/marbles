@@ -7,6 +7,7 @@
 //
 
 import SceneKit
+import GLKit
 
 
 class SceneKitMarble: Marble
@@ -28,6 +29,8 @@ class SceneKitMarble: Marble
             }
         }
     }
+
+    var rotationQuat = GLKQuaternionIdentity
 
     init(color: Int, fieldPosition: Point, position: SCNVector3, size: CGSize)
     {
