@@ -29,6 +29,9 @@ class Game
         self.setupView()
         assert(self.view != nil, "self.view must not be nil")
 
+        // Setup score singleton
+        ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
+
         // Setup states
         let startupState = State()
         startupState.command = self.executeStartupState
@@ -117,11 +120,15 @@ class Game
         var removedMarbles = [Marble]()
 
         for marble in self.spawnedMarbles! {
-            removedMarbles.appendContentsOf(self.field.removeLinesAtMarble(marble))
+            let lineOfMarbles = self.field.removeLinesAtMarble(marble)
+            removedMarbles.appendContentsOf(lineOfMarbles)
+
+            ScoreSingleton.sharedInstance.removedMarbles(lineOfMarbles.count)
         }
 
         if removedMarbles.count > 0 {
             self.hideMarbles(removedMarbles, finished: state.goToNextState)
+            self.updateScore(ScoreSingleton.sharedInstance.currentScore)
         } else {
             state.goToNextState()
         }
@@ -153,8 +160,11 @@ class Game
         let removedMarbles = self.field.removeLinesAtMarble(self.selectedMarble!)
         self.selectedMarble = nil
 
+        ScoreSingleton.sharedInstance.removedMarbles(removedMarbles.count)
+
         if removedMarbles.count > 0 {
             self.hideMarbles(removedMarbles, finished: state.goToNextState)
+            self.updateScore(ScoreSingleton.sharedInstance.currentScore)
         } else {
             state.goToNextState()
         }
@@ -189,6 +199,13 @@ class Game
 
     // MARK: <<Abstract>>
     func hideMarbles(marbles: [Marble], finished: () -> Void)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: <<Abstract>>
+    func updateScore(newScore: Int)
     {
         assert(false, "<<Abstract method>>")
     }
