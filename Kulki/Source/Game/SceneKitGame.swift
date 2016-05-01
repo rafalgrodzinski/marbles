@@ -111,6 +111,9 @@ class SceneKitGame: Game
         self.updateScore(0)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+
+        // Start the game
+        (self.view as! SCNView).play(nil)
     }
 
 

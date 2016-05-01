@@ -19,6 +19,9 @@ class ScoreSingleton
     private var colorsCount = 0
     private var lineLength = 0
 
+    let baseScore = 10
+    let extraScore = 5
+
 
     private init()
     {
@@ -34,7 +37,7 @@ class ScoreSingleton
     }
 
 
-    func scoresForColorsCount(colorsCount: Int) -> [Int]
+    func scoresForColorsCount(colorsCount: Int, lineLength: Int) -> [Int]
     {
         return [Int]()
     }
@@ -46,8 +49,8 @@ class ScoreSingleton
             return
         }
 
-        let baseScore = 10
-        let extraScore = (marblesCount - self.lineLength) * 10
+        let baseScore = self.baseScore
+        let extraScore = (marblesCount - self.lineLength) * self.extraScore
 
         let score = (baseScore + extraScore) * self.colorsCount
 
