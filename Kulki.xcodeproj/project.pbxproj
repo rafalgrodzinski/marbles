@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		B50903DF1CD6432A004E8E6E /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50903DE1CD6432A004E8E6E /* ScoreSingleton.swift */; };
+		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
 		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
 		B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5337ACE1CD500B0009C3098 /* Selection Particle.png */; };
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
 		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
 		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
 		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
+		B56B2D9F1CD92FF3006B5F2F /* PathFinderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */; };
+		B56B2DA11CD9316D006B5F2F /* PathFinderA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */; };
 		B576D0D41CCC38BA001A5657 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D31CCC38BA001A5657 /* Game.swift */; };
 		B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D51CCC38E5001A5657 /* GameFactory.swift */; };
 		B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */; };
@@ -32,12 +35,15 @@
 
 /* Begin PBXFileReference section */
 		B50903DE1CD6432A004E8E6E /* ScoreSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreSingleton.swift; path = Kulki/Source/Score/ScoreSingleton.swift; sourceTree = SOURCE_ROOT; };
+		B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderGridAdapter.swift; sourceTree = "<group>"; };
 		B52C79591CD4F0B000A86DAE /* Selection.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Selection.scnp; path = Kulki/Assets/Selection.scnp; sourceTree = "<group>"; };
 		B5337ACE1CD500B0009C3098 /* Selection Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Selection Particle.png"; path = "Kulki/Assets/Selection Particle.png"; sourceTree = "<group>"; };
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
 		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
+		B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderProtocol.swift; sourceTree = "<group>"; };
+		B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderA.swift; sourceTree = "<group>"; };
 		B576D0D31CCC38BA001A5657 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B576D0D51CCC38E5001A5657 /* GameFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
 		B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitGame.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				B53891F01C6D520C00006380 /* Field.swift */,
+				B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */,
+				B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */,
+				B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */,
 			);
 			name = Field;
 			path = Source/Field;
@@ -196,7 +205,7 @@
 				TargetAttributes = {
 					B582546C1C5E58090065E283 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = Q3CXQ33KL8;
+						DevelopmentTeam = A674WUF6TD;
 					};
 				};
 			};
@@ -241,6 +250,9 @@
 				B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */,
 				B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */,
 				B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */,
+				B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */,
+				B56B2DA11CD9316D006B5F2F /* PathFinderA.swift in Sources */,
+				B56B2D9F1CD92FF3006B5F2F /* PathFinderProtocol.swift in Sources */,
 				B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */,
 				B576D0D41CCC38BA001A5657 /* Game.swift in Sources */,
 				B57918F71C6A76DC004214EF /* GameViewController.swift in Sources */,
@@ -346,13 +358,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rafal Grodzinski (X2VAV67362)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Kulki/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.kulki;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "571d6407-c07a-456a-aeb1-4853748e0938";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -361,13 +373,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rafal Grodzinski (X2VAV67362)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Kulki/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.kulki;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "571d6407-c07a-456a-aeb1-4853748e0938";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

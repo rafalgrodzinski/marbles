@@ -201,14 +201,14 @@ class SceneKitGame: Game
 
     override func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
     {
-        self.tileSelectionParticleNode.position = self.tilePositionForFieldPosition(fieldPath.first!)!
+        self.tileSelectionParticleNode.position = self.tilePositionForFieldPosition(fieldPath.last!)!
         self.tileSelectionParticleNode.addParticleSystem(self.tileSelectionParticle)
 
         let scnMarble = marble as! SceneKitMarble
 
-        var previousFieldPosition = fieldPath.last!
+        var previousFieldPosition = fieldPath.first!
 
-        for (index, position) in fieldPath.reverse().enumerate() where index != 0 {
+        for (index, position) in fieldPath.enumerate() where index != 0 {
             // Rotation
             let angle: Float = (Float(self.tileSize.width) / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
 
