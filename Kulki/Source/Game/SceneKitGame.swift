@@ -20,6 +20,9 @@ class SceneKitGame: Game
     private var tileSelectionParticleNode: SCNNode!
     private var tileSelectionParticle: SCNParticleSystem!
 
+    //static let tilePrototype: SCNNode = { let tileScene = SCNScene(named: "Tile.scn")!
+    //    return tileScene.rootNode.childNodeWithName("Tile", recursively: false)!}()
+
     private var scoreLabel: SKLabelNode!
 
 
@@ -36,7 +39,7 @@ class SceneKitGame: Game
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
-        self.scene.background.contents = "skybox01_cube.png"
+        self.scene.background.contents = ["Skybox Back", "Skybox Front", "Skybox Right", "Skybox Left", "Skybox Bottom", "Skybox Top", ]
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
 
         (self.view as! SCNView).allowsCameraControl = true
@@ -55,7 +58,7 @@ class SceneKitGame: Game
         // Create spot light
         let spotLight = SCNLight()
         spotLight.type = SCNLightTypeSpot
-        spotLight.shadowMode = .Deferred
+        spotLight.shadowMode = .Forward
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
@@ -112,6 +115,8 @@ class SceneKitGame: Game
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
+        self.scene.rootNode.castsShadow = false
+
         // Start the game
         (self.view as! SCNView).play(nil)
     }
@@ -121,18 +126,16 @@ class SceneKitGame: Game
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
-                let tile = SCNNode()
+                let tileScene = SCNScene(named: "Tile.scn")!
+                let tile = tileScene.rootNode.childNodeWithName("Tile", recursively: false)!
+                //let tile = SceneKitGame.tilePrototype.duplicate()
                 tile.position = self.tilePositionForFieldPosition(Point(x, y))!
-                tile.geometry = SCNPlane(width: self.tileSize.width, height: self.tileSize.height)
-
-                let tileMaterial = SCNMaterial()
-                tileMaterial.diffuse.contents = UIImage(named: "Tile")
-                //tileMaterial.normal.contents = UIImage(named: "Tile")
-                tileMaterial.doubleSided = true
-                tile.geometry!.firstMaterial = tileMaterial
-                tile.castsShadow = false
+                tile.position.z = -Float((tile.geometry as! SCNBox).height / 2.0)
+                tile.geometry!.firstMaterial!.diffuse.contents = "TileDiffuse"
+                tile.geometry!.firstMaterial!.normal.contents = "TileNormal"
 
                 tile.physicsBody = SCNPhysicsBody.staticBody()
+                tile.castsShadow = false
 
                 self.scene.rootNode.addChildNode(tile)
             }

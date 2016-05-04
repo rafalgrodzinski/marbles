@@ -30,6 +30,7 @@
 		B58254711C5E58090065E283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58254701C5E58090065E283 /* AppDelegate.swift */; };
 		B582547C1C5E58090065E283 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
 		B586A05F1CD16BD30095DCA4 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B586A05E1CD16BD30095DCA4 /* Marble.scn */; };
+		B58C72591CDAA76F004D2E66 /* Tile.scn in Resources */ = {isa = PBXBuildFile; fileRef = B58C72581CDAA76F004D2E66 /* Tile.scn */; };
 		B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E6C1731CCE63A700410BBB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kulki/Assets/Images.xcassets; sourceTree = "<group>"; };
 		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Kulki/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		B586A05E1CD16BD30095DCA4 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Kulki/Assets/Marble.scn; sourceTree = "<group>"; };
+		B58C72581CDAA76F004D2E66 /* Tile.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Tile.scn; path = Kulki/Assets/Tile.scn; sourceTree = "<group>"; };
 		B5E6C1731CCE63A700410BBB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +163,7 @@
 				B586A05E1CD16BD30095DCA4 /* Marble.scn */,
 				B52C79591CD4F0B000A86DAE /* Selection.scnp */,
 				B5337ACE1CD500B0009C3098 /* Selection Particle.png */,
+				B58C72581CDAA76F004D2E66 /* Tile.scn */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,
 				B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,
+				B58C72591CDAA76F004D2E66 /* Tile.scn in Resources */,
 				B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
