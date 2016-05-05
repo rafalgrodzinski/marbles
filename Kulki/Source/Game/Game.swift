@@ -9,7 +9,7 @@
 import UIKit
 
 
-class Game
+class Game: NSObject
 {
     internal(set) var view: UIView!
     internal var field: Field
@@ -25,7 +25,9 @@ class Game
     // MARK: - Initialization -
     init(field: Field)
     {
+
         self.field = field
+        super.init()
         self.setupView()
         assert(self.view != nil, "self.view must not be nil")
 

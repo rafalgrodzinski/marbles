@@ -11,7 +11,7 @@ import SpriteKit
 import GLKit
 
 
-class SceneKitGame: Game
+class SceneKitGame: Game, UIGestureRecognizerDelegate
 {
     private var scene: SCNScene!
     private(set) var tileSize: CGSize!
@@ -32,6 +32,9 @@ class SceneKitGame: Game
 
     private var scoreLabel: SKLabelNode!
 
+    private var cameraNode: SCNNode!
+    private var cameraStartPosition: SCNVector3 = SCNVector3Zero
+
 
     // MARK: Initialization
     override func setupView()
@@ -48,8 +51,6 @@ class SceneKitGame: Game
 
         self.scene.background.contents = ["Skybox Back", "Skybox Front", "Skybox Right", "Skybox Left", "Skybox Bottom", "Skybox Top", ]
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
-
-        (self.view as! SCNView).allowsCameraControl = true
 
         self.tileSize = CGSizeMake(1.0, 1.0)
 
@@ -121,8 +122,20 @@ class SceneKitGame: Game
         self.updateScore(0)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        panGesture.delegate = self
+        self.view.addGestureRecognizer(panGesture)
 
         self.scene.rootNode.castsShadow = false
+
+        // Camera
+        self.cameraNode = SCNNode()
+        self.cameraNode.camera = SCNCamera()
+        self.cameraNode.position = SCNVector3(0.0, 0.0, 8.0)
+        let constraint = SCNLookAtConstraint(target: self.centerNode)
+        constraint.gimbalLockEnabled = true
+        self.cameraNode.constraints = [constraint]
+        self.scene.rootNode.addChildNode(self.cameraNode)
 
         // Start the game
         (self.view as! SCNView).play(nil)
@@ -302,6 +315,44 @@ class SceneKitGame: Game
                 break
             }
         }
+    }
+
+
+    @objc func handlePan(sender: UIPanGestureRecognizer)
+    {
+        let pan = sender.translationInView(self.view)
+
+        self.cameraNode.position.x = self.cameraStartPosition.x - Float(pan.x / 10.0)
+        self.cameraNode.position.y = self.cameraStartPosition.y + Float(pan.y / 10.0)
+
+        let boardWidth = Float(self.field.size.width) * Float(self.tileSize.width)
+        let boardHeight = Float(self.field.size.height) * Float(self.tileSize.height)
+
+        if cameraNode.position.x > boardWidth {
+            cameraNode.position.x = boardWidth
+        }
+
+        if cameraNode.position.x < -boardWidth {
+            cameraNode.position.x = -boardWidth
+        }
+
+        if cameraNode.position.y > boardHeight {
+            cameraNode.position.y = boardHeight
+        }
+
+        if cameraNode.position.y < -boardHeight {
+            cameraNode.position.y = -boardHeight
+        }
+
+        print("\(self.cameraNode.position.x):\(self.cameraNode.position.y)")
+    }
+
+
+    @objc func gestureRecognizerShouldBegin(sender: UIGestureRecognizer) -> Bool
+    {
+        self.cameraStartPosition = self.cameraNode.position
+
+        return true
     }
 
 
