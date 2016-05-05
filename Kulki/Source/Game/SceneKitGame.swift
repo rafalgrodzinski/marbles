@@ -20,8 +20,15 @@ class SceneKitGame: Game
     private var tileSelectionParticleNode: SCNNode!
     private var tileSelectionParticle: SCNParticleSystem!
 
-    //static let tilePrototype: SCNNode = { let tileScene = SCNScene(named: "Tile.scn")!
-    //    return tileScene.rootNode.childNodeWithName("Tile", recursively: false)!}()
+    private let boardHeight: Float = 0.25
+
+    let tilePrototype: SCNNode = { let tileNode = SCNNode()
+        tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
+        tileNode.geometry!.firstMaterial!.diffuse.contents = "TileDiffuse"
+        tileNode.geometry!.firstMaterial!.normal.contents = "TileNormal"
+        tileNode.physicsBody = SCNPhysicsBody.staticBody()
+        tileNode.castsShadow = false
+        return tileNode }()
 
     private var scoreLabel: SKLabelNode!
 
@@ -126,20 +133,35 @@ class SceneKitGame: Game
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
-                let tileScene = SCNScene(named: "Tile.scn")!
-                let tile = tileScene.rootNode.childNodeWithName("Tile", recursively: false)!
-                //let tile = SceneKitGame.tilePrototype.duplicate()
-                tile.position = self.tilePositionForFieldPosition(Point(x, y))!
-                tile.position.z = -Float((tile.geometry as! SCNBox).height / 2.0)
-                tile.geometry!.firstMaterial!.diffuse.contents = "TileDiffuse"
-                tile.geometry!.firstMaterial!.normal.contents = "TileNormal"
+                let tileNode = self.tilePrototype.duplicate()
+                tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
+                tileNode.position.z = -Float(self.boardHeight / 2.0)
 
-                tile.physicsBody = SCNPhysicsBody.staticBody()
-                tile.castsShadow = false
-
-                self.scene.rootNode.addChildNode(tile)
+                self.scene.rootNode.addChildNode(tileNode)
             }
         }
+
+        // Add plane
+        let grassNode = SCNNode()
+        grassNode.position.z = -self.boardHeight
+        grassNode.geometry = SCNPlane(width: 100, height: 100)
+        grassNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "GrassDiffuse")
+        grassNode.geometry?.firstMaterial?.diffuse.wrapS = .Repeat
+        grassNode.geometry?.firstMaterial?.diffuse.wrapT = .Repeat
+        grassNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+
+        grassNode.geometry?.firstMaterial?.normal.contents = UIImage(named: "GrassNormal")
+        grassNode.geometry?.firstMaterial?.normal.intensity = 0.5
+        grassNode.geometry?.firstMaterial?.normal.wrapS = .Repeat
+        grassNode.geometry?.firstMaterial?.normal.wrapT = .Repeat
+        grassNode.geometry?.firstMaterial?.normal.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+
+        grassNode.geometry?.firstMaterial?.specular.contents = UIImage(named: "GrassDiffuse")
+        grassNode.geometry?.firstMaterial?.specular.wrapS = .Repeat
+        grassNode.geometry?.firstMaterial?.specular.wrapT = .Repeat
+        grassNode.geometry?.firstMaterial?.specular.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+
+        self.scene.rootNode.addChildNode(grassNode)
 
         finished()
     }
