@@ -180,16 +180,14 @@ class SceneKitGame: Game
             let fadeInAction = SCNAction.fadeInWithDuration(0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
             let addGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamicBody() }
-
-            let waitToSettle = SCNAction.waitForDuration(1.0)
-            let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
+            let waitToSettle = SCNAction.waitForDuration(1.5)
 
             let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
 
             self.scene.rootNode.addChildNode(scnMarble.node)
 
             scnMarble.node.runAction(SCNAction.sequence([waitAction, appearAction, addGravityAction,
-                waitToSettle, removeGravityAction, runBlockAction]))
+                waitToSettle, runBlockAction]))
         }
     }
 
