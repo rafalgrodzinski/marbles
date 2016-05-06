@@ -132,10 +132,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Camera
         self.cameraNode = SCNNode()
         self.cameraNode.camera = SCNCamera()
-        self.cameraNode.position = SCNVector3(0.0, 0.0, 8.0)
-        let constraint = SCNLookAtConstraint(target: self.centerNode)
-        constraint.gimbalLockEnabled = true
-        self.cameraNode.constraints = [constraint]
+        self.cameraNode.position = SCNVector3(0.0, 0.0, Float(self.field.size.width + self.field.size.height)/1.5)
         self.scene.rootNode.addChildNode(self.cameraNode)
 
         // Start the game
@@ -323,26 +320,26 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         let pan = sender.translationInView(self.view)
 
-        self.cameraNode.position.x = self.cameraStartPosition.x - Float(pan.x / 10.0)
-        self.cameraNode.position.y = self.cameraStartPosition.y + Float(pan.y / 10.0)
+        self.cameraNode.position.x = self.cameraStartPosition.x - Float(pan.x / CGFloat(self.cameraNode.position.z * 2.0))
+        self.cameraNode.position.y = self.cameraStartPosition.y + Float(pan.y / CGFloat(self.cameraNode.position.z * 2.0))
 
         let boardWidth = Float(self.field.size.width) * Float(self.tileSize.width)
         let boardHeight = Float(self.field.size.height) * Float(self.tileSize.height)
 
-        if cameraNode.position.x > boardWidth {
-            cameraNode.position.x = boardWidth
+        if cameraNode.position.x > boardWidth/2.0 {
+            cameraNode.position.x = boardWidth/2.0
         }
 
-        if cameraNode.position.x < -boardWidth {
-            cameraNode.position.x = -boardWidth
+        if cameraNode.position.x < -boardWidth/2.0 {
+            cameraNode.position.x = -boardWidth/2.0
         }
 
-        if cameraNode.position.y > boardHeight {
-            cameraNode.position.y = boardHeight
+        if cameraNode.position.y > boardHeight/2.0 {
+            cameraNode.position.y = boardHeight/2.0
         }
 
-        if cameraNode.position.y < -boardHeight {
-            cameraNode.position.y = -boardHeight
+        if cameraNode.position.y < -boardHeight/2.0 {
+            cameraNode.position.y = -boardHeight/2.0
         }
 
         print("\(self.cameraNode.position.x):\(self.cameraNode.position.y)")
