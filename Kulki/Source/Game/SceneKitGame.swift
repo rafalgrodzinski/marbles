@@ -40,6 +40,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     override func setupView()
     {
         self.view = SCNView()
+        (self.view as! SCNView).showsStatistics = true
     }
 
 
@@ -76,7 +77,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.attenuationStartDistance = 50.0
         spotLight.zFar = 100.0
         spotLight.attenuationFalloffExponent = 0
-        spotLight.shadowMapSize = CGSizeMake(4096, 4096)
+        spotLight.shadowMapSize = CGSizeMake(2048, 2048)
 
         let spotLightNode = SCNNode()
         spotLightNode.light = spotLight
@@ -161,18 +162,18 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         grassNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "GrassDiffuse")
         grassNode.geometry?.firstMaterial?.diffuse.wrapS = .Repeat
         grassNode.geometry?.firstMaterial?.diffuse.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+        grassNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
 
         grassNode.geometry?.firstMaterial?.normal.contents = UIImage(named: "GrassNormal")
         grassNode.geometry?.firstMaterial?.normal.intensity = 0.5
         grassNode.geometry?.firstMaterial?.normal.wrapS = .Repeat
         grassNode.geometry?.firstMaterial?.normal.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.normal.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+        grassNode.geometry?.firstMaterial?.normal.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
 
         grassNode.geometry?.firstMaterial?.specular.contents = UIImage(named: "GrassDiffuse")
         grassNode.geometry?.firstMaterial?.specular.wrapS = .Repeat
         grassNode.geometry?.firstMaterial?.specular.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.specular.contentsTransform = SCNMatrix4MakeScale(4.0, 4.0, 4.0)
+        grassNode.geometry?.firstMaterial?.specular.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
 
         self.scene.rootNode.addChildNode(grassNode)
 
