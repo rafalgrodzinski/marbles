@@ -13,9 +13,10 @@ class SpriteKitGame: Game
 {
     private var scene: SKScene!
     private(set) var tileSize: CGSize!
+    private var scoreLabel: SKLabelNode!
 
 
-    // MARK: Initialization
+    // MARK: - Initialization-
     override func setupView()
     {
         self.view = SKView()
@@ -35,6 +36,16 @@ class SpriteKitGame: Game
         } else {
             self.tileSize = CGSizeMake(tileHeight, tileHeight)
         }
+
+        // Score label
+        self.scoreLabel = SKLabelNode(fontNamed: "Helvetica")
+        self.scoreLabel.fontSize = 20.0
+        self.scoreLabel.horizontalAlignmentMode = .Center
+        self.scoreLabel.verticalAlignmentMode = .Center
+        self.scoreLabel.position = CGPointMake(self.scene.size.width / 2.0,
+                                               self.scene.size.height - 50.0)
+        self.scene.addChild(self.scoreLabel)
+        self.updateScore(0)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
@@ -102,7 +113,7 @@ class SpriteKitGame: Game
     {
         (marble as! SpriteKitMarble).node.runAction(SKAction.scaleTo(1.0, duration: 0.2))
 
-        for (index, position) in fieldPath.reverse().enumerate() {
+        for (index, position) in fieldPath.enumerate() where index != 0 {
             let newPosition = self.positionForFieldPosition(position)!
 
             let waitAction = SKAction.waitForDuration(0.2 * Double(index))
@@ -111,6 +122,12 @@ class SpriteKitGame: Game
 
             (marble as! SpriteKitMarble).node.runAction(SKAction.sequence([waitAction, moveAction, runBlockAction]))
         }
+    }
+
+
+    override func updateScore(newScore: Int)
+    {
+        self.scoreLabel.text = "Your score: \(newScore)"
     }
 
 

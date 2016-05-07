@@ -50,7 +50,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
-        self.scene.background.contents = ["Skybox Back", "Skybox Front", "Skybox Right", "Skybox Left", "Skybox Bottom", "Skybox Top", ]
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
 
         self.tileSize = CGSizeMake(1.0, 1.0)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8SB-Rx-thH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8SB-Rx-thH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -15,12 +15,91 @@
                     <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSV-Pm-LfR" userLabel="GameView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <visualEffectView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHK-dJ-3di" userLabel="MenuView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" id="UCA-3X-9c4">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kulki" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tg-48-2oR">
+                                            <rect key="frame" x="0.0" y="52" width="600" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="x5F-8g-83b">
+                                            <rect key="frame" x="0.0" y="105" width="600" height="120"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcW-4t-nTm">
+                                                    <rect key="frame" x="285" y="0.0" width="30" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="rUs-Pr-hGM"/>
+                                                    </constraints>
+                                                    <state key="normal" title="2D"/>
+                                                    <connections>
+                                                        <action selector="twoDimensionalPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="AmA-ws-7Bu"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIg-Be-OWj">
+                                                    <rect key="frame" x="285" y="60" width="30" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="t2v-Zz-gDE"/>
+                                                    </constraints>
+                                                    <state key="normal" title="3D"/>
+                                                    <connections>
+                                                        <action selector="threeDimensionalPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="vUd-nb-iwo"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j17-ZB-urt">
+                                            <rect key="frame" x="0.0" y="273" width="600" height="30"/>
+                                            <state key="normal" title="High Scores"/>
+                                            <connections>
+                                                <action selector="highScoresPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="CIU-GU-Rqf"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="4Tg-48-2oR" secondAttribute="trailing" id="3yu-zW-pN0"/>
+                                        <constraint firstAttribute="trailing" secondItem="j17-ZB-urt" secondAttribute="trailing" id="5Ar-56-GkU"/>
+                                        <constraint firstItem="x5F-8g-83b" firstAttribute="leading" secondItem="UCA-3X-9c4" secondAttribute="leading" id="8Go-Qc-CQz"/>
+                                        <constraint firstAttribute="trailing" secondItem="x5F-8g-83b" secondAttribute="trailing" id="BfC-QL-NpJ"/>
+                                        <constraint firstItem="j17-ZB-urt" firstAttribute="leading" secondItem="UCA-3X-9c4" secondAttribute="leading" id="I1b-tR-k45"/>
+                                        <constraint firstItem="x5F-8g-83b" firstAttribute="top" secondItem="4Tg-48-2oR" secondAttribute="bottom" constant="32" id="bG6-Oa-3my"/>
+                                        <constraint firstItem="4Tg-48-2oR" firstAttribute="leading" secondItem="UCA-3X-9c4" secondAttribute="leading" id="f70-9d-VxW"/>
+                                        <constraint firstItem="j17-ZB-urt" firstAttribute="top" secondItem="x5F-8g-83b" secondAttribute="bottom" constant="48" id="myH-3G-PnV"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bSV-Pm-LfR" secondAttribute="trailing" id="76I-Ja-IlA"/>
+                            <constraint firstAttribute="trailing" secondItem="mHK-dJ-3di" secondAttribute="trailing" id="LZU-fu-Dnc"/>
+                            <constraint firstItem="4Tg-48-2oR" firstAttribute="top" secondItem="jva-sR-gDA" secondAttribute="bottom" constant="32" id="MfR-8r-8dS"/>
+                            <constraint firstItem="bSV-Pm-LfR" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leading" id="gUu-JA-MlC"/>
+                            <constraint firstItem="mHK-dJ-3di" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leading" id="gxF-RV-wvY"/>
+                            <constraint firstItem="bSV-Pm-LfR" firstAttribute="top" secondItem="BNP-zL-FhU" secondAttribute="top" id="i9t-Se-z8G"/>
+                            <constraint firstItem="mHK-dJ-3di" firstAttribute="top" secondItem="BNP-zL-FhU" secondAttribute="top" id="slB-vI-NVK"/>
+                            <constraint firstItem="7yi-Mv-Clj" firstAttribute="top" secondItem="mHK-dJ-3di" secondAttribute="bottom" id="uN5-lC-BF5"/>
+                            <constraint firstItem="7yi-Mv-Clj" firstAttribute="top" secondItem="bSV-Pm-LfR" secondAttribute="bottom" id="v4r-V8-JBQ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="gameView" destination="bSV-Pm-LfR" id="6pY-Aj-3wW"/>
+                        <outlet property="menuView" destination="mHK-dJ-3di" id="7kM-yT-zpw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bg6-Rw-dIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="451" y="340"/>
+            <point key="canvasLocation" x="715" y="422"/>
         </scene>
     </scenes>
 </document>
