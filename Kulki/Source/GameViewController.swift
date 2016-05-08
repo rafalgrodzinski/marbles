@@ -11,13 +11,13 @@ import UIKit
 
 class GameViewController: UIViewController
 {
-    @IBOutlet weak var gameView: UIView!
-    @IBOutlet weak var menuView: UIView!
-    var game: Game!
+    @IBOutlet private weak var gameView: UIView!
+    @IBOutlet private  weak var menuView: UIView!
+    private var game: Game!
 
 
     // MARK: - Actions -
-    @IBAction func twoDimensionalPressed(sender: AnyObject)
+    @IBAction private func twoDimensionalPressed(sender: AnyObject)
     {
         self.game = GameFactory.gameWithGraphicsType(.SpriteKit, size: Size(8, 8), colorsCount: 3, marblesPerSpawn: 3, lineLength: 4)
         let rect = self.view.frame
@@ -29,7 +29,7 @@ class GameViewController: UIViewController
     }
 
 
-    @IBAction func threeDimensionalPressed(sender: UIButton)
+    @IBAction private func threeDimensionalPressed(sender: UIButton)
     {
         self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(8, 8), colorsCount: 3, marblesPerSpawn: 3, lineLength: 4)
         let rect = self.view.frame
@@ -41,7 +41,7 @@ class GameViewController: UIViewController
     }
 
 
-    @IBAction func highScoresPressed(sender: UIButton)
+    @IBAction private func highScoresPressed(sender: UIButton)
     {
     }
 

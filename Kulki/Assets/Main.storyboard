@@ -93,8 +93,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="gameView" destination="bSV-Pm-LfR" id="6pY-Aj-3wW"/>
-                        <outlet property="menuView" destination="mHK-dJ-3di" id="7kM-yT-zpw"/>
+                        <outlet property="gameView" destination="bSV-Pm-LfR" id="RUo-ue-Lnf"/>
+                        <outlet property="menuView" destination="mHK-dJ-3di" id="Jke-xE-sHe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bg6-Rw-dIw" userLabel="First Responder" sceneMemberID="firstResponder"/>

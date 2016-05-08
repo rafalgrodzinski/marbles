@@ -9,7 +9,7 @@
 import UIKit
 
 
-class Game: NSObject
+public class Game: NSObject
 {
     internal(set) var view: UIView!
     internal var field: Field
@@ -75,21 +75,21 @@ class Game: NSObject
 
 
     // MARK: <<Abstract>>
-    func setupView()
+    internal func setupView()
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: <<Abstract>>
-    func setupCustom()
+    internal func setupCustom()
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: - Control -
-    func startGame()
+    public func startGame()
     {
         self.setupCustom()
 

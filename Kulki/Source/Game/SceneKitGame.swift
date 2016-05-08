@@ -37,14 +37,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
 
     // MARK: Initialization
-    override func setupView()
+    final override func setupView()
     {
         self.view = SCNView()
         (self.view as! SCNView).showsStatistics = true
     }
 
 
-    override func setupCustom()
+    final override func setupCustom()
     {
         self.scene = SCNScene()
         (self.view as! SCNView).scene = self.scene!
