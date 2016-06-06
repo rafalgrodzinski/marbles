@@ -20,19 +20,20 @@ class SceneKitMarble: Marble
 
     var selected: Bool {
         didSet {
+            SCNTransaction.begin()
+            SCNTransaction.setAnimationDuration(0.2)
             if self.selected {
-                self.node.geometry?.firstMaterial?.emission.contents = self.colors[color]
+                self.node.geometry?.firstMaterial?.emission.contents = self.pastelColors[color]
                 self.node.light = self.marbleLight
             } else {
                 self.node.geometry?.firstMaterial?.emission.contents = UIColor.blackColor()
                 self.node.light = nil
             }
+            SCNTransaction.commit()
         }
     }
 
     var rotationQuat = GLKQuaternionIdentity
-    var xAngle = 0.0
-    var yAngle = 0.0
 
     init(color: Int, fieldPosition: Point, position: SCNVector3, size: CGSize)
     {
@@ -43,21 +44,27 @@ class SceneKitMarble: Marble
         super.init(color: color, fieldPosition: fieldPosition)
 
 
-        // Setup marble
+        // Setup marble's rotation
+        let xRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
+        let yRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
+        let zRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
+        let angle = (Float(arc4random() % 1000) / 1000.0) * 2.0 * π
+
+        let rotationMatrix = GLKMatrix4MakeRotation(angle, xRot, yRot, zRot)
+        self.rotationQuat = GLKQuaternionMakeWithMatrix4(rotationMatrix)
+        self.node.transform = SCNMatrix4FromGLKMatrix4(rotationMatrix)
+
+        // Then its position
         self.node.position = position
-        self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
+
+        // And finally the color
+        self.node.geometry?.firstMaterial?.diffuse.contents = self.pastelColors[color]
 
         // Setup light
         self.marbleLight.type = SCNLightTypeOmni
-        self.marbleLight.color = self.colors[color]
+        self.marbleLight.color = self.pastelColors[color]
         self.marbleLight.attenuationStartDistance = 1
         self.marbleLight.attenuationEndDistance = 2
         self.marbleLight.attenuationFalloffExponent = 1
-
-
-        let xRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
-        let yRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
-        let zRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
-        //self.node.eulerAngles = SCNVector3(xRot, yRot, zRot)
     }
 }

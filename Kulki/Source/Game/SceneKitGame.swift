@@ -21,6 +21,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     private var tileSelectionParticle: SCNParticleSystem!
 
     private let boardHeight: Float = 0.25
+    private let fieldMoveDuration: Float = 0.5
 
     let tilePrototype: SCNNode = { let tileNode = SCNNode()
         tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
@@ -246,85 +247,52 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         for (index, position) in fieldPath.enumerate() where index != 0 {
             // Rotation
-            //let angle: Float = (Float(self.tileSize.width) / (2.0 * π * 0.4)) * 2 * π
-            //var angle: Float = π / 2.0
-            //var angle: Double = M_PI / 2.0
+            let rotationAngle: Float = (Float(self.tileSize.width) / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
 
-            //var xMult = 1.0
-            var xAngle = 0.0
+            var xAngle: Float = 0.0
             if position.x > previousFieldPosition.x {
-                //angle = -angle
-                xAngle = M_PI / 2.0
+                xAngle = rotationAngle
             } else if (position.x < previousFieldPosition.x) {
-                xAngle = -M_PI/2.0
+                xAngle = -rotationAngle
             }
 
-            //var yMult = 1.0
-            var yAngle = 0.0
+            var yAngle: Float = 0.0
             if position.y < previousFieldPosition.y {
-                yAngle = M_PI / 2.0
+                yAngle = rotationAngle
             } else if (position.y > previousFieldPosition.y) {
-                yAngle = -M_PI/2.0
+                yAngle = -rotationAngle
             }
 
-            //let xAngle = Float(position.x - previousFieldPosition.x) * angle
-            //let yAngle = Float(position.y - previousFieldPosition.y) * angle
+            // X rotation
+            var xAxisRotation = GLKVector3Make(0.0, 1.0, 0.0)
+            xAxisRotation = GLKQuaternionRotateVector3(GLKQuaternionInvert(scnMarble.rotationQuat), xAxisRotation)
+            scnMarble.rotationQuat = GLKQuaternionMultiply(scnMarble.rotationQuat, GLKQuaternionMakeWithAngleAndVector3Axis(Float(xAngle), xAxisRotation))
 
-            //print("xAngle: \(xAngle)")
+            // Y rotation
+            var yAxisRotation = GLKVector3Make(1.0, 0.0, 0.0)
+            yAxisRotation = GLKQuaternionRotateVector3(GLKQuaternionInvert(scnMarble.rotationQuat), yAxisRotation)
+            scnMarble.rotationQuat = GLKQuaternionMultiply(scnMarble.rotationQuat, GLKQuaternionMakeWithAngleAndVector3Axis(Float(yAngle), yAxisRotation))
 
-            //let oldQuat = scnMarble.rotationQuat
-
-            //if position.x != previousFieldPosition.x {
-                var up = GLKVector3Make(0.0, 1.0, 0.0)
-                up = GLKQuaternionRotateVector3(GLKQuaternionInvert(scnMarble.rotationQuat), up)
-                scnMarble.rotationQuat = GLKQuaternionMultiply(scnMarble.rotationQuat, GLKQuaternionMakeWithAngleAndVector3Axis(Float(xAngle), up))
-            //}
-
-            //if position.y != previousFieldPosition.y {
-                var right = GLKVector3Make(1.0, 0.0, 0.0)
-                right = GLKQuaternionRotateVector3(GLKQuaternionInvert(scnMarble.rotationQuat), right)
-                scnMarble.rotationQuat = GLKQuaternionMultiply(scnMarble.rotationQuat, GLKQuaternionMakeWithAngleAndVector3Axis(Float(yAngle), right))
-            //}
-
-                /*let aa = GLKQuaternionAxis(scnMarble.rotationQuat)
-                let arotationAxis = SCNVector3FromGLKVector3(aa)
-                let arotationAngle = GLKQuaternionAngle(scnMarble.rotationQuat)
-
-                print("unnormalised \(arotationAngle) along \(arotationAxis.x):\(arotationAxis.y):\(arotationAxis.z)")*/
-
-            //scnMarble.rotationQuat = GLKQuaternionNormalize(scnMarble.rotationQuat)
-
-            //let diff = GLKQuaternionSubtract(scnMarble.rotationQuat, oldQuat)
-            //let diff = GLKQuaternionSlerp(oldQuat, scnMarble.rotationQuat, 1.0)
-            //let a = GLKQuaternionAxis(diff)
-            //let rotationAxis = SCNVector3FromGLKVector3(a)
-            //let rotationAngle = GLKQuaternionAngle(diff)
-            let mat = GLKMatrix4MakeWithQuaternion(scnMarble.rotationQuat)
-
-            //print("rotate \(rotationAngle) along \(rotationAxis.x):\(rotationAxis.y):\(rotationAxis.z)")
-
-            // Movement
+            let newRotationMatrix = GLKMatrix4MakeWithQuaternion(scnMarble.rotationQuat)
             let newPosition = self.marblePositionForFieldPosition(position)!
 
-            let waitAction = SCNAction.waitForDuration(1.5 * Double(index))
+            // Actions
+            let waitAction = SCNAction.waitForDuration(NSTimeInterval(self.fieldMoveDuration) * NSTimeInterval(index-1))
 
-            //let rotateAction = SCNAction.rotateByAngle(rotationAngle, aroundAxis: rotationAxis, duration: 0.5)
-            //SCNAction.rotate
-            //let rotateAction = SCNAction.rotateToAxisAngle(SCNVector4(rotationAxis.x, rotationAxis.y, rotationAxis.z, rotationAngle), duration: 1.0)
-            //let rotateAction = SCNAction.rotateByAngle(CGFloat(rotationAngle), aroundAxis: rotationAxis, duration: 0.5)
-            //let moveAction = SCNAction.moveTo(newPosition, duration: 1.0)
-            //let moveGroup = SCNAction.group([moveAction, rotateAction])
             let animAct = SCNAction.runBlock { (node:SCNNode) in
                 SCNTransaction.begin()
-                SCNTransaction.setAnimationDuration(1.0)
-                node.transform = SCNMatrix4FromGLKMatrix4(mat)
+                SCNTransaction.setAnimationDuration(NSTimeInterval(self.fieldMoveDuration))
+                SCNTransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
+                node.transform = SCNMatrix4FromGLKMatrix4(newRotationMatrix)
                 node.position = newPosition
                 SCNTransaction.commit()
             }
 
+            let lastWaitAction = SCNAction.waitForDuration(NSTimeInterval(index == fieldPath.count-1 ? self.fieldMoveDuration : 0.0))
+
             let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == fieldPath.count-1 { finished() } }
 
-            (marble as! SceneKitMarble).node.runAction(SCNAction.sequence([waitAction, animAct, runBlockAction]))
+            (marble as! SceneKitMarble).node.runAction(SCNAction.sequence([waitAction, animAct, lastWaitAction, runBlockAction]))
 
             previousFieldPosition = position
         }
