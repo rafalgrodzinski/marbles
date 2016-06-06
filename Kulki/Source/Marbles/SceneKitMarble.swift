@@ -31,6 +31,8 @@ class SceneKitMarble: Marble
     }
 
     var rotationQuat = GLKQuaternionIdentity
+    var xAngle = 0.0
+    var yAngle = 0.0
 
     init(color: Int, fieldPosition: Point, position: SCNVector3, size: CGSize)
     {
@@ -56,6 +58,6 @@ class SceneKitMarble: Marble
         let xRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
         let yRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
         let zRot = (Float(arc4random() % 1000) / 1000.0) * 2.0
-        self.node.eulerAngles = SCNVector3(xRot, yRot, zRot)
+        //self.node.eulerAngles = SCNVector3(xRot, yRot, zRot)
     }
 }
