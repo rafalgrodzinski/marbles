@@ -132,6 +132,57 @@ class Field
             }
         }
 
+
+        // Check accross - bottom left to top right
+        var startBottomLeft = position.x
+        for bottomLeft in (startBottomLeft-1).stride(through: 0, by: -1) {
+            let diff = position.x - bottomLeft
+            let currentMarble = self.marbles[Point(position.x - diff, position.y - diff)]
+
+            if currentMarble?.color == marble.color {
+                startBottomLeft = bottomLeft
+            } else {
+                break
+            }
+        }
+
+        var endBottomLeft = position.x
+        for bottomLeft in (endBottomLeft+1).stride(through: self.size.width-1, by: 1) {
+            let diff = bottomLeft - position.x
+            let currentMarble = self.marbles[Point(position.x + diff, position.y + diff)]
+
+            if currentMarble?.color == marble.color {
+                endBottomLeft = bottomLeft
+            } else {
+                break
+            }
+        }
+
+        // Check accross - top left to bottom right
+        var startTopLeft = position.x
+        for topLeft in (startTopLeft-1).stride(through: 0, by: -1) {
+            let diff = position.x - topLeft
+            let currentMarble = self.marbles[Point(position.x - diff, position.y + diff)]
+
+            if currentMarble?.color == marble.color {
+                startTopLeft = topLeft
+            } else {
+                break
+            }
+        }
+
+        var endTopLeft = position.x
+        for topLeft in (endTopLeft+1).stride(through: self.size.width-1, by: 1) {
+            let diff = topLeft - position.x
+            let currentMarble = self.marbles[Point(position.x + diff, position.y - diff)]
+
+            if currentMarble?.color == marble.color {
+                endTopLeft = topLeft
+            } else {
+                break
+            }
+        }
+
         // Check if there is a horizontal line to be removed
         if endX - startX >= self.lineLength-1 {
             for x in startX...endX {
@@ -143,6 +194,22 @@ class Field
         if endY - startY >= self.lineLength-1 {
             for y in startY...endY {
                 removedMarbles.insert(self.marbles[Point(position.x, y)]!)
+            }
+        }
+
+        // Check if there is a bottom left to top right line to be removed
+        if endBottomLeft - startBottomLeft >= self.lineLength-1 {
+            for bottomLeft in startBottomLeft...endBottomLeft {
+                let diff = bottomLeft - position.x
+                removedMarbles.insert(self.marbles[Point(position.x + diff, position.y + diff)]!)
+            }
+        }
+
+        // Check if there is a top left to bottom right line to be removed
+        if endTopLeft - startTopLeft >= self.lineLength-1 {
+            for topLeft in startTopLeft...endTopLeft {
+                let diff = topLeft - position.x
+                removedMarbles.insert(self.marbles[Point(position.x + diff, position.y - diff)]!)
             }
         }
 
