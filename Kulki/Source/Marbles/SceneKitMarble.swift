@@ -20,16 +20,21 @@ class SceneKitMarble: Marble
 
     var selected: Bool {
         didSet {
-            SCNTransaction.begin()
-            SCNTransaction.setAnimationDuration(0.2)
             if self.selected {
-                self.node.geometry?.firstMaterial?.emission.contents = self.pastelColors[color]
                 self.node.light = self.marbleLight
+
+                var r: CGFloat = 0
+                var g: CGFloat = 0
+                var b: CGFloat = 0
+                var a: CGFloat = 0
+                self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
+                let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
+                    "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
+                self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPointFragment : s]
             } else {
-                self.node.geometry?.firstMaterial?.emission.contents = UIColor.blackColor()
                 self.node.light = nil
+                self.node.geometry?.shaderModifiers = nil
             }
-            SCNTransaction.commit()
         }
     }
 
@@ -58,11 +63,11 @@ class SceneKitMarble: Marble
         self.node.position = position
 
         // And finally the color
-        self.node.geometry?.firstMaterial?.diffuse.contents = self.pastelColors[color]
+        self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
 
         // Setup light
         self.marbleLight.type = SCNLightTypeOmni
-        self.marbleLight.color = self.pastelColors[color]
+        self.marbleLight.color =  self.colors[color]
         self.marbleLight.attenuationStartDistance = 1
         self.marbleLight.attenuationEndDistance = 2
         self.marbleLight.attenuationFalloffExponent = 1
