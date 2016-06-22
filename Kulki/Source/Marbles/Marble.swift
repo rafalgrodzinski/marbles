@@ -21,6 +21,12 @@ class Marble: Hashable, Equatable
                         UIColor.init(colorLiteralRed: 0.8, green: 0.85, blue: 1.0, alpha: 1.0),
                         UIColor.init(colorLiteralRed: 0.83, green: 0.80, blue: 0.99, alpha: 1.0)]
 
+    let myColors = [UIColor.init(colorLiteralRed: 1.00, green: 0.25, blue: 0.25, alpha: 1.00),
+                    UIColor.init(colorLiteralRed: 0.25, green: 1.00, blue: 0.25, alpha: 1.00),
+                    UIColor.init(colorLiteralRed: 0.25, green: 0.25, blue: 1.00, alpha: 1.00),
+                    UIColor.init(colorLiteralRed: 1.00, green: 1.00, blue: 0.25, alpha: 1.00),
+                    UIColor.init(colorLiteralRed: 0.25, green: 1.00, blue: 1.00, alpha: 1.00)]
+
     var hashValue: Int { return "\(self.fieldPosition.x)\(self.fieldPosition.y)\(self.color)".hash }
 
     init(color: Int, fieldPosition: Point)
@@ -28,7 +34,7 @@ class Marble: Hashable, Equatable
         self.color = color
         self.fieldPosition = fieldPosition
 
-        self.colors = self.pastelColors
+        self.colors = self.myColors
     }
 }
 

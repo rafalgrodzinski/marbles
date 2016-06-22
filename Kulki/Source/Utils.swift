@@ -36,6 +36,18 @@ func ==(left: Point, right: Point) -> Bool
 }
 
 
+func -(left: Point, right: Point) -> Point
+{
+    return Point(left.x - right.x, left.y - right.y)
+}
+
+
+func +(left: Point, right: Point) -> Point
+{
+    return Point(left.x + right.x, left.y + right.y)
+}
+
+
 // MARK: - Size -
 struct Size {
     var width: Int

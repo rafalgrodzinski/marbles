@@ -31,7 +31,7 @@ class GameViewController: UIViewController
 
     @IBAction private func threeDimensionalPressed(sender: UIButton)
     {
-        self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(8, 8), colorsCount: 3, marblesPerSpawn: 3, lineLength: 4)
+        self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(8, 8), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
         let rect = self.view.frame
         self.gameView.addSubview(self.game.view)
         self.gameView = self.game.view

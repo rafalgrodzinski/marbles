@@ -34,7 +34,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     private var scoreLabel: SKLabelNode!
 
     private var cameraNode: SCNNode!
-    private var cameraStartPosition: SCNVector3 = SCNVector3Zero
 
 
     // MARK: Initialization
@@ -123,16 +122,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.updateScore(0)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        panGesture.delegate = self
-        self.view.addGestureRecognizer(panGesture)
 
         self.scene.rootNode.castsShadow = false
 
         // Camera
         self.cameraNode = SCNNode()
         self.cameraNode.camera = SCNCamera()
-        self.cameraNode.position = SCNVector3(0.0, 0.0, Float(self.field.size.width + self.field.size.height)/1.5)
+        let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
+        self.cameraNode.position = SCNVector3(0.0, 0.0, height)
         self.scene.rootNode.addChildNode(self.cameraNode)
 
         // Start the game
@@ -276,13 +273,28 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let newRotationMatrix = GLKMatrix4MakeWithQuaternion(scnMarble.rotationQuat)
             let newPosition = self.marblePositionForFieldPosition(position)!
 
+            // Timing function
+            var timingFunction =  kCAMediaTimingFunctionLinear
+
+            let positionDiff = position - previousFieldPosition
+            let wasStraight = index >= 2 && fieldPath[index-2] == (previousFieldPosition - positionDiff)
+            let willBeStraight = index <= fieldPath.count-2 && fieldPath[index+1] == (position + positionDiff)
+
+            if !wasStraight && willBeStraight {
+                timingFunction = kCAMediaTimingFunctionEaseIn
+            } else if wasStraight && !willBeStraight {
+                timingFunction = kCAMediaTimingFunctionEaseOut
+            } else if !wasStraight && !willBeStraight {
+                timingFunction = kCAMediaTimingFunctionEaseInEaseOut
+            }
+
             // Actions
             let waitAction = SCNAction.waitForDuration(NSTimeInterval(self.fieldMoveDuration) * NSTimeInterval(index-1))
 
             let animAct = SCNAction.runBlock { (node:SCNNode) in
                 SCNTransaction.begin()
                 SCNTransaction.setAnimationDuration(NSTimeInterval(self.fieldMoveDuration))
-                SCNTransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
+                SCNTransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: timingFunction))
                 node.transform = SCNMatrix4FromGLKMatrix4(newRotationMatrix)
                 node.position = newPosition
                 SCNTransaction.commit()
@@ -316,44 +328,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 break
             }
         }
-    }
-
-
-    @objc func handlePan(sender: UIPanGestureRecognizer)
-    {
-        let pan = sender.translationInView(self.view)
-
-        self.cameraNode.position.x = self.cameraStartPosition.x - Float(pan.x / CGFloat(self.cameraNode.position.z * 2.0))
-        self.cameraNode.position.y = self.cameraStartPosition.y + Float(pan.y / CGFloat(self.cameraNode.position.z * 2.0))
-
-        let boardWidth = Float(self.field.size.width) * Float(self.tileSize.width)
-        let boardHeight = Float(self.field.size.height) * Float(self.tileSize.height)
-
-        if cameraNode.position.x > boardWidth/2.0 {
-            cameraNode.position.x = boardWidth/2.0
-        }
-
-        if cameraNode.position.x < -boardWidth/2.0 {
-            cameraNode.position.x = -boardWidth/2.0
-        }
-
-        if cameraNode.position.y > boardHeight/2.0 {
-            cameraNode.position.y = boardHeight/2.0
-        }
-
-        if cameraNode.position.y < -boardHeight/2.0 {
-            cameraNode.position.y = -boardHeight/2.0
-        }
-
-        print("\(self.cameraNode.position.x):\(self.cameraNode.position.y)")
-    }
-
-
-    @objc func gestureRecognizerShouldBegin(sender: UIGestureRecognizer) -> Bool
-    {
-        self.cameraStartPosition = self.cameraNode.position
-
-        return true
     }
 
 
