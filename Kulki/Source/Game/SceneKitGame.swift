@@ -21,7 +21,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     private var tileSelectionParticle: SCNParticleSystem!
 
     private let boardHeight: Float = 0.25
-    private let fieldMoveDuration: Float = 0.5
+    private let fieldMoveDuration: Float = 0.4
 
     let tilePrototype: SCNNode = { let tileNode = SCNNode()
         tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
@@ -50,7 +50,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
 
-        self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -9.8)
+        self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -18)
 
         self.tileSize = CGSizeMake(1.0, 1.0)
 
@@ -189,8 +189,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let fadeInAction = SCNAction.fadeInWithDuration(0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
             let addGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamicBody() }
-            let waitToSettle = SCNAction.waitForDuration(1.0)
-            let moveToPoint = SCNAction.moveTo(targetPosition, duration: 0.2)
+            let waitToSettle = SCNAction.waitForDuration(0.5)
+            let moveToPoint = SCNAction.moveTo(targetPosition, duration: 0.1)
             let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
 
             let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
