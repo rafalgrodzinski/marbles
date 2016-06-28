@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TFi-pa-EcF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TFi-pa-EcF">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,17 +17,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kulki" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVq-z8-DbR">
-                                <rect key="frame" x="282" y="290.5" width="36.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kip-ub-Ocp" userLabel="Container View">
+                                <rect key="frame" x="20" y="0.0" width="560" height="268"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="JIs-ee-efV">
+                                        <rect key="frame" x="121" y="101" width="320" height="64"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerX" secondItem="Kip-ub-Ocp" secondAttribute="centerX" constant="1" id="4WM-q8-cMR"/>
+                                    <constraint firstAttribute="bottom" secondItem="JIs-ee-efV" secondAttribute="bottom" id="DEL-fu-8sF"/>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerY" secondItem="Kip-ub-Ocp" secondAttribute="centerY" constant="-1" id="N7S-xy-McL"/>
+                                    <constraint firstAttribute="trailing" secondItem="JIs-ee-efV" secondAttribute="trailing" id="Sjx-KW-2gT"/>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="leading" secondItem="Kip-ub-Ocp" secondAttribute="leading" id="igS-Ra-zsR"/>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="top" secondItem="Kip-ub-Ocp" secondAttribute="top" id="jZP-8l-3oQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="JIs-ee-efV" secondAttribute="bottom" id="yL9-cz-vJH"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DEL-fu-8sF"/>
+                                        <exclude reference="Sjx-KW-2gT"/>
+                                        <exclude reference="igS-Ra-zsR"/>
+                                        <exclude reference="jZP-8l-3oQ"/>
+                                        <exclude reference="yL9-cz-vJH"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VXE-oX-sIf" userLabel="Center Dummy View">
+                                <rect key="frame" x="20" y="268" width="560" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="gco-cH-yMf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jVq-z8-DbR" firstAttribute="centerX" secondItem="ANV-c6-VYb" secondAttribute="centerX" id="HVD-u5-xap"/>
-                            <constraint firstItem="jVq-z8-DbR" firstAttribute="centerY" secondItem="ANV-c6-VYb" secondAttribute="centerY" id="KBo-eZ-QQa"/>
+                            <constraint firstItem="VXE-oX-sIf" firstAttribute="centerY" secondItem="ANV-c6-VYb" secondAttribute="centerY" id="76P-mh-uAf"/>
+                            <constraint firstItem="VXE-oX-sIf" firstAttribute="top" secondItem="Kip-ub-Ocp" secondAttribute="bottom" id="BfH-bA-tBW"/>
+                            <constraint firstItem="Kip-ub-Ocp" firstAttribute="leading" secondItem="ANV-c6-VYb" secondAttribute="leadingMargin" id="HAA-uH-h4Y"/>
+                            <constraint firstItem="Kip-ub-Ocp" firstAttribute="top" secondItem="ANV-c6-VYb" secondAttribute="topMargin" id="Ntj-Xm-CVS"/>
+                            <constraint firstItem="VXE-oX-sIf" firstAttribute="leading" secondItem="ANV-c6-VYb" secondAttribute="leadingMargin" id="o6k-Ra-JuX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VXE-oX-sIf" secondAttribute="trailing" id="yWw-24-WuM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kip-ub-Ocp" secondAttribute="trailing" id="z4k-0P-iAK"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,4 +69,7 @@
             <point key="canvasLocation" x="362" y="251"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreenLogo" width="320" height="64"/>
+    </resources>
 </document>

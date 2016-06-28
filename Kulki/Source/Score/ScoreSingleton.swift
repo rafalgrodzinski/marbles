@@ -14,7 +14,7 @@ class ScoreSingleton
     static let sharedInstance = ScoreSingleton()
 
     var currentScore = 0
-    var bestScore = 0
+    var highScore = 0
 
     private var colorsCount = 0
     private var lineLength = 0

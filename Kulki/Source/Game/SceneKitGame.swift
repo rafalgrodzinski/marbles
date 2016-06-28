@@ -100,26 +100,18 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         let overlayScene = SKScene(size: self.view.frame.size)
         (self.view as! SCNView).overlaySKScene = overlayScene
 
-        // Overlay background
-        let backWidth = 250.0
-        let backHeight = 75.0
-        let path = UIBezierPath(roundedRect: CGRectMake(0.0, 0.0, CGFloat(backWidth), CGFloat(backHeight)), cornerRadius: 10.0).CGPath
-        let background = SKShapeNode(path: path, centered: true)
-        background.position = CGPointMake(overlayScene.size.width/2.0,
-            overlayScene.size.height - CGFloat(backHeight)/2.0 - 10.0)
-        background.fillColor = UIColor(white: 0.0, alpha: 0.5)
-        background.strokeColor = UIColor.clearColor()
-        overlayScene.addChild(background)
 
         // Score label
-        self.scoreLabel = SKLabelNode(fontNamed: "Helvetica")
-        self.scoreLabel.fontSize = 20.0
-        self.scoreLabel.horizontalAlignmentMode = .Left
+        self.scoreLabel = SKLabelNode(fontNamed: "BornAddict")
+        self.scoreLabel.fontSize = 24.0
+        self.scoreLabel.horizontalAlignmentMode = .Center
         self.scoreLabel.verticalAlignmentMode = .Center
-        self.scoreLabel.position = CGPointMake(background.position.x - background.frame.size.width/2.0 + 10.0,
-                                               background.position.y + 15.0)
+        self.scoreLabel.position = CGPointMake(overlayScene.size.width/2.0,
+                                               overlayScene.size.height - 32.0)
         overlayScene.addChild(self.scoreLabel)
         self.updateScore(0)
+
+        // Back button
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
@@ -313,7 +305,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     override func updateScore(newScore: Int)
     {
-        self.scoreLabel.text = "Your score: \(newScore)"
+        self.scoreLabel.text = "Score: \(newScore)"
     }
 
 
