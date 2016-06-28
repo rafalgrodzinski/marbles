@@ -21,6 +21,9 @@ public class Game: NSObject
     private var selectedMarble: Marble?
     private var spawnedMarbles: [Marble]?
 
+    // Events
+    public var quitGameCallback: (() -> Void)?
+    public var restartGameCallback: (() -> Void)?
 
     // MARK: - Initialization -
     init(field: Field)

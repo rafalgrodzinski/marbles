@@ -49,6 +49,16 @@ class MainMenuViewController: UIViewController
         gameVc.modalTransitionStyle = .CrossDissolve
         game.view.frame = gameVc.view.bounds
 
+        game.quitGameCallback = {
+            self.updateHighScoreLabel()
+            gameVc.dismissViewControllerAnimated(true, completion: nil)
+        }
+
+        game.restartGameCallback = {
+            gameVc.dismissViewControllerAnimated(false, completion: nil)
+            self.playButtonPressed(sender)
+        }
+
         self.presentViewController(gameVc, animated: true) {
             self.updateHighScoreLabel()
         }

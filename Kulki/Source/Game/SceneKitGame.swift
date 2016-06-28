@@ -112,6 +112,16 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.updateScore(0)
 
         // Back button
+        let backButton = Button(defaultTexture: SKTexture(imageNamed: "Back Button") , pressedTexture: nil)
+        backButton.position = CGPoint(x: backButton.size.width/2.0 + 16.0, y: overlayScene.size.height - backButton.size.height/2.0 - 16.0)
+        backButton.callback = self.quitGameCallback
+        overlayScene.addChild(backButton)
+
+        // Restart button
+        let restartButton = Button(defaultTexture: SKTexture(imageNamed: "Restart Button"), pressedTexture: nil)
+        restartButton.position = CGPointMake(backButton.position.x + restartButton.size.width/2.0 + 16.0, backButton.position.y)
+        restartButton.callback = self.restartGameCallback
+        overlayScene.addChild(restartButton)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
