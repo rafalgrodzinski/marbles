@@ -49,6 +49,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.scene = SCNScene()
         (self.view as! SCNView).scene = self.scene!
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
+        self.view.backgroundColor = UIColor.clearColor()
+
+        let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
+        self.view.superview?.insertSubview(backgroundView, atIndex: 0)
 
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -18)
 
@@ -104,6 +108,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Score label
         self.scoreLabel = SKLabelNode(fontNamed: "BornAddict")
         self.scoreLabel.fontSize = 24.0
+        self.scoreLabel.color = UIColor.blackColor()
+        self.scoreLabel.colorBlendFactor = 1.0
         self.scoreLabel.horizontalAlignmentMode = .Center
         self.scoreLabel.verticalAlignmentMode = .Center
         self.scoreLabel.position = CGPointMake(overlayScene.size.width/2.0,
@@ -152,7 +158,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         }
 
         // Add plane
-        let grassNode = SCNNode()
+        /*let grassNode = SCNNode()
         grassNode.position.z = -self.boardHeight
         grassNode.geometry = SCNPlane(width: 100, height: 100)
         grassNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "GrassDiffuse")
@@ -171,7 +177,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         grassNode.geometry?.firstMaterial?.specular.wrapT = .Repeat
         grassNode.geometry?.firstMaterial?.specular.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
 
-        self.scene.rootNode.addChildNode(grassNode)
+        self.scene.rootNode.addChildNode(grassNode)*/
 
         finished()
     }
