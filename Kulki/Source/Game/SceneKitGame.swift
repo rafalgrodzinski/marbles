@@ -32,6 +32,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         return tileNode }()
 
     private var scoreLabel: SKLabelNode!
+    private var scoreLabelShadow: SKLabelNode!
 
     private var cameraNode: SCNNode!
 
@@ -106,28 +107,28 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
 
         // Score label
-        self.scoreLabel = SKLabelNode(fontNamed: "BornAddict")
-        self.scoreLabel.fontSize = 24.0
-        self.scoreLabel.color = UIColor.blackColor()
-        self.scoreLabel.colorBlendFactor = 1.0
+        self.scoreLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
+        self.scoreLabel.fontSize = 32.0
+        self.scoreLabel.fontColor = UIColor.marblesGreen()
         self.scoreLabel.horizontalAlignmentMode = .Center
         self.scoreLabel.verticalAlignmentMode = .Center
-        self.scoreLabel.position = CGPointMake(overlayScene.size.width/2.0,
+        self.scoreLabel.position = CGPointMake(overlayScene.size.width*2.0/3.0,
                                                overlayScene.size.height - 32.0)
+        // Score label shadow
+        self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
+        self.scoreLabelShadow.fontColor = UIColor.blackColor()
+        self.scoreLabelShadow.position.x += 1.5
+        self.scoreLabelShadow.position.y -= 1.5
+
+        overlayScene.addChild(self.scoreLabelShadow)
         overlayScene.addChild(self.scoreLabel)
         self.updateScore(0)
 
-        // Back button
-        let backButton = Button(defaultTexture: SKTexture(imageNamed: "Back Button") , pressedTexture: nil)
-        backButton.position = CGPoint(x: backButton.size.width/2.0 + 16.0, y: overlayScene.size.height - backButton.size.height/2.0 - 16.0)
-        backButton.callback = self.quitGameCallback
-        overlayScene.addChild(backButton)
-
-        // Restart button
-        let restartButton = Button(defaultTexture: SKTexture(imageNamed: "Restart Button"), pressedTexture: nil)
-        restartButton.position = CGPointMake(backButton.position.x + restartButton.size.width/2.0 + 16.0, backButton.position.y)
-        restartButton.callback = self.restartGameCallback
-        overlayScene.addChild(restartButton)
+        // Menu button
+        let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
+        menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
+        menuButton.callback = self.quitGameCallback
+        overlayScene.addChild(menuButton)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
@@ -322,6 +323,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     override func updateScore(newScore: Int)
     {
         self.scoreLabel.text = "Score: \(newScore)"
+        self.scoreLabelShadow.text = self.scoreLabel.text
     }
 
 

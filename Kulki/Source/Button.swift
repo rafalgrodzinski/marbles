@@ -37,12 +37,7 @@ class Button: SKSpriteNode
     // MARK: - Control -
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-        if let pressedTexture = self.pressedTexture {
-            self.texture = pressedTexture
-        } else {
-            self.color = UIColor(white: 0.0, alpha: 1.0)
-            self.colorBlendFactor = 0.5
-        }
+        self.showPressed()
     }
 
 
@@ -54,8 +49,7 @@ class Button: SKSpriteNode
 
     override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?)
     {
-        self.texture = self.defaultTexture
-        self.colorBlendFactor = 0.0
+        self.showDefault()
 
         for touch in touches! {
             let location = touch.locationInNode(self.parent!)
@@ -65,6 +59,39 @@ class Button: SKSpriteNode
                     callback()
                 }
             }
+        }
+    }
+
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        for touch in touches {
+            let location = touch.locationInNode(self.parent!)
+
+            if self.containsPoint(location) {
+                self.showPressed()
+                return
+            }
+        }
+
+        self.showDefault()
+    }
+
+
+    // MARK: - Internal Control -
+    private func showDefault()
+    {
+        self.texture = self.defaultTexture
+        self.colorBlendFactor = 0.0
+    }
+
+
+    private func showPressed()
+    {
+        if let pressedTexture = self.pressedTexture {
+            self.texture = pressedTexture
+        } else {
+            self.color = UIColor(white: 0.0, alpha: 1.0)
+            self.colorBlendFactor = 0.5
         }
     }
 }

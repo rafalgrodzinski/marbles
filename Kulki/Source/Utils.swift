@@ -99,3 +99,12 @@ extension SCNNode
         return node
     }
 }
+
+
+extension UIColor
+{
+    class func marblesGreen() -> UIColor
+    {
+        return UIColor(red: 0.55, green: 0.89, blue: 0.21, alpha: 1.0)
+    }
+}

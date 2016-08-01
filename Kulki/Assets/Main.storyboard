@@ -67,7 +67,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="28"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="Play" backgroundImage="Button">
+                                <state key="normal" title="New Game" backgroundImage="Button">
                                     <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
