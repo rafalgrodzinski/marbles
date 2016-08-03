@@ -127,7 +127,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
-        menuButton.callback = self.quitGameCallback
+        menuButton.callback = self.menuButtonCallback
         overlayScene.addChild(menuButton)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))

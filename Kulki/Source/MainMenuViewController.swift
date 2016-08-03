@@ -14,19 +14,20 @@ class MainMenuViewController: UIViewController
     // Constant
     let logoColorUpdateInterval = 1.0/60.0
     let logoColorUpdateAmount = 1.0/(60.0 * 15.0)
+    var resumeButtonHeight: CGFloat = 0.0
 
     // Variables
     var currentLogoHue = 100.0/360.0
     var logoColorUpdateTimer: NSTimer!
+    var gameVc: UIViewController?
 
     // Outlets
     @IBOutlet private weak var logoLabel: UILabel!
     @IBOutlet private weak var highScoreLabel: UILabel!
+    @IBOutlet private weak var topButton: UIButton!
+    @IBOutlet private weak var bottomButton: UIButton!
 
-    /*@IBOutlet private weak var gameView: UIView!
-    @IBOutlet private  weak var menuView: UIView!
-    private var game: Game!*/
-     
+
     // MARK: - Initialization -
     override func viewDidLoad()
     {
@@ -37,33 +38,37 @@ class MainMenuViewController: UIViewController
                                                                            selector: #selector(updateLogoLabelColorTimeout),
                                                                            userInfo: nil,
                                                                            repeats: true)
+
+        self.logoLabel.textColor = UIColor.marblesGreen()
+
+        self.setupForNewGame()
     }
 
 
     // MARK: - Actions -
-    @IBAction func playButtonPressed(sender: AnyObject)
+    @IBAction func newGameButtonPressed(sender: AnyObject)
     {
-        let gameVc = UIViewController()
+        self.gameVc = UIViewController()
         let game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
-        gameVc.view.addSubview(game.view)
-        gameVc.modalTransitionStyle = .CrossDissolve
-        game.view.frame = gameVc.view.bounds
+        self.gameVc!.view.addSubview(game.view)
+        self.gameVc!.modalTransitionStyle = .CrossDissolve
+        game.view.frame = gameVc!.view.bounds
 
-        game.quitGameCallback = {
-            self.updateHighScoreLabel()
-            gameVc.dismissViewControllerAnimated(true, completion: nil)
-        }
-
-        game.restartGameCallback = {
-            gameVc.dismissViewControllerAnimated(false, completion: nil)
-            self.playButtonPressed(sender)
-        }
-
-        self.presentViewController(gameVc, animated: true) {
-            self.updateHighScoreLabel()
+        weak var welf = self
+        game.menuButtonCallback = {
+            welf?.setupForResume()
+            welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
         }
 
         game.startGame()
+
+        self.presentViewController(self.gameVc!, animated: true, completion: nil)
+    }
+
+
+    @IBAction func resumeGameButtonPressed(sender: AnyObject)
+    {
+        self.presentViewController(self.gameVc!, animated: true, completion: nil)
     }
 
 
@@ -90,6 +95,33 @@ class MainMenuViewController: UIViewController
         {
             self.highScoreLabel.hidden = true
         }
+    }
+
+
+    private func setupForNewGame()
+    {
+        // Top Button
+        self.topButton.setTitle("New Game", forState: .Normal)
+        self.topButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        self.topButton.addTarget(self, action: #selector(newGameButtonPressed), forControlEvents: .TouchUpInside)
+
+        // Bottom Button
+        self.bottomButton.hidden = true
+    }
+
+
+    private func setupForResume()
+    {
+        // Top Button
+        self.topButton.setTitle("Resume", forState: .Normal)
+        self.topButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        self.topButton.addTarget(self, action: #selector(resumeGameButtonPressed), forControlEvents: .TouchUpInside)
+
+        // Bottom Button
+        self.bottomButton.hidden = false
+        self.bottomButton.setTitle("New Game", forState: .Normal)
+        self.bottomButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed), forControlEvents: .TouchUpInside)
     }
 
     // MARK: - Actions -

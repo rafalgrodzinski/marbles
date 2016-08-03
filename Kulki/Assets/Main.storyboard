@@ -9,6 +9,7 @@
             <string>BunakenUnderwater</string>
             <string>BunakenUnderwater</string>
             <string>BunakenUnderwater</string>
+            <string>BunakenUnderwater</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -24,11 +25,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LP-YF-7Rj">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LP-YF-7Rj" userLabel="Container View">
                                 <rect key="frame" x="20" y="20" width="560" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marbles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewZ-vY-kxM">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="248"/>
+                                        <rect key="frame" x="0.0" y="92" width="560" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="Zkj-Kf-5pY"/>
                                         </constraints>
@@ -50,58 +51,87 @@
                                     <constraint firstItem="ewZ-vY-kxM" firstAttribute="leading" secondItem="1LP-YF-7Rj" secondAttribute="leading" id="8jd-gA-2Y0"/>
                                     <constraint firstAttribute="trailing" secondItem="ewZ-vY-kxM" secondAttribute="trailing" id="JHK-eW-xwo"/>
                                     <constraint firstAttribute="bottom" secondItem="ewZ-vY-kxM" secondAttribute="bottom" id="kqt-P0-aUR"/>
+                                    <constraint firstItem="ewZ-vY-kxM" firstAttribute="centerY" secondItem="1LP-YF-7Rj" secondAttribute="centerY" id="mVW-CP-JiR"/>
                                     <constraint firstItem="ewZ-vY-kxM" firstAttribute="centerY" secondItem="1LP-YF-7Rj" secondAttribute="centerY" id="opO-Vb-xyF"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="2HW-mg-37T"/>
+                                        <exclude reference="6xy-7X-aXy"/>
+                                        <exclude reference="kqt-P0-aUR"/>
+                                        <exclude reference="opO-Vb-xyF"/>
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-ON-emD">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-ON-emD" userLabel="Top Button">
                                 <rect key="frame" x="172" y="268" width="256" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="dYp-5e-xYq"/>
                                     <constraint firstAttribute="width" constant="256" id="fyU-HD-dvW"/>
-                                    <constraint firstAttribute="height" constant="32" id="ipd-gQ-bTq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="28"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="New Game" backgroundImage="Button">
+                                <state key="normal" title="Top Button" backgroundImage="Button">
                                     <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="ipd-gQ-bTq"/>
-                                    </mask>
-                                </variation>
                                 <connections>
-                                    <action selector="playButtonPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="VKZ-In-vUM"/>
+                                    <action selector="resumeGameButtonPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="uHV-G0-mw4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMy-9v-tqI" userLabel="Bottom Button">
+                                <rect key="frame" x="172" y="332" width="256" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="47c-II-FeW"/>
+                                    <constraint firstAttribute="height" constant="64" id="vFr-Uh-pRq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="28"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Bottom Button" backgroundImage="Button">
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newGameButtonPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="jBK-3k-fNq"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8s-46-3XP">
-                                <rect key="frame" x="20" y="348" width="560" height="17"/>
+                                <rect key="frame" x="20" y="404" width="560" height="18"/>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="17"/>
                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="a8s-46-3XP" secondAttribute="trailing" id="8N3-GY-dwY"/>
+                            <constraint firstItem="qMy-9v-tqI" firstAttribute="centerX" secondItem="BNP-zL-FhU" secondAttribute="centerX" id="BzR-41-FcP"/>
+                            <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="ewZ-vY-kxM" secondAttribute="bottom" id="LMa-Xx-xqO"/>
+                            <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="1LP-YF-7Rj" secondAttribute="bottom" id="Vg5-Gf-zAO"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="centerY" secondItem="BNP-zL-FhU" secondAttribute="centerY" id="Y4i-m2-RYm"/>
                             <constraint firstItem="1LP-YF-7Rj" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leadingMargin" id="bAK-bC-xcJ"/>
+                            <constraint firstItem="qMy-9v-tqI" firstAttribute="top" secondItem="kbx-ON-emD" secondAttribute="bottom" id="e4d-iD-OMG"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="centerX" secondItem="BNP-zL-FhU" secondAttribute="centerX" id="eQ5-Dj-CIN"/>
+                            <constraint firstItem="a8s-46-3XP" firstAttribute="top" secondItem="qMy-9v-tqI" secondAttribute="bottom" constant="8" id="hQg-Se-kw7"/>
                             <constraint firstItem="1LP-YF-7Rj" firstAttribute="top" secondItem="jva-sR-gDA" secondAttribute="bottom" id="jnP-ND-7Ig"/>
                             <constraint firstItem="a8s-46-3XP" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leadingMargin" id="k8K-mJ-0BZ"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="1LP-YF-7Rj" secondAttribute="bottom" id="kQq-tX-Eq4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1LP-YF-7Rj" secondAttribute="trailing" id="vMx-eE-4KC"/>
                             <constraint firstItem="a8s-46-3XP" firstAttribute="top" secondItem="kbx-ON-emD" secondAttribute="bottom" constant="16" id="zkB-BI-UZf"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="LMa-Xx-xqO"/>
+                                <exclude reference="kQq-tX-Eq4"/>
+                                <exclude reference="zkB-BI-UZf"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="bottomButton" destination="qMy-9v-tqI" id="d11-lg-Ese"/>
                         <outlet property="highScoreLabel" destination="a8s-46-3XP" id="0zJ-AS-Gce"/>
                         <outlet property="logoLabel" destination="ewZ-vY-kxM" id="RvZ-ny-oqc"/>
+                        <outlet property="topButton" destination="kbx-ON-emD" id="Dqf-Uj-A88"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bg6-Rw-dIw" userLabel="First Responder" sceneMemberID="firstResponder"/>

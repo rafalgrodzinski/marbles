@@ -22,8 +22,7 @@ public class Game: NSObject
     private var spawnedMarbles: [Marble]?
 
     // Events
-    public var quitGameCallback: (() -> Void)?
-    public var restartGameCallback: (() -> Void)?
+    public var menuButtonCallback: (() -> Void)?
 
     // MARK: - Initialization -
     init(field: Field)

@@ -18,17 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kip-ub-Ocp" userLabel="Container View">
-                                <rect key="frame" x="20" y="0.0" width="560" height="268"/>
+                                <rect key="frame" x="20" y="20" width="560" height="248"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="JIs-ee-efV">
-                                        <rect key="frame" x="121" y="101" width="320" height="64"/>
+                                        <rect key="frame" x="120" y="92" width="320" height="64"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerX" secondItem="Kip-ub-Ocp" secondAttribute="centerX" constant="1" id="4WM-q8-cMR"/>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerX" secondItem="Kip-ub-Ocp" secondAttribute="centerX" id="4WM-q8-cMR"/>
                                     <constraint firstAttribute="bottom" secondItem="JIs-ee-efV" secondAttribute="bottom" id="DEL-fu-8sF"/>
-                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerY" secondItem="Kip-ub-Ocp" secondAttribute="centerY" constant="-1" id="N7S-xy-McL"/>
+                                    <constraint firstItem="JIs-ee-efV" firstAttribute="centerY" secondItem="Kip-ub-Ocp" secondAttribute="centerY" id="N7S-xy-McL"/>
                                     <constraint firstAttribute="trailing" secondItem="JIs-ee-efV" secondAttribute="trailing" id="Sjx-KW-2gT"/>
                                     <constraint firstItem="JIs-ee-efV" firstAttribute="leading" secondItem="Kip-ub-Ocp" secondAttribute="leading" id="igS-Ra-zsR"/>
                                     <constraint firstItem="JIs-ee-efV" firstAttribute="top" secondItem="Kip-ub-Ocp" secondAttribute="top" id="jZP-8l-3oQ"/>
@@ -57,11 +57,17 @@
                             <constraint firstItem="VXE-oX-sIf" firstAttribute="centerY" secondItem="ANV-c6-VYb" secondAttribute="centerY" id="76P-mh-uAf"/>
                             <constraint firstItem="VXE-oX-sIf" firstAttribute="top" secondItem="Kip-ub-Ocp" secondAttribute="bottom" id="BfH-bA-tBW"/>
                             <constraint firstItem="Kip-ub-Ocp" firstAttribute="leading" secondItem="ANV-c6-VYb" secondAttribute="leadingMargin" id="HAA-uH-h4Y"/>
-                            <constraint firstItem="Kip-ub-Ocp" firstAttribute="top" secondItem="ANV-c6-VYb" secondAttribute="topMargin" id="Ntj-Xm-CVS"/>
+                            <constraint firstItem="Kip-ub-Ocp" firstAttribute="top" secondItem="ANV-c6-VYb" secondAttribute="top" id="Ntj-Xm-CVS"/>
+                            <constraint firstItem="Kip-ub-Ocp" firstAttribute="top" secondItem="ESa-y0-pUC" secondAttribute="bottom" id="RLW-ye-VZH"/>
                             <constraint firstItem="VXE-oX-sIf" firstAttribute="leading" secondItem="ANV-c6-VYb" secondAttribute="leadingMargin" id="o6k-Ra-JuX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VXE-oX-sIf" secondAttribute="trailing" id="yWw-24-WuM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kip-ub-Ocp" secondAttribute="trailing" id="z4k-0P-iAK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ntj-Xm-CVS"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baL-RK-iir" userLabel="First Responder" sceneMemberID="firstResponder"/>
