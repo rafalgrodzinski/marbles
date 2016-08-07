@@ -10,14 +10,16 @@ import SpriteKit
 
 class Button: SKSpriteNode
 {
+    // MARK: Variables
     private var defaultTexture: SKTexture? = nil
     private var pressedTexture: SKTexture? = nil
 
+    // MARK: - Callbacks -
     var callback: (() -> Void)?
 
 
     // MARK: - Initialization -
-    init(defaultTexture: SKTexture, pressedTexture: SKTexture?)
+    init(defaultTexture: SKTexture, pressedTexture: SKTexture? = nil)
     {
         self.defaultTexture = defaultTexture
         self.pressedTexture = pressedTexture

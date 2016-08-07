@@ -55,8 +55,17 @@ class MainMenuViewController: UIViewController
         game.view.frame = gameVc!.view.bounds
 
         weak var welf = self
-        game.menuButtonCallback = {
+        game.pauseCallback = {
+            welf?.currentLogoHue = 100.0/360.0
+            welf?.updateHighScoreLabel()
             welf?.setupForResume()
+            welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
+        }
+
+        game.quitCallback = {
+            welf?.currentLogoHue = 100.0/360.0
+            welf?.updateHighScoreLabel()
+            welf?.setupForNewGame()
             welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
         }
 

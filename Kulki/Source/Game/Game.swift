@@ -21,8 +21,9 @@ public class Game: NSObject
     private var selectedMarble: Marble?
     private var spawnedMarbles: [Marble]?
 
-    // Events
-    public var menuButtonCallback: (() -> Void)?
+    // Callbacks
+    public var pauseCallback: (() -> Void)?
+    public var quitCallback: (() -> Void)?
 
     // MARK: - Initialization -
     init(field: Field)
@@ -144,7 +145,7 @@ public class Game: NSObject
         self.currentState = state
 
         if self.field.isFull {
-            print("Game is finished")
+            self.executeFinishedState(self.currentState!)
         } else {
             state.goToNextState()
         }
@@ -178,6 +179,11 @@ public class Game: NSObject
     func executeFinishedState(state: State)
     {
         self.currentState = state
+
+        let score = ScoreSingleton.sharedInstance.currentScore
+        let isHighScore = ScoreSingleton.sharedInstance.currentScore > ScoreSingleton.sharedInstance.highScore
+
+        self.gameFinished(score, isHighScore: isHighScore)
     }
 
 
@@ -263,6 +269,15 @@ public class Game: NSObject
 
     // MARK: <<Abstract>>
     func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
+    {
+        assert(false, "<<Abstract method>>")
+    }
+
+
+    // MARK: - Finished -
+
+    // MARK: - <<Abstract>>
+    func gameFinished(score: Int, isHighScore: Bool)
     {
         assert(false, "<<Abstract method>>")
     }

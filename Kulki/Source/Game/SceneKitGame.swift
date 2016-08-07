@@ -33,6 +33,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     private var scoreLabel: SKLabelNode!
     private var scoreLabelShadow: SKLabelNode!
+    private var gameOverPopup: GameOverPopup!
 
     private var cameraNode: SCNNode!
 
@@ -127,8 +128,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
-        menuButton.callback = self.menuButtonCallback
+        menuButton.callback = self.pauseCallback
         overlayScene.addChild(menuButton)
+
+        // Game over popup
+        self.gameOverPopup = GameOverPopup(size: overlayScene.size)
+        self.gameOverPopup.position = CGPointMake(CGRectGetMidX(overlayScene.frame), CGRectGetMidY(overlayScene.frame))
+        self.gameOverPopup.quitCallback = self.quitCallback
+        overlayScene.addChild(self.gameOverPopup)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
@@ -324,6 +331,12 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         self.scoreLabel.text = "Score: \(newScore)"
         self.scoreLabelShadow.text = self.scoreLabel.text
+    }
+
+
+    override func gameFinished(score: Int, isHighScore: Bool)
+    {
+        self.gameOverPopup.show(score, isHighScore: isHighScore)
     }
 
 
