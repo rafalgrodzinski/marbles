@@ -34,6 +34,12 @@ class Field
 
 
     // MARK: - Control -
+    func reset()
+    {
+        self.marbles = [Point : Marble]()
+    }
+
+
     func spawnMarbles() -> [Marble]
     {
         var spawnedMarbles = [Marble]()

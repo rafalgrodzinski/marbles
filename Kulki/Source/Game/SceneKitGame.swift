@@ -48,13 +48,21 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     final override func setupCustom()
     {
-        self.scene = SCNScene()
-        (self.view as! SCNView).scene = self.scene!
+        (self.view as! SCNView).playing = false
         (self.view as! SCNView).antialiasingMode = .Multisampling4X
         self.view.backgroundColor = UIColor.clearColor()
 
-        let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
-        self.view.superview?.insertSubview(backgroundView, atIndex: 0)
+        if(self.scene == nil) {
+            self.scene = SCNScene()
+            (self.view as! SCNView).scene = self.scene!
+
+            let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
+            self.view.superview?.insertSubview(backgroundView, atIndex: 0)
+
+            self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        } else {
+            self.scene.rootNode.enumerateChildNodesUsingBlock() { (node, p) in node.removeFromParentNode() }
+        }
 
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -18)
 
@@ -106,7 +114,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         let overlayScene = SKScene(size: self.view.frame.size)
         (self.view as! SCNView).overlaySKScene = overlayScene
 
-
         // Score label
         self.scoreLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.scoreLabel.fontSize = 32.0
@@ -134,10 +141,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
         self.gameOverPopup.position = CGPointMake(CGRectGetMidX(overlayScene.frame), CGRectGetMidY(overlayScene.frame))
+        self.gameOverPopup.restartCallback = self.startGame
         self.gameOverPopup.quitCallback = self.quitCallback
         overlayScene.addChild(self.gameOverPopup)
-
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
         self.scene.rootNode.castsShadow = false
 
@@ -149,7 +155,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.scene.rootNode.addChildNode(self.cameraNode)
 
         // Start the game
-        (self.view as! SCNView).play(nil)
+        (self.view as! SCNView).playing = true
     }
 
 

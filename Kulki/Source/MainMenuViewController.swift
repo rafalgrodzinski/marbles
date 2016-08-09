@@ -70,7 +70,6 @@ class MainMenuViewController: UIViewController
         }
 
         game.startGame()
-
         self.presentViewController(self.gameVc!, animated: true, completion: nil)
     }
 

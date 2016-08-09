@@ -28,14 +28,11 @@ public class Game: NSObject
     // MARK: - Initialization -
     init(field: Field)
     {
-
         self.field = field
         super.init()
+        
         self.setupView()
         assert(self.view != nil, "self.view must not be nil")
-
-        // Setup score singleton
-        ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
 
         // Setup states
         let startupState = State()
@@ -94,6 +91,12 @@ public class Game: NSObject
     // MARK: - Control -
     public func startGame()
     {
+        // Setup score singleton
+        ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
+        // Reset the field (in case the game was restarted)
+        self.field.reset()
+
+        // Load all the objects
         self.setupCustom()
 
         self.states[0].execute()
@@ -145,7 +148,8 @@ public class Game: NSObject
         self.currentState = state
 
         if self.field.isFull {
-            self.executeFinishedState(self.currentState!)
+            let finishedState = self.states.last!
+            finishedState.execute()
         } else {
             state.goToNextState()
         }
@@ -276,7 +280,7 @@ public class Game: NSObject
 
     // MARK: - Finished -
 
-    // MARK: - <<Abstract>>
+    // MARK: <<Abstract>>
     func gameFinished(score: Int, isHighScore: Bool)
     {
         assert(false, "<<Abstract method>>")

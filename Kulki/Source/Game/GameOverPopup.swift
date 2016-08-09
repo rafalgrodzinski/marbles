@@ -122,17 +122,15 @@ public class GameOverPopup: SKNode
     // MARK: - Events -
     func restartButtonPressed()
     {
-        self.runAction(SKAction.fadeOutWithDuration(0.5))
-        let scaleAction = SKAction.scaleTo(0.0, duration: 0.5)
-        scaleAction.timingMode = .EaseIn
-        self.runAction(SKAction.sequence([scaleAction,
+        let restartCallback = { dispatch_async(dispatch_get_main_queue()) { self.restartCallback!() } }
+        self.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.2),
                                          SKAction.runBlock {self.hidden = true},
-                                         SKAction.runBlock(self.restartCallback!)]))
+                                         SKAction.runBlock(restartCallback)]))
     }
 
 
     func menuButtonPressed()
     {
-        self.quitCallback!()
+        dispatch_async(dispatch_get_main_queue()) { self.quitCallback!() }
     }
 }
