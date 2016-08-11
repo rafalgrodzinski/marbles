@@ -43,6 +43,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         self.view = SCNView()
         (self.view as! SCNView).showsStatistics = true
+        //(self.view as! SCNView).allowsCameraControl = true
     }
 
 
@@ -168,32 +169,24 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 tileNode.position.z = -Float(self.boardHeight / 2.0)
 
                 self.scene.rootNode.addChildNode(tileNode)
+
+                tileNode.scale = SCNVector3Zero
+
+                //let delayAction = SCNAction.waitForDuration(0.5, withRange: 0.7)
+                let delayAction = SCNAction.waitForDuration(Double(x + y) * 0.05 + 0.2)
+                let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
+                scaleAction.timingMode = .EaseInEaseOut
+
+                let sequence = SCNAction.sequence([delayAction, scaleAction])
+
+                tileNode.runAction(sequence)
             }
         }
 
-        // Add plane
-        /*let grassNode = SCNNode()
-        grassNode.position.z = -self.boardHeight
-        grassNode.geometry = SCNPlane(width: 100, height: 100)
-        grassNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "GrassDiffuse")
-        grassNode.geometry?.firstMaterial?.diffuse.wrapS = .Repeat
-        grassNode.geometry?.firstMaterial?.diffuse.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
-
-        grassNode.geometry?.firstMaterial?.normal.contents = UIImage(named: "GrassNormal")
-        grassNode.geometry?.firstMaterial?.normal.intensity = 0.5
-        grassNode.geometry?.firstMaterial?.normal.wrapS = .Repeat
-        grassNode.geometry?.firstMaterial?.normal.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.normal.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
-
-        grassNode.geometry?.firstMaterial?.specular.contents = UIImage(named: "GrassDiffuse")
-        grassNode.geometry?.firstMaterial?.specular.wrapS = .Repeat
-        grassNode.geometry?.firstMaterial?.specular.wrapT = .Repeat
-        grassNode.geometry?.firstMaterial?.specular.contentsTransform = SCNMatrix4MakeScale(8.0, 8.0, 8.0)
-
-        self.scene.rootNode.addChildNode(grassNode)*/
-
-        finished()
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 1.0))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+            finished()
+        }
     }
 
 
