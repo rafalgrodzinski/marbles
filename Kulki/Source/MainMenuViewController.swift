@@ -40,6 +40,7 @@ class MainMenuViewController: UIViewController
                                                                            repeats: true)
 
         self.logoLabel.textColor = UIColor.marblesGreen()
+        self.highScoreLabel.textColor = UIColor.marblesGreen()
 
         self.setupForNewGame()
     }
@@ -131,45 +132,4 @@ class MainMenuViewController: UIViewController
         self.bottomButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
         self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed), forControlEvents: .TouchUpInside)
     }
-
-    // MARK: - Actions -
-    /*@IBAction private func twoDimensionalPressed(sender: AnyObject)
-    {
-        self.game = GameFactory.gameWithGraphicsType(.SpriteKit, size: Size(8, 8), colorsCount: 3, marblesPerSpawn: 3, lineLength: 4)
-        let rect = self.view.frame
-        self.gameView.addSubview(self.game.view)
-        self.gameView = self.game.view
-        self.game.view.frame = rect
-
-        self.startGame()
-    }
-
-
-    @IBAction private func threeDimensionalPressed(sender: UIButton)
-    {
-        self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(8, 8), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
-        let rect = self.view.frame
-        self.gameView.addSubview(self.game.view)
-        self.gameView = self.game.view
-        self.game.view.frame = rect
-
-        self.startGame()
-    }
-
-
-    @IBAction private func highScoresPressed(sender: UIButton)
-    {
-    }
-
-
-    // MARK: - Private Control
-    private func startGame()
-    {
-        self.game.startGame()
-        UIView.animateWithDuration(1.0, delay: 0.0, options: [], animations: {
-            self.menuView.alpha = 0.0
-        }) { (isFinished: Bool) in
-            self.menuView.hidden = true
-        }
-    }*/
 }

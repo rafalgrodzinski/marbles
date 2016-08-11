@@ -337,6 +337,20 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         self.scoreLabel.text = "Score: \(newScore)"
         self.scoreLabelShadow.text = self.scoreLabel.text
+
+        // Increased score, not reset
+        if newScore > 0 {
+            let scaleOut = SKAction.scaleTo(1.3, duration: 0.2)
+            scaleOut.timingMode = .EaseInEaseOut
+
+            let scaleIn = SKAction.scaleTo(1.0, duration: 0.2)
+            scaleIn.timingMode = .EaseInEaseOut
+
+            let scaleSequence = SKAction.sequence([scaleOut, scaleIn])
+
+            self.scoreLabel.runAction(scaleSequence)
+            self.scoreLabelShadow.runAction(scaleSequence)
+        }
     }
 
 

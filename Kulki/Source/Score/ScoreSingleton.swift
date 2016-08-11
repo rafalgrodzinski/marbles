@@ -14,7 +14,11 @@ class ScoreSingleton
     static let sharedInstance = ScoreSingleton()
 
     var currentScore = 0
-    var highScore = 0
+    var highScore = 0 {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setValue(currentScore, forKey: "kHighScore")
+        }
+    }
 
     private var colorsCount = 0
     private var lineLength = 0
@@ -25,6 +29,9 @@ class ScoreSingleton
 
     private init()
     {
+        if let highScoreValue = NSUserDefaults.standardUserDefaults().valueForKey("kHighScore") {
+            self.highScore = (highScoreValue as! NSNumber).integerValue
+        }
     }
 
 
@@ -34,12 +41,6 @@ class ScoreSingleton
 
         self.colorsCount = colorsCount
         self.lineLength = lineLength
-    }
-
-
-    func scoresForColorsCount(colorsCount: Int, lineLength: Int) -> [Int]
-    {
-        return [Int]()
     }
 
 

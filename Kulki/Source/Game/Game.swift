@@ -186,6 +186,9 @@ public class Game: NSObject
 
         let score = ScoreSingleton.sharedInstance.currentScore
         let isHighScore = ScoreSingleton.sharedInstance.currentScore > ScoreSingleton.sharedInstance.highScore
+        if isHighScore {
+            ScoreSingleton.sharedInstance.highScore = score
+        }
 
         self.gameFinished(score, isHighScore: isHighScore)
     }
