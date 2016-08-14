@@ -25,8 +25,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     let tilePrototype: SCNNode = { let tileNode = SCNNode()
         tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
-        tileNode.geometry!.firstMaterial!.diffuse.contents = "TileDiffuse"
-        tileNode.geometry!.firstMaterial!.normal.contents = "TileNormal"
+        tileNode.geometry?.materials.first?.diffuse.contents = "Tile Diffuse"
+        tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
+        tileNode.geometry?.materials.first?.normal.intensity = 0.5
         tileNode.physicsBody = SCNPhysicsBody.staticBody()
         tileNode.castsShadow = false
         return tileNode }()
@@ -165,14 +166,12 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
                 let tileNode = self.tilePrototype.duplicate()
+                
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
                 tileNode.position.z = -Float(self.boardHeight / 2.0)
-
                 self.scene.rootNode.addChildNode(tileNode)
 
                 tileNode.scale = SCNVector3Zero
-
-                //let delayAction = SCNAction.waitForDuration(0.5, withRange: 0.7)
                 let delayAction = SCNAction.waitForDuration(Double(x + y) * 0.05 + 0.2)
                 let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
                 scaleAction.timingMode = .EaseInEaseOut

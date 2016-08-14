@@ -90,11 +90,9 @@ extension SCNNode
 {
     func duplicate() -> SCNNode
     {
-        let node = self.clone()
+        let node = self.flattenedClone()
         node.geometry = self.geometry?.copy() as? SCNGeometry
         node.geometry?.firstMaterial = self.geometry?.firstMaterial?.copy() as? SCNMaterial
-        //node.physicsBody = self.physicsBody?.copy() as? SCNPhysicsBody
-        //node.physicsBody?.physicsShape = self.physicsBody?.physicsShape?.copy() as? SCNPhysicsShape
 
         return node
     }
