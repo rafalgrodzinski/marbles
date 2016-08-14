@@ -36,6 +36,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     private var scoreLabelShadow: SKLabelNode!
     private var gameOverPopup: GameOverPopup!
 
+    private var nextMarbles = [Marble]()
+
     private var cameraNode: SCNNode!
 
 
@@ -134,6 +136,24 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         overlayScene.addChild(self.scoreLabel)
         self.updateScore(0)
 
+        // Next label
+        let nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
+        nextLabel.fontSize = 32.0
+        nextLabel.fontColor = UIColor.marblesGreen()
+        nextLabel.horizontalAlignmentMode = .Left
+        nextLabel.verticalAlignmentMode = .Center
+        nextLabel.position = CGPointMake(16.0, overlayScene.size.height/6.0)
+        nextLabel.text = "Next:"
+
+        // Next label shadow
+        let nextLabelShadow =  nextLabel.copy() as! SKLabelNode
+        nextLabelShadow.fontColor = UIColor.blackColor()
+        nextLabelShadow.position.x += 1.5
+        nextLabelShadow.position.y -= 1.5
+
+        overlayScene.addChild(nextLabelShadow)
+        overlayScene.addChild(nextLabel)
+
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
@@ -189,7 +209,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    override func showMarbles(marbles: [Marble], finished: () -> Void)
+    override func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
     {
         for (index, marble) in marbles.enumerate() {
             let scnMarble = marble as! SceneKitMarble
@@ -198,6 +218,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             scnMarble.node.position.z += 1.0
 
             let waitAction = SCNAction.waitForDuration(0.2 * NSTimeInterval(index))
+            let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
+            let hideNextAction = SCNAction.runBlock { (node: SCNNode) in self.hideNextMarble(nextMarble) }
 
             let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
             let fadeInAction = SCNAction.fadeInWithDuration(0.1)
@@ -207,12 +229,45 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let moveToPoint = SCNAction.moveTo(targetPosition, duration: 0.1)
             let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
 
-            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
+            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in
+                if index == marbles.count-1 {
+                    self.showNextMarbles(nextMarbleColors)
+                    finished()
+                }
+            }
 
             self.scene.rootNode.addChildNode(scnMarble.node)
 
-            scnMarble.node.runAction(SCNAction.sequence([waitAction, appearAction, addGravityAction,
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
                 waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
+        }
+    }
+
+
+    func hideNextMarble(nextMarble: Marble?)
+    {
+        if let nextMarble = nextMarble as? SceneKitMarble {
+            let scaleAction = SCNAction.scaleTo(0.0, duration: 0.2)
+            let removeAction = SCNAction.removeFromParentNode()
+
+            nextMarble.node.runAction(SCNAction.sequence([scaleAction, removeAction]))
+        }
+    }
+
+
+    func showNextMarbles(nextMarbleColors: [Int])
+    {
+        self.nextMarbles = [Marble]()
+
+        for (index, color) in nextMarbleColors.enumerate() {
+            let nextMarble = self.field.marbleFactory.marbleWithColor(color, fieldPosition: Point(index, 0)) as! SceneKitMarble
+            self.nextMarbles.append(nextMarble)
+
+            nextMarble.node.scale = SCNVector3Zero
+            nextMarble.node.position.x += 2.6
+            nextMarble.node.position.y -= 1.5
+            self.scene.rootNode.addChildNode(nextMarble.node)
+            nextMarble.node.runAction(SCNAction.scaleTo(1.0, duration: 0.2))
         }
     }
 

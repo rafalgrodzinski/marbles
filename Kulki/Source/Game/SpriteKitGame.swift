@@ -68,7 +68,7 @@ class SpriteKitGame: Game
     }
 
 
-    override func showMarbles(marbles: [Marble], finished: () -> Void)
+    override func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
     {
         for (index, marble) in marbles.enumerate() {
             let skMarble = marble as! SpriteKitMarble

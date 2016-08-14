@@ -19,6 +19,7 @@ public class Game: NSObject
     // State data
     private var isWaitingForMove = false
     private var selectedMarble: Marble?
+    private var drawnMarbleColors: [Int]?
     private var spawnedMarbles: [Marble]?
 
     // Callbacks
@@ -108,6 +109,7 @@ public class Game: NSObject
     {
         self.currentState = state
 
+        self.drawnMarbleColors = self.field.drawNextMarbleColors()
         self.showBoard(state.goToNextState)
     }
 
@@ -116,8 +118,9 @@ public class Game: NSObject
     {
         self.currentState = state
 
-        self.spawnedMarbles = self.field.spawnMarbles()
-        self.showMarbles(spawnedMarbles!, finished: state.goToNextState)
+        self.spawnedMarbles = self.field.spawnMarbles(self.drawnMarbleColors!)
+        self.drawnMarbleColors = self.field.drawNextMarbleColors()
+        self.showMarbles(spawnedMarbles!, nextMarbleColors: self.drawnMarbleColors!, finished: state.goToNextState)
     }
 
 
@@ -210,7 +213,7 @@ public class Game: NSObject
     // MARK: - Spawn -
 
     // MARK: <<Abstract>>
-    func showMarbles(marbles: [Marble], finished: () -> Void)
+    func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }

@@ -40,11 +40,24 @@ class Field
     }
 
 
-    func spawnMarbles() -> [Marble]
+    func drawNextMarbleColors() -> [Int]
+    {
+        var drawnColors = [Int]()
+
+        for _ in 0 ..< self.marblesPerSpawn {
+            let color = Int(arc4random()) % self.colorsCount
+            drawnColors.append(color)
+        }
+
+        return drawnColors
+    }
+
+
+    func spawnMarbles(marbleColors: [Int]) -> [Marble]
     {
         var spawnedMarbles = [Marble]()
 
-        for _ in 0 ..< self.marblesPerSpawn {
+        for i in 0 ..< self.marblesPerSpawn {
             if self.isFull {
                 break
             }
@@ -55,7 +68,7 @@ class Field
                 let position = Point(x, y)
 
                 if self.marbles[position] == nil {
-                    let color = Int(arc4random()) % self.colorsCount
+                    let color = marbleColors[i]
 
                     let marble = self.marbleFactory.marbleWithColor(color, fieldPosition: position)
 
