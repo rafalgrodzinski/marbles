@@ -172,7 +172,11 @@ public class Game: NSObject
         ScoreSingleton.sharedInstance.removedMarbles(removedMarbles.count)
 
         if removedMarbles.count > 0 {
-            self.hideMarbles(removedMarbles, finished: state.goToNextState)
+            // get move state
+            let currentStateIndex = self.states.indexOf(state)
+            let moveState = self.states[currentStateIndex!.advancedBy(-1)]
+
+            self.hideMarbles(removedMarbles, finished: moveState.execute)
             self.updateScore(ScoreSingleton.sharedInstance.currentScore)
         } else {
             state.goToNextState()

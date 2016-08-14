@@ -62,7 +62,7 @@ struct Size {
 
 
 // MARK: - State -
-class State {
+class State: Equatable {
     var command: ((state: State) -> Void)?
     weak var nextState: State?
 
@@ -75,6 +75,12 @@ class State {
     {
         self.nextState?.execute()
     }
+}
+
+
+func ==(left: State, right: State) -> Bool
+{
+    return left === right
 }
 
 
