@@ -37,25 +37,25 @@ public class Game: NSObject
 
         // Setup states
         let startupState = State()
-        startupState.command = self.executeStartupState
+        startupState.command = { [weak self] (state: State) in self?.executeStartupState(state) }
 
         let spawnState = State()
-        spawnState.command = self.executeSpawnState
+        spawnState.command = { [weak self] (state: State) in self?.executeSpawnState(state) }
 
         let removeAfterSpawnState = State()
-        removeAfterSpawnState.command = self.executeRemoveAfterSpawnState
+        removeAfterSpawnState.command = { [weak self] (state: State) in self?.executeRemoveAfterSpawnState(state) }
 
         let checkIfFinishedState = State()
-        checkIfFinishedState.command = self.executeCheckIfFinishedState
+        checkIfFinishedState.command = { [weak self] (state: State) in self?.executeCheckIfFinishedState(state) }
 
         let moveState = State()
-        moveState.command = self.executeMoveState
+        moveState.command = { [weak self] (state: State) in self?.executeMoveState(state) }
 
         let removeAfterMoveState = State()
-        removeAfterMoveState.command = self.executeRemoveAfterMoveState
+        removeAfterMoveState.command = { [weak self] (state: State) in self?.executeRemoveAfterMoveState(state) }
 
         let finishedState = State()
-        finishedState.command = self.executeFinishedState
+        finishedState.command = { [weak self] (state: State) in self?.executeFinishedState(state) }
 
         // Startup -> Spawn
         startupState.nextState = spawnState

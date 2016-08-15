@@ -163,7 +163,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
         self.gameOverPopup.position = CGPointMake(CGRectGetMidX(overlayScene.frame), CGRectGetMidY(overlayScene.frame))
-        self.gameOverPopup.restartCallback = self.startGame
+        self.gameOverPopup.restartCallback = { [weak self] in self?.startGame() }
+        //weak var welf = self
         self.gameOverPopup.quitCallback = self.quitCallback
         overlayScene.addChild(self.gameOverPopup)
 

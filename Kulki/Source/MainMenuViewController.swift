@@ -19,6 +19,7 @@ class MainMenuViewController: UIViewController
     // Variables
     var currentLogoHue = 100.0/360.0
     var logoColorUpdateTimer: NSTimer!
+    var game: SceneKitGame?
     var gameVc: UIViewController?
 
     // Outlets
@@ -50,27 +51,28 @@ class MainMenuViewController: UIViewController
     @IBAction func newGameButtonPressed(sender: AnyObject)
     {
         self.gameVc = UIViewController()
-        let game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
-        self.gameVc!.view.addSubview(game.view)
+        self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5) as? SceneKitGame
+        self.gameVc!.view.addSubview(self.game!.view)
         self.gameVc!.modalTransitionStyle = .CrossDissolve
-        game.view.frame = gameVc!.view.bounds
+        self.game!.view.frame = gameVc!.view.bounds
 
         weak var welf = self
-        game.pauseCallback = {
+        self.game!.pauseCallback = {
             welf?.currentLogoHue = 100.0/360.0
             welf?.updateHighScoreLabel()
             welf?.setupForResume()
             welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
+            welf?.gameVc = nil
         }
 
-        game.quitCallback = {
+        self.game!.quitCallback = {
             welf?.currentLogoHue = 100.0/360.0
             welf?.updateHighScoreLabel()
             welf?.setupForNewGame()
             welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
         }
 
-        game.startGame()
+        self.game!.startGame()
         self.presentViewController(self.gameVc!, animated: true, completion: nil)
     }
 
