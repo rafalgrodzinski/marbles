@@ -11,19 +11,19 @@ import UIKit
 
 class MainMenuBackgroundView: UIView
 {
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         if let ctx = UIGraphicsGetCurrentContext() {
-            let startPoint = CGPointMake(rect.width/2.0, 0.0)
-            let endPoint = CGPointMake(rect.width/2.0, rect.height)
+            let startPoint = CGPoint(x: rect.width/2.0, y: 0.0)
+            let endPoint = CGPoint(x: rect.width/2.0, y: rect.height)
 
 
-            let colors = [UIColor(white: 0.95, alpha: 1.0).CGColor, UIColor(white: 0.98, alpha: 1.0).CGColor, UIColor(white: 0.7, alpha: 1.0).CGColor]
+            let colors = [UIColor(white: 0.95, alpha: 1.0).cgColor, UIColor(white: 0.98, alpha: 1.0).cgColor, UIColor(white: 0.7, alpha: 1.0).cgColor]
             let locations: [CGFloat] = [0.0, 0.5, 1.0]
 
-            let gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, locations)
+            let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: locations)
 
-            CGContextDrawLinearGradient(ctx, gradient, startPoint, endPoint, CGGradientDrawingOptions.init(rawValue: 0))
+            ctx.drawLinearGradient(gradient!, start: startPoint, end: endPoint, options: CGGradientDrawingOptions.init(rawValue: 0))
         }
     }
 }

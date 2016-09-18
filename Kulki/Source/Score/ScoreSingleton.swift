@@ -16,26 +16,26 @@ class ScoreSingleton
     var currentScore = 0
     var highScore = 0 {
         didSet {
-            NSUserDefaults.standardUserDefaults().setValue(currentScore, forKey: "kHighScore")
+            UserDefaults.standard.setValue(currentScore, forKey: "kHighScore")
         }
     }
 
-    private var colorsCount = 0
-    private var lineLength = 0
+    fileprivate var colorsCount = 0
+    fileprivate var lineLength = 0
 
     let baseScore = 10
     let extraScore = 5
 
 
-    private init()
+    fileprivate init()
     {
-        if let highScoreValue = NSUserDefaults.standardUserDefaults().valueForKey("kHighScore") {
-            self.highScore = (highScoreValue as! NSNumber).integerValue
+        if let highScoreValue = UserDefaults.standard.value(forKey: "kHighScore") {
+            self.highScore = (highScoreValue as! NSNumber).intValue
         }
     }
 
 
-    func newGameWithColorsCount(colorsCount: Int, lineLength: Int)
+    func newGameWithColorsCount(_ colorsCount: Int, lineLength: Int)
     {
         self.currentScore = 0
 
@@ -44,7 +44,7 @@ class ScoreSingleton
     }
 
 
-    func removedMarbles(marblesCount: Int)
+    func removedMarbles(_ marblesCount: Int)
     {
         guard marblesCount >= self.lineLength else {
             return

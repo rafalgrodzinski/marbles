@@ -53,7 +53,7 @@ class Field
     }
 
 
-    func spawnMarbles(marbleColors: [Int]) -> [Marble]
+    func spawnMarbles(_ marbleColors: [Int]) -> [Marble]
     {
         var spawnedMarbles = [Marble]()
 
@@ -73,7 +73,7 @@ class Field
                     let marble = self.marbleFactory.marbleWithColor(color, fieldPosition: position)
 
                     self.marbles[position] = marble
-                    spawnedMarbles.append(marble)
+                    spawnedMarbles.append(marble!)
 
                     break
                 }
@@ -84,13 +84,13 @@ class Field
     }
 
 
-    func moveMarble(marble: Marble, toPosition to: Point) -> [Point]?
+    func moveMarble(_ marble: Marble, toPosition to: Point) -> [Point]?
     {
         let path = self.pathFinder.pathFromFieldPosition(marble.fieldPosition, toFieldPosition: to, field: self)
 
         // If found a path, move the ball in dictionary
         if path != nil {
-            self.marbles.removeValueForKey(marble.fieldPosition)
+            self.marbles.removeValue(forKey: marble.fieldPosition)
             self.marbles[to] = marble
             marble.fieldPosition = to
         }
@@ -99,7 +99,7 @@ class Field
     }
 
 
-    func removeLinesAtMarble(marble: Marble) -> [Marble]
+    func removeLinesAtMarble(_ marble: Marble) -> [Marble]
     {
         var removedMarbles = Set<Marble>()
 
@@ -107,7 +107,7 @@ class Field
 
         // Check horizontal extent
         var startX = position.x
-        for x in (startX-1).stride(through: 0, by: -1) {
+        for x in stride(from: (startX-1), through: 0, by: -1) {
             let currentMarble = self.marbles[Point(x, position.y)]
 
             if currentMarble?.color == marble.color {
@@ -118,7 +118,7 @@ class Field
         }
 
         var endX = position.x
-        for x in (startX+1).stride(through: self.size.width-1, by: 1) {
+        for x in stride(from: (startX+1), through: self.size.width-1, by: 1) {
             let currentMarble = self.marbles[Point(x, position.y)]
 
             if currentMarble?.color == marble.color {
@@ -130,7 +130,7 @@ class Field
 
         // Check vertial extent
         var startY = position.y
-        for y in (startY-1).stride(through: 0, by: -1) {
+        for y in stride(from: (startY-1), through: 0, by: -1) {
             let currentMarble = self.marbles[Point(position.x, y)]
 
             if currentMarble?.color == marble.color {
@@ -141,7 +141,7 @@ class Field
         }
 
         var endY = position.y
-        for y in (startY+1).stride(through: self.size.height-1, by: 1) {
+        for y in stride(from: (startY+1), through: self.size.height-1, by: 1) {
             let currentMarble = self.marbles[Point(position.x, y)]
 
             if currentMarble?.color == marble.color {
@@ -154,7 +154,7 @@ class Field
 
         // Check accross - bottom left to top right
         var startBottomLeft = position.x
-        for bottomLeft in (startBottomLeft-1).stride(through: 0, by: -1) {
+        for bottomLeft in stride(from: (startBottomLeft-1), through: 0, by: -1) {
             let diff = position.x - bottomLeft
             let currentMarble = self.marbles[Point(position.x - diff, position.y - diff)]
 
@@ -166,7 +166,7 @@ class Field
         }
 
         var endBottomLeft = position.x
-        for bottomLeft in (endBottomLeft+1).stride(through: self.size.width-1, by: 1) {
+        for bottomLeft in stride(from: (endBottomLeft+1), through: self.size.width-1, by: 1) {
             let diff = bottomLeft - position.x
             let currentMarble = self.marbles[Point(position.x + diff, position.y + diff)]
 
@@ -179,7 +179,7 @@ class Field
 
         // Check accross - top left to bottom right
         var startTopLeft = position.x
-        for topLeft in (startTopLeft-1).stride(through: 0, by: -1) {
+        for topLeft in stride(from: (startTopLeft-1), through: 0, by: -1) {
             let diff = position.x - topLeft
             let currentMarble = self.marbles[Point(position.x - diff, position.y + diff)]
 
@@ -191,7 +191,7 @@ class Field
         }
 
         var endTopLeft = position.x
-        for topLeft in (endTopLeft+1).stride(through: self.size.width-1, by: 1) {
+        for topLeft in stride(from: (endTopLeft+1), through: self.size.width-1, by: 1) {
             let diff = topLeft - position.x
             let currentMarble = self.marbles[Point(position.x + diff, position.y - diff)]
 
@@ -234,7 +234,7 @@ class Field
 
         // Remove all the relevant balls from the dictionary
         for marble in removedMarbles {
-            self.marbles.removeValueForKey(marble.fieldPosition)
+            self.marbles.removeValue(forKey: marble.fieldPosition)
         }
 
         return removedMarbles.map() { $0 }

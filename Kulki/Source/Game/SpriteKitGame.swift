@@ -11,9 +11,9 @@ import SpriteKit
 
 class SpriteKitGame: Game
 {
-    private var scene: SKScene!
-    private(set) var tileSize: CGSize!
-    private var scoreLabel: SKLabelNode!
+    fileprivate var scene: SKScene!
+    fileprivate(set) var tileSize: CGSize!
+    fileprivate var scoreLabel: SKLabelNode!
 
 
     // MARK: - Initialization-
@@ -32,18 +32,18 @@ class SpriteKitGame: Game
         let tileHeight = self.scene.size.height / CGFloat(self.field.size.height)
 
         if tileWidth < tileHeight {
-            self.tileSize = CGSizeMake(tileWidth, tileWidth)
+            self.tileSize = CGSize(width: tileWidth, height: tileWidth)
         } else {
-            self.tileSize = CGSizeMake(tileHeight, tileHeight)
+            self.tileSize = CGSize(width: tileHeight, height: tileHeight)
         }
 
         // Score label
         self.scoreLabel = SKLabelNode(fontNamed: "Helvetica")
         self.scoreLabel.fontSize = 20.0
-        self.scoreLabel.horizontalAlignmentMode = .Center
-        self.scoreLabel.verticalAlignmentMode = .Center
-        self.scoreLabel.position = CGPointMake(self.scene.size.width / 2.0,
-                                               self.scene.size.height - 50.0)
+        self.scoreLabel.horizontalAlignmentMode = .center
+        self.scoreLabel.verticalAlignmentMode = .center
+        self.scoreLabel.position = CGPoint(x: self.scene.size.width / 2.0,
+                                               y: self.scene.size.height - 50.0)
         self.scene.addChild(self.scoreLabel)
         self.updateScore(0)
 
@@ -52,7 +52,7 @@ class SpriteKitGame: Game
 
 
     // MARK: - Game overrides -
-    override func showBoard(finished: () -> Void)
+    override func showBoard(_ finished: @escaping () -> Void)
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
@@ -64,77 +64,77 @@ class SpriteKitGame: Game
             }
         }
 
-        self.scene.runAction(SKAction.sequence([SKAction.waitForDuration(1.0), SKAction.runBlock(finished)]))
+        self.scene.run(SKAction.sequence([SKAction.wait(forDuration: 1.0), SKAction.run(finished)]))
     }
 
 
-    override func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
+    override func showMarbles(_ marbles: [Marble], nextMarbleColors: [Int], finished: @escaping () -> Void)
     {
-        for (index, marble) in marbles.enumerate() {
+        for (index, marble) in marbles.enumerated() {
             let skMarble = marble as! SpriteKitMarble
             skMarble.node.setScale(0.0)
 
             self.scene.addChild(skMarble.node)
 
-            let waitAction = SKAction.waitForDuration(0.1 * NSTimeInterval(index))
-            let scaleAction = SKAction.scaleTo(1.0, duration: 0.2)
-            let runBlockAction = SKAction.runBlock { if index == marbles.count-1 { finished() } }
+            let waitAction = SKAction.wait(forDuration: 0.1 * TimeInterval(index))
+            let scaleAction = SKAction.scale(to: 1.0, duration: 0.2)
+            let runBlockAction = SKAction.run { if index == marbles.count-1 { finished() } }
 
-            skMarble.node.runAction(SKAction.sequence([waitAction, scaleAction, runBlockAction]))
+            skMarble.node.run(SKAction.sequence([waitAction, scaleAction, runBlockAction]))
         }
     }
 
 
-    override func hideMarbles(marbles: [Marble], finished: () -> Void)
+    override func hideMarbles(_ marbles: [Marble], finished: @escaping () -> Void)
     {
-        for (index, marble) in marbles.enumerate() {
-            let scaleAction = SKAction.scaleTo(0.0, duration: 0.2)
+        for (index, marble) in marbles.enumerated() {
+            let scaleAction = SKAction.scale(to: 0.0, duration: 0.2)
             let removeAction = SKAction.removeFromParent()
-            let runBlockAction = SKAction.runBlock { if index == marbles.count-1 { finished() } }
+            let runBlockAction = SKAction.run { if index == marbles.count-1 { finished() } }
 
-            (marble as! SpriteKitMarble).node.runAction(SKAction.sequence([scaleAction, removeAction, runBlockAction]))
+            (marble as! SpriteKitMarble).node.run(SKAction.sequence([scaleAction, removeAction, runBlockAction]))
         }
     }
 
 
-    override func selectMarble(marbe: Marble)
+    override func selectMarble(_ marbe: Marble)
     {
-        (marbe as! SpriteKitMarble).node.runAction(SKAction.scaleTo(1.2, duration: 0.2))
+        (marbe as! SpriteKitMarble).node.run(SKAction.scale(to: 1.2, duration: 0.2))
     }
 
 
-    override func deselectMarble(marbe: Marble)
+    override func deselectMarble(_ marbe: Marble)
     {
-        (marbe as! SpriteKitMarble).node.runAction(SKAction.scaleTo(1.0, duration: 0.2))
+        (marbe as! SpriteKitMarble).node.run(SKAction.scale(to: 1.0, duration: 0.2))
     }
 
 
-    override func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
+    override func moveMarble(_ marble: Marble, overFieldPath fieldPath: [Point], finished: @escaping () -> Void)
     {
-        (marble as! SpriteKitMarble).node.runAction(SKAction.scaleTo(1.0, duration: 0.2))
+        (marble as! SpriteKitMarble).node.run(SKAction.scale(to: 1.0, duration: 0.2))
 
-        for (index, position) in fieldPath.enumerate() where index != 0 {
+        for (index, position) in fieldPath.enumerated() where index != 0 {
             let newPosition = self.positionForFieldPosition(position)!
 
-            let waitAction = SKAction.waitForDuration(0.2 * Double(index))
-            let moveAction = SKAction.moveTo(newPosition, duration: 0.2)
-            let runBlockAction = SKAction.runBlock { if index == fieldPath.count-1 { finished() } }
+            let waitAction = SKAction.wait(forDuration: 0.2 * Double(index))
+            let moveAction = SKAction.move(to: newPosition, duration: 0.2)
+            let runBlockAction = SKAction.run { if index == fieldPath.count-1 { finished() } }
 
-            (marble as! SpriteKitMarble).node.runAction(SKAction.sequence([waitAction, moveAction, runBlockAction]))
+            (marble as! SpriteKitMarble).node.run(SKAction.sequence([waitAction, moveAction, runBlockAction]))
         }
     }
 
 
-    override func updateScore(newScore: Int)
+    override func updateScore(_ newScore: Int)
     {
         self.scoreLabel.text = "Your score: \(newScore)"
     }
 
 
     // MARK: - Control -
-    @objc func handleTap(sender: UITapGestureRecognizer)
+    @objc func handleTap(_ sender: UITapGestureRecognizer)
     {
-        var tapPosition = sender.locationInView(self.view)
+        var tapPosition = sender.location(in: self.view)
         tapPosition.y = self.view.frame.size.height - tapPosition.y
 
         if let fieldPosition = self.fieldPositionForPosition(tapPosition) {
@@ -144,7 +144,7 @@ class SpriteKitGame: Game
 
 
     // MARK: - Utils -
-    func positionForFieldPosition(fieldPosition: Point) -> CGPoint?
+    func positionForFieldPosition(_ fieldPosition: Point) -> CGPoint?
     {
         guard fieldPosition.x >= 0 && fieldPosition.x < self.field.size.width &&
             fieldPosition.y >= 0 && fieldPosition.y < self.field.size.height else {
@@ -159,12 +159,12 @@ class SpriteKitGame: Game
         let x = tileXOrigin + self.tileSize.width * CGFloat(fieldPosition.x)
         let y = tileYOrigin + self.tileSize.height * CGFloat(fieldPosition.y)
 
-        return CGPointMake(x, y)
+        return CGPoint(x: x, y: y)
     }
 
 
 
-    func fieldPositionForPosition(position: CGPoint) -> Point?
+    func fieldPositionForPosition(_ position: CGPoint) -> Point?
     {
         let tileXOrigin = (self.scene.size.width - CGFloat(self.field.size.width) * self.tileSize.width) / 2.0
         let tileYOrigin = (self.scene.size.height - CGFloat(self.field.size.height) * self.tileSize.height) / 2.0

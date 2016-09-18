@@ -63,12 +63,12 @@ struct Size {
 
 // MARK: - State -
 class State: Equatable {
-    var command: ((state: State) -> Void)?
+    var command: ((_ state: State) -> Void)?
     weak var nextState: State?
 
     func execute()
     {
-        self.command?(state: self)
+        self.command?(self)
     }
 
     func goToNextState()
@@ -87,7 +87,7 @@ func ==(left: State, right: State) -> Bool
 // MARK: - Operators -
 func *(left: CGSize, right: CGFloat) -> CGSize
 {
-    return CGSizeMake(left.width * right, left.height * right)
+    return CGSize(width: left.width * right, height: left.height * right)
 }
 
 

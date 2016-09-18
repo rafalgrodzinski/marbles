@@ -13,7 +13,7 @@ class Marble: Hashable, Equatable
 {
     let color: Int
     var fieldPosition: Point
-    var colors = [UIColor.redColor(), UIColor.greenColor(), UIColor.blueColor(), UIColor.yellowColor(), UIColor.purpleColor()]
+    var colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.yellow, UIColor.purple]
 
     let pastelColors = [UIColor.init(colorLiteralRed: 0.8, green: 1.0, blue: 0.8, alpha: 1.0),
                         UIColor.init(colorLiteralRed: 1.0, green: 0.8, blue: 0.8, alpha: 1.0),

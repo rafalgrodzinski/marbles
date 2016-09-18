@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8SB-Rx-thH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8SB-Rx-thH">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="BunakenUnderwater.ttf">
+        <array key="BunakenUnderwater.ttf">
             <string>BunakenUnderwater</string>
-            <string>BunakenUnderwater</string>
-            <string>BunakenUnderwater</string>
-            <string>BunakenUnderwater</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Main Menu View Controller-->
         <scene sceneID="hM4-6T-mFf">
             <objects>
-                <viewController id="8SB-Rx-thH" customClass="MainMenuViewController" customModule="Kulki" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8SB-Rx-thH" customClass="MainMenuViewController" customModule="Marbles" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jva-sR-gDA"/>
                         <viewControllerLayoutGuide type="bottom" id="7yi-Mv-Clj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU" customClass="MainMenuBackgroundView" customModule="Kulki" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU" customClass="MainMenuBackgroundView" customModule="Marbles" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LP-YF-7Rj" userLabel="Container View">
-                                <rect key="frame" x="20" y="20" width="560" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marbles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewZ-vY-kxM">
-                                        <rect key="frame" x="0.0" y="92" width="560" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="Zkj-Kf-5pY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="64"/>
-                                        <color key="textColor" red="0.3198387622833252" green="0.7759937047958374" blue="0.12311279773712158" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.3198387622833252" green="0.7759937047958374" blue="0.12311279773712158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="shadowOffset" width="2" height="2"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -64,7 +61,6 @@
                                 </variation>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-ON-emD" userLabel="Top Button">
-                                <rect key="frame" x="172" y="268" width="256" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="dYp-5e-xYq"/>
                                     <constraint firstAttribute="width" constant="256" id="fyU-HD-dvW"/>
@@ -72,14 +68,13 @@
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="28"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
                                 <state key="normal" title="Top Button" backgroundImage="Button">
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="resumeGameButtonPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="uHV-G0-mw4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMy-9v-tqI" userLabel="Bottom Button">
-                                <rect key="frame" x="172" y="332" width="256" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="256" id="47c-II-FeW"/>
                                     <constraint firstAttribute="height" constant="64" id="vFr-Uh-pRq"/>
@@ -87,22 +82,21 @@
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="28"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
                                 <state key="normal" title="Bottom Button" backgroundImage="Button">
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="newGameButtonPressed:" destination="8SB-Rx-thH" eventType="touchUpInside" id="jBK-3k-fNq"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8s-46-3XP">
-                                <rect key="frame" x="20" y="404" width="560" height="24.5"/>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="24"/>
-                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="a8s-46-3XP" secondAttribute="trailing" id="8N3-GY-dwY"/>
                             <constraint firstItem="qMy-9v-tqI" firstAttribute="centerX" secondItem="BNP-zL-FhU" secondAttribute="centerX" id="BzR-41-FcP"/>

@@ -11,7 +11,7 @@ import GameplayKit
 
 class PathFinderGridAdapter: PathFinderProtocol
 {
-    func pathFromFieldPosition(from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
+    func pathFromFieldPosition(_ from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
     {
         let graph = GKGridGraph(fromGridStartingAt: int2(0, 0),
                                 width: Int32(field.size.width), height: Int32(field.size.height), diagonalsAllowed: false)
@@ -22,18 +22,18 @@ class PathFinderGridAdapter: PathFinderProtocol
         for (fieldPosition, _) in field.marbles {
             if fieldPosition != from {
                 let gridPosition = int2(Int32(fieldPosition.x), Int32(fieldPosition.y))
-                let gridNode =  graph.nodeAtGridPosition(gridPosition)!
+                let gridNode =  graph.node(atGridPosition: gridPosition)!
                 occupiedNodes.append(gridNode)
             }
         }
 
-        graph.removeNodes(occupiedNodes)
+        graph.remove(occupiedNodes)
 
         // Find path
-        let startNode = graph.nodeAtGridPosition(int2(Int32(from.x), Int32(from.y)))!
-        let endNode = graph.nodeAtGridPosition(int2(Int32(to.x), Int32(to.y)))!
+        let startNode = graph.node(atGridPosition: int2(Int32(from.x), Int32(from.y)))!
+        let endNode = graph.node(atGridPosition: int2(Int32(to.x), Int32(to.y)))!
 
-        let path = graph.findPathFromNode(startNode, toNode: endNode)
+        let path = graph.findPath(from: startNode, to: endNode)
 
         let fieldPath: [Point] = path.map { let gridNode = $0 as! GKGridGraphNode
             return Point(Int(gridNode.gridPosition.x), Int(gridNode.gridPosition.y))}

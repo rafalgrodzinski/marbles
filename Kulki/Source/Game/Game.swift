@@ -9,22 +9,22 @@
 import UIKit
 
 
-public class Game: NSObject
+open class Game: NSObject
 {
     internal(set) var view: UIView!
     internal var field: Field
     internal var currentState: State?
-    private var states: [State]!
+    fileprivate var states: [State]!
 
     // State data
-    private var isWaitingForMove = false
-    private var selectedMarble: Marble?
-    private var drawnMarbleColors: [Int]?
-    private var spawnedMarbles: [Marble]?
+    fileprivate var isWaitingForMove = false
+    fileprivate var selectedMarble: Marble?
+    fileprivate var drawnMarbleColors: [Int]?
+    fileprivate var spawnedMarbles: [Marble]?
 
     // Callbacks
-    public var pauseCallback: (() -> Void)?
-    public var quitCallback: (() -> Void)?
+    open var pauseCallback: (() -> Void)?
+    open var quitCallback: (() -> Void)?
 
     // MARK: - Initialization -
     init(field: Field)
@@ -90,7 +90,7 @@ public class Game: NSObject
 
 
     // MARK: - Control -
-    public func startGame()
+    open func startGame()
     {
         // Setup score singleton
         ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
@@ -105,7 +105,7 @@ public class Game: NSObject
 
 
     // MARK: - State -
-    func executeStartupState(state: State)
+    func executeStartupState(_ state: State)
     {
         self.currentState = state
 
@@ -114,7 +114,7 @@ public class Game: NSObject
     }
 
 
-    func executeSpawnState(state: State)
+    func executeSpawnState(_ state: State)
     {
         self.currentState = state
 
@@ -124,7 +124,7 @@ public class Game: NSObject
     }
 
 
-    func executeRemoveAfterSpawnState(state: State)
+    func executeRemoveAfterSpawnState(_ state: State)
     {
         self.currentState = state
 
@@ -132,7 +132,7 @@ public class Game: NSObject
 
         for marble in self.spawnedMarbles! {
             let lineOfMarbles = self.field.removeLinesAtMarble(marble)
-            removedMarbles.appendContentsOf(lineOfMarbles)
+            removedMarbles.append(contentsOf: lineOfMarbles)
 
             ScoreSingleton.sharedInstance.removedMarbles(lineOfMarbles.count)
         }
@@ -146,7 +146,7 @@ public class Game: NSObject
     }
 
 
-    func executeCheckIfFinishedState(state: State)
+    func executeCheckIfFinishedState(_ state: State)
     {
         self.currentState = state
 
@@ -159,7 +159,7 @@ public class Game: NSObject
     }
 
 
-    func executeMoveState(state: State)
+    func executeMoveState(_ state: State)
     {
         self.currentState = state
         self.selectedMarble = nil
@@ -167,7 +167,7 @@ public class Game: NSObject
     }
 
 
-    func executeRemoveAfterMoveState(state: State)
+    func executeRemoveAfterMoveState(_ state: State)
     {
         let removedMarbles = self.field.removeLinesAtMarble(self.selectedMarble!)
         self.selectedMarble = nil
@@ -176,8 +176,8 @@ public class Game: NSObject
 
         if removedMarbles.count > 0 {
             // get move state
-            let currentStateIndex = self.states.indexOf(state)
-            let moveState = self.states[currentStateIndex!.advancedBy(-1)]
+            let currentStateIndex = self.states.index(of: state)
+            let moveState = self.states[currentStateIndex!.advanced(by: -1)]
 
             self.hideMarbles(removedMarbles, finished: moveState.execute)
             self.updateScore(ScoreSingleton.sharedInstance.currentScore)
@@ -187,7 +187,7 @@ public class Game: NSObject
     }
 
 
-    func executeFinishedState(state: State)
+    func executeFinishedState(_ state: State)
     {
         self.currentState = state
 
@@ -204,7 +204,7 @@ public class Game: NSObject
     // MARK: - Startup -
 
     // MARK: <<Abstract>>
-    func showBoard(finished: () -> Void)
+    func showBoard(_ finished: @escaping () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }
@@ -213,7 +213,7 @@ public class Game: NSObject
     // MARK: - Spawn -
 
     // MARK: <<Abstract>>
-    func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
+    func showMarbles(_ marbles: [Marble], nextMarbleColors: [Int], finished: @escaping () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }
@@ -222,21 +222,21 @@ public class Game: NSObject
     // MARK: - Remove -
 
     // MARK: <<Abstract>>
-    func hideMarbles(marbles: [Marble], finished: () -> Void)
+    func hideMarbles(_ marbles: [Marble], finished: @escaping () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: <<Abstract>>
-    func updateScore(newScore: Int)
+    func updateScore(_ newScore: Int)
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: - Move -
-    func tappedFieldPosition(fieldPosition: Point)
+    func tappedFieldPosition(_ fieldPosition: Point)
     {
         if !self.isWaitingForMove {
             return
@@ -268,21 +268,21 @@ public class Game: NSObject
 
 
     // MARK: <<Abstract>>
-    func selectMarble(marbe: Marble)
+    func selectMarble(_ marbe: Marble)
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: <<Abstract>>
-    func deselectMarble(marbe: Marble)
+    func deselectMarble(_ marbe: Marble)
     {
         assert(false, "<<Abstract method>>")
     }
 
 
     // MARK: <<Abstract>>
-    func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
+    func moveMarble(_ marble: Marble, overFieldPath fieldPath: [Point], finished: @escaping () -> Void)
     {
         assert(false, "<<Abstract method>>")
     }
@@ -291,7 +291,7 @@ public class Game: NSObject
     // MARK: - Finished -
 
     // MARK: <<Abstract>>
-    func gameFinished(score: Int, isHighScore: Bool)
+    func gameFinished(_ score: Int, isHighScore: Bool)
     {
         assert(false, "<<Abstract method>>")
     }

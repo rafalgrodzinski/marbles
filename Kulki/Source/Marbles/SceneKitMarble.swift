@@ -13,7 +13,7 @@ import GLKit
 class SceneKitMarble: Marble
 {
     static let marblePrototype: SCNNode = { let marbleScene = SCNScene(named: "Marble.scn")!
-        return marbleScene.rootNode.childNodeWithName("Marble", recursively: false)!}()
+        return marbleScene.rootNode.childNode(withName: "Marble", recursively: false)!}()
 
     let node: SCNNode
     let marbleLight: SCNLight
@@ -30,7 +30,7 @@ class SceneKitMarble: Marble
                 self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
                 let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
                     "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
-                self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPointFragment : s]
+                self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : s]
             } else {
                 self.node.light = nil
                 self.node.geometry?.shaderModifiers = nil
@@ -66,7 +66,7 @@ class SceneKitMarble: Marble
         self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
 
         // Setup light
-        self.marbleLight.type = SCNLightTypeOmni
+        self.marbleLight.type = SCNLight.LightType.omni
         self.marbleLight.color =  self.colors[color]
         self.marbleLight.attenuationStartDistance = 1
         self.marbleLight.attenuationEndDistance = 2

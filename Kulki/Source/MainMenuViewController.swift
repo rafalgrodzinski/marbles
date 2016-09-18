@@ -18,15 +18,15 @@ class MainMenuViewController: UIViewController
 
     // Variables
     var currentLogoHue = 100.0/360.0
-    var logoColorUpdateTimer: NSTimer!
+    var logoColorUpdateTimer: Timer!
     var game: SceneKitGame?
     var gameVc: UIViewController?
 
     // Outlets
-    @IBOutlet private weak var logoLabel: UILabel!
-    @IBOutlet private weak var highScoreLabel: UILabel!
-    @IBOutlet private weak var topButton: UIButton!
-    @IBOutlet private weak var bottomButton: UIButton!
+    @IBOutlet fileprivate weak var logoLabel: UILabel!
+    @IBOutlet fileprivate weak var highScoreLabel: UILabel!
+    @IBOutlet fileprivate weak var topButton: UIButton!
+    @IBOutlet fileprivate weak var bottomButton: UIButton!
 
 
     // MARK: - Initialization -
@@ -34,7 +34,7 @@ class MainMenuViewController: UIViewController
     {
         self.updateHighScoreLabel()
 
-        self.logoColorUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(self.logoColorUpdateInterval,
+        self.logoColorUpdateTimer = Timer.scheduledTimer(timeInterval: self.logoColorUpdateInterval,
                                                                            target: self,
                                                                            selector: #selector(updateLogoLabelColorTimeout),
                                                                            userInfo: nil,
@@ -48,12 +48,12 @@ class MainMenuViewController: UIViewController
 
 
     // MARK: - Actions -
-    @IBAction func newGameButtonPressed(sender: AnyObject)
+    @IBAction func newGameButtonPressed(_ sender: AnyObject)
     {
         self.gameVc = UIViewController()
-        self.game = GameFactory.gameWithGraphicsType(.SceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5) as? SceneKitGame
+        self.game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5) as? SceneKitGame
         self.gameVc!.view.addSubview(self.game!.view)
-        self.gameVc!.modalTransitionStyle = .CrossDissolve
+        self.gameVc!.modalTransitionStyle = .crossDissolve
         self.game!.view.frame = gameVc!.view.bounds
 
         weak var welf = self
@@ -61,7 +61,7 @@ class MainMenuViewController: UIViewController
             welf?.currentLogoHue = 100.0/360.0
             welf?.updateHighScoreLabel()
             welf?.setupForResume()
-            welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
+            welf?.gameVc!.dismiss(animated: false, completion: nil)
             welf?.gameVc = nil
         }
 
@@ -69,17 +69,17 @@ class MainMenuViewController: UIViewController
             welf?.currentLogoHue = 100.0/360.0
             welf?.updateHighScoreLabel()
             welf?.setupForNewGame()
-            welf?.gameVc!.dismissViewControllerAnimated(false, completion: nil)
+            welf?.gameVc!.dismiss(animated: false, completion: nil)
         }
 
         self.game!.startGame()
-        self.presentViewController(self.gameVc!, animated: true, completion: nil)
+        self.present(self.gameVc!, animated: true, completion: nil)
     }
 
 
-    @IBAction func resumeGameButtonPressed(sender: AnyObject)
+    @IBAction func resumeGameButtonPressed(_ sender: AnyObject)
     {
-        self.presentViewController(self.gameVc!, animated: true, completion: nil)
+        self.present(self.gameVc!, animated: true, completion: nil)
     }
 
 
@@ -99,39 +99,39 @@ class MainMenuViewController: UIViewController
     {
         if ScoreSingleton.sharedInstance.highScore > 0
         {
-            self.highScoreLabel.hidden = false
+            self.highScoreLabel.isHidden = false
             self.highScoreLabel.text = "High Score: \(ScoreSingleton.sharedInstance.highScore)"
         }
         else
         {
-            self.highScoreLabel.hidden = true
+            self.highScoreLabel.isHidden = true
         }
     }
 
 
-    private func setupForNewGame()
+    fileprivate func setupForNewGame()
     {
         // Top Button
-        self.topButton.setTitle("New Game", forState: .Normal)
-        self.topButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        self.topButton.addTarget(self, action: #selector(newGameButtonPressed), forControlEvents: .TouchUpInside)
+        self.topButton.setTitle("New Game", for: UIControlState())
+        self.topButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.topButton.addTarget(self, action: #selector(newGameButtonPressed), for: .touchUpInside)
 
         // Bottom Button
-        self.bottomButton.hidden = true
+        self.bottomButton.isHidden = true
     }
 
 
-    private func setupForResume()
+    fileprivate func setupForResume()
     {
         // Top Button
-        self.topButton.setTitle("Resume", forState: .Normal)
-        self.topButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        self.topButton.addTarget(self, action: #selector(resumeGameButtonPressed), forControlEvents: .TouchUpInside)
+        self.topButton.setTitle("Resume", for: UIControlState())
+        self.topButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.topButton.addTarget(self, action: #selector(resumeGameButtonPressed), for: .touchUpInside)
 
         // Bottom Button
-        self.bottomButton.hidden = false
-        self.bottomButton.setTitle("New Game", forState: .Normal)
-        self.bottomButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed), forControlEvents: .TouchUpInside)
+        self.bottomButton.isHidden = false
+        self.bottomButton.setTitle("New Game", for: UIControlState())
+        self.bottomButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed), for: .touchUpInside)
     }
 }

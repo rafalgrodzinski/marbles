@@ -22,7 +22,7 @@ class SpriteKitMarble: Marble
         // Setup appearence
         self.node.position = position
         self.node.size = size
-        self.node.physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        self.node.physicsBody = SKPhysicsBody(rectangleOf: size)
         self.node.physicsBody?.affectedByGravity = false
     }
 }

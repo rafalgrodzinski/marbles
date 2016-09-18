@@ -9,5 +9,5 @@
 
 protocol PathFinderProtocol
 {
-    func pathFromFieldPosition(from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
+    func pathFromFieldPosition(_ from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
 }

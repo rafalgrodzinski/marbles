@@ -13,38 +13,38 @@ import GLKit
 
 class SceneKitGame: Game, UIGestureRecognizerDelegate
 {
-    private var scene: SCNScene!
-    private(set) var tileSize: CGSize!
+    fileprivate var scene: SCNScene!
+    fileprivate(set) var tileSize: CGSize!
 
-    private var centerNode: SCNNode!
-    private var tileSelectionParticleNode: SCNNode!
-    private var tileSelectionParticle: SCNParticleSystem!
+    fileprivate var centerNode: SCNNode!
+    fileprivate var tileSelectionParticleNode: SCNNode!
+    fileprivate var tileSelectionParticle: SCNParticleSystem!
 
-    private let boardHeight: Float = 0.25
-    private let fieldMoveDuration: Float = 0.4
+    fileprivate let boardHeight: Float = 0.25
+    fileprivate let fieldMoveDuration: Float = 0.4
 
     let tilePrototype: SCNNode = { let tileNode = SCNNode()
         tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
         tileNode.geometry?.materials.first?.diffuse.contents = "Tile Diffuse"
         tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
         tileNode.geometry?.materials.first?.normal.intensity = 0.5
-        tileNode.physicsBody = SCNPhysicsBody.staticBody()
+        tileNode.physicsBody = SCNPhysicsBody.static()
         tileNode.castsShadow = false
         return tileNode }()
 
-    private var scoreLabel: SKLabelNode!
-    private var scoreLabelShadow: SKLabelNode!
-    private var gameOverPopup: GameOverPopup!
+    fileprivate var scoreLabel: SKLabelNode!
+    fileprivate var scoreLabelShadow: SKLabelNode!
+    fileprivate var gameOverPopup: GameOverPopup!
 
-    private var nextMarbles = [Marble]()
+    fileprivate var nextMarbles = [Marble]()
 
-    private var cameraNode: SCNNode!
+    fileprivate var cameraNode: SCNNode!
 
 
-    // MARK: Initialization
+    // MARK: - Initialization -
     final override func setupView()
     {
-        self.view = SCNView()
+        self.view = SCNView(frame: CGRect.zero, options: ["preferredRenderingAPI" : SCNRenderingAPI.metal])
         (self.view as! SCNView).showsStatistics = true
         //(self.view as! SCNView).allowsCameraControl = true
     }
@@ -52,25 +52,25 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     final override func setupCustom()
     {
-        (self.view as! SCNView).playing = false
-        (self.view as! SCNView).antialiasingMode = .Multisampling4X
-        self.view.backgroundColor = UIColor.clearColor()
+        (self.view as! SCNView).isPlaying = false
+        (self.view as! SCNView).antialiasingMode = .multisampling4X
+        self.view.backgroundColor = UIColor.white
 
         if(self.scene == nil) {
             self.scene = SCNScene()
             (self.view as! SCNView).scene = self.scene!
 
             let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
-            self.view.superview?.insertSubview(backgroundView, atIndex: 0)
+            self.view.superview?.insertSubview(backgroundView, at: 0)
 
             self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         } else {
-            self.scene.rootNode.enumerateChildNodesUsingBlock() { (node, p) in node.removeFromParentNode() }
+            self.scene.rootNode.enumerateChildNodes() { (node, p) in node.removeFromParentNode() }
         }
 
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -18)
 
-        self.tileSize = CGSizeMake(1.0, 1.0)
+        self.tileSize = CGSize(width: 1.0, height: 1.0)
 
         self.centerNode = SCNNode()
         self.scene.rootNode.addChildNode(self.centerNode)
@@ -83,8 +83,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         // Create spot light
         let spotLight = SCNLight()
-        spotLight.type = SCNLightTypeSpot
-        spotLight.shadowMode = .Forward
+        spotLight.type = SCNLight.LightType.spot
+        spotLight.shadowMode = .forward
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
@@ -94,7 +94,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.attenuationStartDistance = 50.0
         spotLight.zFar = 100.0
         spotLight.attenuationFalloffExponent = 0
-        spotLight.shadowMapSize = CGSizeMake(2048, 2048)
+        spotLight.shadowMapSize = CGSize(width: 2048, height: 2048)
 
         let spotLightNode = SCNNode()
         spotLightNode.light = spotLight
@@ -107,7 +107,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         // Create ambient light
         let ambientLight = SCNLight()
-        ambientLight.type = SCNLightTypeAmbient
+        ambientLight.type = SCNLight.LightType.ambient
         ambientLight.color = UIColor(white: 0.2, alpha: 1.0)
 
         let ambientLightNode = SCNNode()
@@ -122,13 +122,12 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.scoreLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.scoreLabel.fontSize = 32.0
         self.scoreLabel.fontColor = UIColor.marblesGreen()
-        self.scoreLabel.horizontalAlignmentMode = .Center
-        self.scoreLabel.verticalAlignmentMode = .Center
-        self.scoreLabel.position = CGPointMake(overlayScene.size.width*2.0/3.0,
-                                               overlayScene.size.height - 32.0)
+        self.scoreLabel.horizontalAlignmentMode = .center
+        self.scoreLabel.verticalAlignmentMode = .center
+        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0)
         // Score label shadow
         self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
-        self.scoreLabelShadow.fontColor = UIColor.blackColor()
+        self.scoreLabelShadow.fontColor = UIColor.black
         self.scoreLabelShadow.position.x += 1.5
         self.scoreLabelShadow.position.y -= 1.5
 
@@ -140,14 +139,15 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         let nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         nextLabel.fontSize = 32.0
         nextLabel.fontColor = UIColor.marblesGreen()
-        nextLabel.horizontalAlignmentMode = .Left
-        nextLabel.verticalAlignmentMode = .Center
-        nextLabel.position = CGPointMake(16.0, overlayScene.size.height/6.0)
+        nextLabel.horizontalAlignmentMode = .left
+        nextLabel.verticalAlignmentMode = .center
+        nextLabel.position = CGPoint(x: 16.0, y: overlayScene.size.height/6.0)
         nextLabel.text = "Next:"
 
         // Next label shadow
         let nextLabelShadow =  nextLabel.copy() as! SKLabelNode
-        nextLabelShadow.fontColor = UIColor.blackColor()
+        nextLabelShadow.fontColor = UIColor.black
+        nextLabelShadow.alpha = 1.0
         nextLabelShadow.position.x += 1.5
         nextLabelShadow.position.y -= 1.5
 
@@ -162,7 +162,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
-        self.gameOverPopup.position = CGPointMake(CGRectGetMidX(overlayScene.frame), CGRectGetMidY(overlayScene.frame))
+        self.gameOverPopup.position = CGPoint(x: overlayScene.frame.midX, y: overlayScene.frame.midY)
         self.gameOverPopup.restartCallback = { [weak self] in self?.startGame() }
         //weak var welf = self
         self.gameOverPopup.quitCallback = self.quitCallback
@@ -178,11 +178,13 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.scene.rootNode.addChildNode(self.cameraNode)
 
         // Start the game
-        (self.view as! SCNView).playing = true
+        (self.view as! SCNView).isPlaying = true
+
+        (self.view as! SCNView).overlaySKScene = overlayScene
     }
 
 
-    override func showBoard(finished: () -> Void)
+    override func showBoard(_ finished: @escaping () -> Void)
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
@@ -193,9 +195,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 self.scene.rootNode.addChildNode(tileNode)
 
                 tileNode.scale = SCNVector3Zero
-                let delayAction = SCNAction.waitForDuration(Double(x + y) * 0.05 + 0.2)
-                let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
-                scaleAction.timingMode = .EaseInEaseOut
+                let delayAction = SCNAction.wait(duration: Double(x + y) * 0.05 + 0.2)
+                let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
+                scaleAction.timingMode = .easeInEaseOut
 
                 let sequence = SCNAction.sequence([delayAction, scaleAction])
 
@@ -203,34 +205,34 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             }
         }
 
-        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 1.0))
-        dispatch_after(delay, dispatch_get_main_queue()) {
+        let delay = DispatchTime.now() + Double(Int64(Double(NSEC_PER_SEC) * 1.0)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delay) {
             finished()
         }
     }
 
 
-    override func showMarbles(marbles: [Marble], nextMarbleColors: [Int], finished: () -> Void)
+    override func showMarbles(_ marbles: [Marble], nextMarbleColors: [Int], finished: @escaping () -> Void)
     {
-        for (index, marble) in marbles.enumerate() {
+        for (index, marble) in marbles.enumerated() {
             let scnMarble = marble as! SceneKitMarble
             let targetPosition = scnMarble.node.position
             scnMarble.node.scale = SCNVector3Zero
             scnMarble.node.position.z += 1.0
 
-            let waitAction = SCNAction.waitForDuration(0.2 * NSTimeInterval(index))
+            let waitAction = SCNAction.wait(duration: 0.2 * TimeInterval(index))
             let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
-            let hideNextAction = SCNAction.runBlock { (node: SCNNode) in self.hideNextMarble(nextMarble) }
+            let hideNextAction = SCNAction.run { (node: SCNNode) in self.hideNextMarble(nextMarble) }
 
-            let scaleAction = SCNAction.scaleTo(1.0, duration: 0.2)
-            let fadeInAction = SCNAction.fadeInWithDuration(0.1)
+            let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
+            let fadeInAction = SCNAction.fadeIn(duration: 0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
-            let addGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamicBody() }
-            let waitToSettle = SCNAction.waitForDuration(0.5)
-            let moveToPoint = SCNAction.moveTo(targetPosition, duration: 0.1)
-            let removeGravityAction = SCNAction.runBlock { (node: SCNNode) in node.physicsBody = nil }
+            let addGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamic() }
+            let waitToSettle = SCNAction.wait(duration: 0.5)
+            let moveToPoint = SCNAction.move(to: targetPosition, duration: 0.1)
+            let removeGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = nil }
 
-            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in
+            let runBlockAction = SCNAction.run { (node: SCNNode) in
                 if index == marbles.count-1 {
                     self.showNextMarbles(nextMarbleColors)
                     finished()
@@ -245,10 +247,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    func hideNextMarble(nextMarble: Marble?)
+    func hideNextMarble(_ nextMarble: Marble?)
     {
         if let nextMarble = nextMarble as? SceneKitMarble {
-            let scaleAction = SCNAction.scaleTo(0.0, duration: 0.2)
+            let scaleAction = SCNAction.scale(to: 0.0, duration: 0.2)
             let removeAction = SCNAction.removeFromParentNode()
 
             nextMarble.node.runAction(SCNAction.sequence([scaleAction, removeAction]))
@@ -256,11 +258,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    func showNextMarbles(nextMarbleColors: [Int])
+    func showNextMarbles(_ nextMarbleColors: [Int])
     {
         self.nextMarbles = [Marble]()
 
-        for (index, color) in nextMarbleColors.enumerate() {
+        for (index, color) in nextMarbleColors.enumerated() {
             let nextMarble = self.field.marbleFactory.marbleWithColor(color, fieldPosition: Point(index, 0)) as! SceneKitMarble
             self.nextMarbles.append(nextMarble)
 
@@ -268,42 +270,42 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             nextMarble.node.position.x += 2.6
             nextMarble.node.position.y -= 1.5
             self.scene.rootNode.addChildNode(nextMarble.node)
-            nextMarble.node.runAction(SCNAction.scaleTo(1.0, duration: 0.2))
+            nextMarble.node.runAction(SCNAction.scale(to: 1.0, duration: 0.2))
         }
     }
 
 
-    override func hideMarbles(marbles: [Marble], finished: () -> Void)
+    override func hideMarbles(_ marbles: [Marble], finished: @escaping () -> Void)
     {
-        for (index, marble) in marbles.enumerate() {
+        for (index, marble) in marbles.enumerated() {
             let scnMarble = marble as! SceneKitMarble
 
-            let waitAction = SCNAction.waitForDuration(0.1 * NSTimeInterval(index))
+            let waitAction = SCNAction.wait(duration: 0.1 * TimeInterval(index))
 
-            let scaleAction = SCNAction.scaleTo(0.0, duration: 0.2)
-            let fadeOutAction = SCNAction.fadeOutWithDuration(0.2)
+            let scaleAction = SCNAction.scale(to: 0.0, duration: 0.2)
+            let fadeOutAction = SCNAction.fadeOut(duration: 0.2)
             let disappearAction = SCNAction.group([scaleAction, fadeOutAction])
             let removeAction = SCNAction.removeFromParentNode()
-            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == marbles.count-1 { finished() } }
+            let runBlockAction = SCNAction.run { (node: SCNNode) in if index == marbles.count-1 { finished() } }
 
             scnMarble.node.runAction(SCNAction.sequence([waitAction, disappearAction, removeAction, runBlockAction]))
         }
     }
 
 
-    override func selectMarble(marbe: Marble)
+    override func selectMarble(_ marbe: Marble)
     {
         (marbe as! SceneKitMarble).selected = true
     }
 
 
-    override func deselectMarble(marbe: Marble)
+    override func deselectMarble(_ marbe: Marble)
     {
         (marbe as! SceneKitMarble).selected = false
     }
 
 
-    override func moveMarble(marble: Marble, overFieldPath fieldPath: [Point], finished: () -> Void)
+    override func moveMarble(_ marble: Marble, overFieldPath fieldPath: [Point], finished: @escaping () -> Void)
     {
         self.tileSelectionParticleNode.position = self.tilePositionForFieldPosition(fieldPath.last!)!
         self.tileSelectionParticleNode.addParticleSystem(self.tileSelectionParticle)
@@ -312,7 +314,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         var previousFieldPosition = fieldPath.first!
 
-        for (index, position) in fieldPath.enumerate() where index != 0 {
+        for (index, position) in fieldPath.enumerated() where index != 0 {
             // Rotation
             let rotationAngle: Float = (Float(self.tileSize.width) / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
 
@@ -359,20 +361,20 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             }
 
             // Actions
-            let waitAction = SCNAction.waitForDuration(NSTimeInterval(self.fieldMoveDuration) * NSTimeInterval(index-1))
+            let waitAction = SCNAction.wait(duration: TimeInterval(self.fieldMoveDuration) * TimeInterval(index-1))
 
-            let animAct = SCNAction.runBlock { (node:SCNNode) in
+            let animAct = SCNAction.run { (node:SCNNode) in
                 SCNTransaction.begin()
-                SCNTransaction.setAnimationDuration(NSTimeInterval(self.fieldMoveDuration))
-                SCNTransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: timingFunction))
+                SCNTransaction.animationDuration = TimeInterval(self.fieldMoveDuration)
+                SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: timingFunction)
                 node.transform = SCNMatrix4FromGLKMatrix4(newRotationMatrix)
                 node.position = newPosition
                 SCNTransaction.commit()
             }
 
-            let lastWaitAction = SCNAction.waitForDuration(NSTimeInterval(index == fieldPath.count-1 ? self.fieldMoveDuration : 0.0))
+            let lastWaitAction = SCNAction.wait(duration: TimeInterval(index == fieldPath.count-1 ? self.fieldMoveDuration : 0.0))
 
-            let runBlockAction = SCNAction.runBlock { (node: SCNNode) in if index == fieldPath.count-1 { finished() } }
+            let runBlockAction = SCNAction.run { (node: SCNNode) in if index == fieldPath.count-1 { finished() } }
 
             (marble as! SceneKitMarble).node.runAction(SCNAction.sequence([waitAction, animAct, lastWaitAction, runBlockAction]))
 
@@ -381,37 +383,37 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    override func updateScore(newScore: Int)
+    override func updateScore(_ newScore: Int)
     {
         self.scoreLabel.text = "Score: \(newScore)"
         self.scoreLabelShadow.text = self.scoreLabel.text
 
         // Increased score, not reset
         if newScore > 0 {
-            let scaleOut = SKAction.scaleTo(1.3, duration: 0.2)
-            scaleOut.timingMode = .EaseInEaseOut
+            let scaleOut = SKAction.scale(to: 1.3, duration: 0.2)
+            scaleOut.timingMode = .easeInEaseOut
 
-            let scaleIn = SKAction.scaleTo(1.0, duration: 0.2)
-            scaleIn.timingMode = .EaseInEaseOut
+            let scaleIn = SKAction.scale(to: 1.0, duration: 0.2)
+            scaleIn.timingMode = .easeInEaseOut
 
             let scaleSequence = SKAction.sequence([scaleOut, scaleIn])
 
-            self.scoreLabel.runAction(scaleSequence)
-            self.scoreLabelShadow.runAction(scaleSequence)
+            self.scoreLabel.run(scaleSequence)
+            self.scoreLabelShadow.run(scaleSequence)
         }
     }
 
 
-    override func gameFinished(score: Int, isHighScore: Bool)
+    override func gameFinished(_ score: Int, isHighScore: Bool)
     {
         self.gameOverPopup.show(score, isHighScore: isHighScore)
     }
 
 
     // MARK: - Control -
-    @objc func handleTap(sender: UITapGestureRecognizer)
+    @objc func handleTap(_ sender: UITapGestureRecognizer)
     {
-        let results = (self.view as! SCNView).hitTest(sender.locationInView(self.view), options: nil)
+        let results = (self.view as! SCNView).hitTest(sender.location(in: self.view), options: nil)
 
         for result in results {
             if let fieldPosition = self.fieldPositionForPosition(result.node.position) {
@@ -423,7 +425,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
 
     // MARK: - Utils -
-    func tilePositionForFieldPosition(fieldPosition: Point) -> SCNVector3?
+    func tilePositionForFieldPosition(_ fieldPosition: Point) -> SCNVector3?
     {
         let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width - self.tileSize.width) / 2.0
         let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height - self.tileSize.height) / 2.0
@@ -435,7 +437,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    func marblePositionForFieldPosition(fieldPosition: Point) -> SCNVector3?
+    func marblePositionForFieldPosition(_ fieldPosition: Point) -> SCNVector3?
     {
         guard fieldPosition.x >= 0 && fieldPosition.x < self.field.size.width &&
             fieldPosition.y >= 0 && fieldPosition.y < self.field.size.height else {
@@ -452,7 +454,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    func fieldPositionForPosition(position: SCNVector3) -> Point?
+    func fieldPositionForPosition(_ position: SCNVector3) -> Point?
     {
         let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width) / 2.0
         let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height) / 2.0

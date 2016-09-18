@@ -10,20 +10,20 @@ import Foundation
 
 
 enum GraphicsType {
-    case SpriteKit
-    case SceneKit
+    case spriteKit
+    case sceneKit
 }
 
 
 class GameFactory
 {
-    class func gameWithGraphicsType(graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int) -> Game
+    class func gameWithGraphicsType(_ graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int) -> Game
     {
         // Initialize marble factory
         var marbleFactory: MarbleFactory!
 
         switch graphicsType {
-            case .SpriteKit:
+            case .spriteKit:
                 marbleFactory = SpriteKitMarbleFactory()
             default:
                 marbleFactory = SceneKitMarbleFactory()
@@ -36,7 +36,7 @@ class GameFactory
         var game: Game!
 
         switch graphicsType {
-            case .SpriteKit:
+            case .spriteKit:
                 game = SpriteKitGame(field: field)
                 (marbleFactory as! SpriteKitMarbleFactory).game = game as! SpriteKitGame
             default:

@@ -8,7 +8,7 @@
 
 class PathFinderA: PathFinderProtocol
 {
-    func pathFromFieldPosition(from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
+    func pathFromFieldPosition(_ from: Point, toFieldPosition to: Point, field: Field) -> [Point]?
     {
         let path = self.findPathFromFieldPosition(from, toFieldPosition: to, fieldSize: field.size, fieldPositions: field.marbles)
 
@@ -16,11 +16,11 @@ class PathFinderA: PathFinderProtocol
             return nil
         }
 
-        return path?.reverse()
+        return path?.reversed()
     }
 
 
-    private func findPathFromFieldPosition(from: Point, toFieldPosition to: Point, fieldSize: Size, fieldPositions: [Point : Marble], visitedMap: [Point : Bool]? = nil) -> [Point]?
+    fileprivate func findPathFromFieldPosition(_ from: Point, toFieldPosition to: Point, fieldSize: Size, fieldPositions: [Point : Marble], visitedMap: [Point : Bool]? = nil) -> [Point]?
     {
         var map = visitedMap
 

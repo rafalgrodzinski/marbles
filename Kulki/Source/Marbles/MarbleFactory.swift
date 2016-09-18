@@ -9,7 +9,7 @@
 class MarbleFactory
 {
     // MARK: <<Abstract method>>
-    func marbleWithColor(color: Int, fieldPosition: Point) -> Marble!
+    func marbleWithColor(_ color: Int, fieldPosition: Point) -> Marble!
     {
         assert(false, "<<Abstract method>>")
         return nil

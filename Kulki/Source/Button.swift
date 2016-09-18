@@ -11,8 +11,8 @@ import SpriteKit
 class Button: SKSpriteNode
 {
     // MARK: Variables
-    private var defaultTexture: SKTexture? = nil
-    private var pressedTexture: SKTexture? = nil
+    fileprivate var defaultTexture: SKTexture? = nil
+    fileprivate var pressedTexture: SKTexture? = nil
 
     // MARK: - Callbacks -
     var callback: (() -> Void)?
@@ -24,9 +24,9 @@ class Button: SKSpriteNode
         self.defaultTexture = defaultTexture
         self.pressedTexture = pressedTexture
 
-        super.init(texture: defaultTexture, color: UIColor.clearColor(), size: defaultTexture.size())
+        super.init(texture: defaultTexture, color: UIColor.clear, size: defaultTexture.size())
 
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
     }
 
 
@@ -37,26 +37,26 @@ class Button: SKSpriteNode
 
 
     // MARK: - Control -
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.showPressed()
     }
 
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        self.touchesCancelled(touches, withEvent: event)
+        self.touchesCancelled(touches, with: event)
     }
 
 
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.showDefault()
 
-        for touch in touches! {
-            let location = touch.locationInNode(self.parent!)
+        for touch in touches {
+            let location = touch.location(in: self.parent!)
 
-            if self.containsPoint(location) {
+            if self.contains(location) {
                 if let callback = self.callback {
                     callback()
                 }
@@ -64,12 +64,12 @@ class Button: SKSpriteNode
         }
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         for touch in touches {
-            let location = touch.locationInNode(self.parent!)
+            let location = touch.location(in: self.parent!)
 
-            if self.containsPoint(location) {
+            if self.contains(location) {
                 self.showPressed()
                 return
             }
@@ -80,14 +80,14 @@ class Button: SKSpriteNode
 
 
     // MARK: - Internal Control -
-    private func showDefault()
+    fileprivate func showDefault()
     {
         self.texture = self.defaultTexture
         self.colorBlendFactor = 0.0
     }
 
 
-    private func showPressed()
+    fileprivate func showPressed()
     {
         if let pressedTexture = self.pressedTexture {
             self.texture = pressedTexture

@@ -11,7 +11,7 @@ class SpriteKitMarbleFactory: MarbleFactory
     weak var game: SpriteKitGame!
 
     
-    override func marbleWithColor(color: Int, fieldPosition: Point) -> Marble!
+    override func marbleWithColor(_ color: Int, fieldPosition: Point) -> Marble!
     {
         return SpriteKitMarble(color: color,
                                fieldPosition: fieldPosition,
