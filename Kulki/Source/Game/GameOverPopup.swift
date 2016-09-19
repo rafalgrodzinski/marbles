@@ -37,13 +37,13 @@ open class GameOverPopup: SKNode
 
         // Setup restart button
         let restartButton = Button(defaultTexture: SKTexture(imageNamed: "Restart Button"))
-        restartButton.callback = self.restartButtonPressed
+        restartButton.callback = { [weak self] in self?.restartButtonPressed() }
         self.addChild(restartButton)
 
         // Setup menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button"))
         menuButton.position = CGPoint(x: 0.0, y: -restartButton.size.height*1.25)
-        menuButton.callback = self.menuButtonPressed
+        menuButton.callback = { [weak self] in self?.menuButtonPressed() }
         self.addChild(menuButton)
 
         // Top label

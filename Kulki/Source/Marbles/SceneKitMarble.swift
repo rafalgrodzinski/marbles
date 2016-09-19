@@ -72,4 +72,11 @@ class SceneKitMarble: Marble
         self.marbleLight.attenuationEndDistance = 2
         self.marbleLight.attenuationFalloffExponent = 1
     }
+
+
+    deinit {
+        self.node.geometry?.shaderModifiers = nil
+        self.node.geometry?.firstMaterial?.diffuse.contents = nil
+        self.node.geometry = nil
+    }
 }

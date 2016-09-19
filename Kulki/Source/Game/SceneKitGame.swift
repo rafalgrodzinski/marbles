@@ -44,9 +44,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     // MARK: - Initialization -
     final override func setupView()
     {
-        self.view = SCNView(frame: CGRect.zero, options: ["preferredRenderingAPI" : SCNRenderingAPI.metal])
-        (self.view as! SCNView).showsStatistics = true
-        //(self.view as! SCNView).allowsCameraControl = true
+        self.view = SCNView()
+        //(self.view as! SCNView).showsStatistics = true
     }
 
 
@@ -157,15 +156,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
-        menuButton.callback = self.pauseCallback
+        menuButton.callback =  { [weak self] in self?.pauseCallback!() }
         overlayScene.addChild(menuButton)
 
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
         self.gameOverPopup.position = CGPoint(x: overlayScene.frame.midX, y: overlayScene.frame.midY)
         self.gameOverPopup.restartCallback = { [weak self] in self?.startGame() }
-        //weak var welf = self
-        self.gameOverPopup.quitCallback = self.quitCallback
+        self.gameOverPopup.quitCallback = { [weak self] in self?.quitCallback!() }
         overlayScene.addChild(self.gameOverPopup)
 
         self.scene.rootNode.castsShadow = false
@@ -468,4 +466,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         return Point(x, y)
     }
+
+
+    /*deinit
+    {
+        for node in self.scene.rootNode.childNodes {
+            node.geometry = nil
+            node.removeAllActions()
+            node.removeFromParentNode()
+        }
+    }*/
 }

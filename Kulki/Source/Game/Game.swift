@@ -13,14 +13,14 @@ open class Game: NSObject
 {
     internal(set) var view: UIView!
     internal var field: Field
-    internal var currentState: State?
+    internal weak var currentState: State?
     fileprivate var states: [State]!
 
     // State data
     fileprivate var isWaitingForMove = false
-    fileprivate var selectedMarble: Marble?
+    fileprivate weak var selectedMarble: Marble?
     fileprivate var drawnMarbleColors: [Int]?
-    fileprivate var spawnedMarbles: [Marble]?
+    fileprivate var spawnedMarbles: NSHashTable<Marble>?
 
     // Callbacks
     open var pauseCallback: (() -> Void)?
@@ -118,9 +118,14 @@ open class Game: NSObject
     {
         self.currentState = state
 
-        self.spawnedMarbles = self.field.spawnMarbles(self.drawnMarbleColors!)
+        self.spawnedMarbles = NSHashTable<Marble>(options: .weakMemory)
+        let spawned = self.field.spawnMarbles(self.drawnMarbleColors!)
+        for marble in spawned {
+            self.spawnedMarbles?.add(marble)
+        }
+
         self.drawnMarbleColors = self.field.drawNextMarbleColors()
-        self.showMarbles(spawnedMarbles!, nextMarbleColors: self.drawnMarbleColors!, finished: state.goToNextState)
+        self.showMarbles(spawned, nextMarbleColors: self.drawnMarbleColors!, finished: state.goToNextState)
     }
 
 
@@ -130,7 +135,7 @@ open class Game: NSObject
 
         var removedMarbles = [Marble]()
 
-        for marble in self.spawnedMarbles! {
+        for marble in self.spawnedMarbles!.allObjects {
             let lineOfMarbles = self.field.removeLinesAtMarble(marble)
             removedMarbles.append(contentsOf: lineOfMarbles)
 
