@@ -17,20 +17,22 @@ class SceneKitMarble: Marble
 
     let node: SCNNode
     let marbleLight: SCNLight
+    var ligthShaders: [SCNShaderModifierEntryPoint : String]?
 
     var selected: Bool {
         didSet {
             if self.selected {
                 self.node.light = self.marbleLight
 
-                var r: CGFloat = 0
-                var g: CGFloat = 0
-                var b: CGFloat = 0
-                var a: CGFloat = 0
-                self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
-                let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
-                    "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
-                self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : s]
+//                var r: CGFloat = 0
+//                var g: CGFloat = 0
+//                var b: CGFloat = 0
+//                var a: CGFloat = 0
+//                self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
+                //let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
+                //    "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
+                //self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : s]
+                self.node.geometry?.shaderModifiers = self.ligthShaders
             } else {
                 self.node.light = nil
                 self.node.geometry?.shaderModifiers = nil
@@ -71,6 +73,17 @@ class SceneKitMarble: Marble
         self.marbleLight.attenuationStartDistance = 1
         self.marbleLight.attenuationEndDistance = 2
         self.marbleLight.attenuationFalloffExponent = 1
+
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
+        let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
+            "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
+        self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : s]
+        self.ligthShaders = self.node.geometry?.shaderModifiers
+        self.node.geometry?.shaderModifiers = nil
     }
 
 
