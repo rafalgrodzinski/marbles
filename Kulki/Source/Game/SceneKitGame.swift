@@ -45,14 +45,15 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     final override func setupView()
     {
         self.view = SCNView()
-        //(self.view as! SCNView).showsStatistics = true
+        (self.view as! SCNView).showsStatistics = true
     }
 
 
     final override func setupCustom()
     {
         (self.view as! SCNView).isPlaying = false
-        (self.view as! SCNView).antialiasingMode = .multisampling4X
+        (self.view as! SCNView).antialiasingMode = .multisampling2X
+        (self.view as! SCNView).preferredFramesPerSecond = 60
         self.view.backgroundColor = UIColor.white
 
         if(self.scene == nil) {
@@ -186,7 +187,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
-                let tileNode = self.tilePrototype.duplicate()
+                let tileNode = self.tilePrototype.flattenedClone()
                 
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
                 tileNode.position.z = -Float(self.boardHeight / 2.0)

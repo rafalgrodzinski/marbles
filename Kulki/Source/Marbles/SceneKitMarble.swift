@@ -23,15 +23,6 @@ class SceneKitMarble: Marble
         didSet {
             if self.selected {
                 self.node.light = self.marbleLight
-
-//                var r: CGFloat = 0
-//                var g: CGFloat = 0
-//                var b: CGFloat = 0
-//                var a: CGFloat = 0
-//                self.colors[color].getRed(&r, green: &g, blue: &b, alpha: &a)
-                //let s = String(format: "float mult = pow(1.0 - dot(_surface.view, _surface.normal), 1.0); " +
-                //    "_output.color += float4(mult * %f, mult * %f, mult * %f, 1.0);", r, g, b)
-                //self.node.geometry?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : s]
                 self.node.geometry?.shaderModifiers = self.ligthShaders
             } else {
                 self.node.light = nil
