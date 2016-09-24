@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B50903DF1CD6432A004E8E6E /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50903DE1CD6432A004E8E6E /* ScoreSingleton.swift */; };
+		B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */; };
 		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
 		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
 		B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5337ACE1CD500B0009C3098 /* Selection Particle.png */; };
@@ -42,11 +42,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B50903DE1CD6432A004E8E6E /* ScoreSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreSingleton.swift; path = Kulki/Source/Score/ScoreSingleton.swift; sourceTree = SOURCE_ROOT; };
+		B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreSingleton.swift; path = Marbles/Source/Score/ScoreSingleton.swift; sourceTree = SOURCE_ROOT; };
 		B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderGridAdapter.swift; sourceTree = "<group>"; };
-		B52C79591CD4F0B000A86DAE /* Selection.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Selection.scnp; path = Kulki/Assets/Particles/Selection.scnp; sourceTree = "<group>"; };
-		B5337ACE1CD500B0009C3098 /* Selection Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Selection Particle.png"; path = "Kulki/Assets/Textures/Selection Particle.png"; sourceTree = "<group>"; };
-		B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BunakenUnderwater.ttf; path = Kulki/Assets/BunakenUnderwater.ttf; sourceTree = "<group>"; };
+		B52C79591CD4F0B000A86DAE /* Selection.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Selection.scnp; path = Marbles/Assets/Particles/Selection.scnp; sourceTree = "<group>"; };
+		B5337ACE1CD500B0009C3098 /* Selection Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Selection Particle.png"; path = "Marbles/Assets/Textures/Selection Particle.png"; sourceTree = "<group>"; };
+		B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BunakenUnderwater.ttf; path = Marbles/Assets/BunakenUnderwater.ttf; sourceTree = "<group>"; };
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
@@ -60,18 +60,18 @@
 		B576D0DD1CCCC2F8001A5657 /* SpriteKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitMarble.swift; sourceTree = "<group>"; };
 		B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarbleFactory.swift; sourceTree = "<group>"; };
 		B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitMarbleFactory.swift; sourceTree = "<group>"; };
-		B57918D41C6A741A004214EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Kulki/Assets/Main.storyboard; sourceTree = "<group>"; };
-		B57918D61C6A7438004214EF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Kulki/Assets/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B57918F61C6A76DC004214EF /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuViewController.swift; path = Source/MainMenuViewController.swift; sourceTree = "<group>"; };
+		B57918D41C6A741A004214EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Marbles/Assets/Main.storyboard; sourceTree = "<group>"; };
+		B57918D61C6A7438004214EF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Marbles/Assets/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B57918F61C6A76DC004214EF /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuViewController.swift; path = "Source/Main Menu/MainMenuViewController.swift"; sourceTree = "<group>"; };
 		B582546D1C5E58090065E283 /* Marbles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marbles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58254701C5E58090065E283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
-		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Kulki/Assets/Images.xcassets; sourceTree = "<group>"; };
-		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Kulki/Supporting Files/Info.plist"; sourceTree = "<group>"; };
-		B59640741D5FC69C00CABF43 /* Marble Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Normal.png"; path = "Kulki/Assets/Textures/Marble Normal.png"; sourceTree = "<group>"; };
-		B59640751D5FC69C00CABF43 /* Marble Specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Specular.png"; path = "Kulki/Assets/Textures/Marble Specular.png"; sourceTree = "<group>"; };
-		B596407A1D5FC9DC00CABF43 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Kulki/Assets/Models/Marble.scn; sourceTree = "<group>"; };
-		B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Diffuse.png"; path = "Kulki/Assets/Textures/Tile Diffuse.png"; sourceTree = "<group>"; };
-		B59640801D5FE84400CABF43 /* Tile Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Normal.png"; path = "Kulki/Assets/Textures/Tile Normal.png"; sourceTree = "<group>"; };
+		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Marbles/Assets/Images.xcassets; sourceTree = "<group>"; };
+		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Marbles/Supporting Files/Info.plist"; sourceTree = "<group>"; };
+		B59640741D5FC69C00CABF43 /* Marble Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Normal.png"; path = "Marbles/Assets/Textures/Marble Normal.png"; sourceTree = "<group>"; };
+		B59640751D5FC69C00CABF43 /* Marble Specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Specular.png"; path = "Marbles/Assets/Textures/Marble Specular.png"; sourceTree = "<group>"; };
+		B596407A1D5FC9DC00CABF43 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Marbles/Assets/Models/Marble.scn; sourceTree = "<group>"; };
+		B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Diffuse.png"; path = "Marbles/Assets/Textures/Tile Diffuse.png"; sourceTree = "<group>"; };
+		B59640801D5FE84400CABF43 /* Tile Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Normal.png"; path = "Marbles/Assets/Textures/Tile Normal.png"; sourceTree = "<group>"; };
 		B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuBackgroundView.swift; path = "Source/Main Menu/MainMenuBackgroundView.swift"; sourceTree = "<group>"; };
 		B5CB02871D23042C005770BB /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Source/Button.swift; sourceTree = "<group>"; };
 		B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		B50903E01CD64330004E8E6E /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				B50903DE1CD6432A004E8E6E /* ScoreSingleton.swift */,
+				B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */,
 			);
 			name = Score;
 			sourceTree = "<group>";
@@ -165,7 +165,7 @@
 				B50903E01CD64330004E8E6E /* Score */,
 			);
 			name = Source;
-			path = Kulki;
+			path = Marbles;
 			sourceTree = "<group>";
 		};
 		B58254861C5E584D0065E283 /* Assets */ = {
@@ -240,9 +240,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B582546C1C5E58090065E283 /* Kulki */ = {
+		B582546C1C5E58090065E283 /* Marbles */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Kulki" */;
+			buildConfigurationList = B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles" */;
 			buildPhases = (
 				B58254691C5E58090065E283 /* Sources */,
 				B582546A1C5E58090065E283 /* Frameworks */,
@@ -252,8 +252,8 @@
 			);
 			dependencies = (
 			);
-			name = Kulki;
-			productName = Kulki;
+			name = Marbles;
+			productName = Marbles;
 			productReference = B582546D1C5E58090065E283 /* Marbles.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -274,7 +274,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B58254681C5E58090065E283 /* Build configuration list for PBXProject "Kulki" */;
+			buildConfigurationList = B58254681C5E58090065E283 /* Build configuration list for PBXProject "Marbles" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -286,7 +286,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B582546C1C5E58090065E283 /* Kulki */,
+				B582546C1C5E58090065E283 /* Marbles */,
 			);
 		};
 /* End PBXProject section */
@@ -325,6 +325,7 @@
 				B56B2D9F1CD92FF3006B5F2F /* PathFinderProtocol.swift in Sources */,
 				B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */,
 				B576D0D41CCC38BA001A5657 /* Game.swift in Sources */,
+				B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */,
 				B57918F71C6A76DC004214EF /* MainMenuViewController.swift in Sources */,
 				B576D0E01CCCC342001A5657 /* MarbleFactory.swift in Sources */,
 				B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */,
@@ -336,7 +337,6 @@
 				B5CB02881D23042C005770BB /* Button.swift in Sources */,
 				B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */,
 				B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */,
-				B50903DF1CD6432A004E8E6E /* ScoreSingleton.swift in Sources */,
 				B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,10 +437,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Kulki/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.kulki;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marbles;
 				PRODUCT_NAME = Marbles;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -453,10 +453,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Kulki/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.kulki;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marbles;
 				PRODUCT_NAME = Marbles;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -467,7 +467,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B58254681C5E58090065E283 /* Build configuration list for PBXProject "Kulki" */ = {
+		B58254681C5E58090065E283 /* Build configuration list for PBXProject "Marbles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B58254811C5E58090065E283 /* Debug */,
@@ -476,7 +476,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Kulki" */ = {
+		B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B58254841C5E58090065E283 /* Debug */,
