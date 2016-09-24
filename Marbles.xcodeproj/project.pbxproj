@@ -18,6 +18,8 @@
 		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
 		B56B2D9F1CD92FF3006B5F2F /* PathFinderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */; };
 		B56B2DA11CD9316D006B5F2F /* PathFinderA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */; };
+		B573956B1D96EBF900018F49 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B57395691D96EBF900018F49 /* Fabric.framework */; };
+		B573956E1D96ECAC00018F49 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B573956A1D96EBF900018F49 /* Crashlytics.framework */; };
 		B576D0D41CCC38BA001A5657 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D31CCC38BA001A5657 /* Game.swift */; };
 		B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D51CCC38E5001A5657 /* GameFactory.swift */; };
 		B576D0D81CCC3AB6001A5657 /* SpriteKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */; };
@@ -53,6 +55,8 @@
 		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
 		B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderProtocol.swift; sourceTree = "<group>"; };
 		B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderA.swift; sourceTree = "<group>"; };
+		B57395691D96EBF900018F49 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		B573956A1D96EBF900018F49 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		B576D0D31CCC38BA001A5657 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B576D0D51CCC38E5001A5657 /* GameFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
 		B576D0D71CCC3AB6001A5657 /* SpriteKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitGame.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B573956B1D96EBF900018F49 /* Fabric.framework in Frameworks */,
+				B573956E1D96ECAC00018F49 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +101,16 @@
 				B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */,
 			);
 			name = Score;
+			sourceTree = "<group>";
+		};
+		B573956D1D96EC8300018F49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B57395691D96EBF900018F49 /* Fabric.framework */,
+				B573956A1D96EBF900018F49 /* Crashlytics.framework */,
+			);
+			name = Frameworks;
+			path = Marbles;
 			sourceTree = "<group>";
 		};
 		B576D0D91CCCC2B7001A5657 /* Game */ = {
@@ -140,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B582546F1C5E58090065E283 /* Source */,
+				B573956D1D96EC8300018F49 /* Frameworks */,
 				B58254861C5E584D0065E283 /* Assets */,
 				B58254871C5E585E0065E283 /* Supporting Files */,
 				B582546E1C5E58090065E283 /* Products */,
@@ -247,6 +264,7 @@
 				B58254691C5E58090065E283 /* Sources */,
 				B582546A1C5E58090065E283 /* Frameworks */,
 				B582546B1C5E58090065E283 /* Resources */,
+				B57395681D96EBDB00018F49 /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -312,6 +330,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B57395681D96EBDB00018F49 /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Marbles/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b 2b72db766164268b201cc8cdd8bf3e3deeed9f8059880f5873f0a5a0edbdf19d";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B58254691C5E58090065E283 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -368,6 +403,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Marbles/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -415,6 +451,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Marbles/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -437,6 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -453,6 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
