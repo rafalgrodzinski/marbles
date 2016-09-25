@@ -45,7 +45,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     final override func setupView()
     {
         self.view = SCNView()
-        (self.view as! SCNView).showsStatistics = true
+
+        #if DEBUG
+            (self.view as! SCNView).showsStatistics = true
+        #endif
     }
 
 
