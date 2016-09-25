@@ -62,7 +62,6 @@ class MainMenuViewController: UIViewController
             welf?.updateHighScoreLabel()
             welf?.setupForResume()
             welf?.gameVc!.dismiss(animated: false, completion: nil)
-            welf?.gameVc = nil
         }
 
         self.game!.quitCallback = {
