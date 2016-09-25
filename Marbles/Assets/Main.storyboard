@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8SB-Rx-thH">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8SB-Rx-thH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -21,7 +21,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7yi-Mv-Clj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU" customClass="MainMenuBackgroundView" customModule="Marbles" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LP-YF-7Rj" userLabel="Container View">
@@ -95,22 +95,45 @@
                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you enjoying the game? How about a tip?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p99-zK-bJl" userLabel="Tip Jar Label">
+                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eei-ZG-ji9" userLabel="Tip Jar Button">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="NIK-ZW-915"/>
+                                    <constraint firstAttribute="width" constant="48" id="ksh-cG-6BI"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Tip Jar"/>
+                                <connections>
+                                    <segue destination="UOe-o8-ciZ" kind="presentation" modalTransitionStyle="crossDissolve" id="6Fj-82-sMY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="a8s-46-3XP" secondAttribute="trailing" id="8N3-GY-dwY"/>
                             <constraint firstItem="qMy-9v-tqI" firstAttribute="centerX" secondItem="BNP-zL-FhU" secondAttribute="centerX" id="BzR-41-FcP"/>
+                            <constraint firstItem="7yi-Mv-Clj" firstAttribute="top" secondItem="eei-ZG-ji9" secondAttribute="bottom" constant="16" id="JRG-2Y-k5Z"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="ewZ-vY-kxM" secondAttribute="bottom" id="LMa-Xx-xqO"/>
+                            <constraint firstItem="p99-zK-bJl" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leading" constant="16" id="RbC-Vy-T2a"/>
+                            <constraint firstItem="p99-zK-bJl" firstAttribute="bottom" secondItem="eei-ZG-ji9" secondAttribute="bottom" id="Tiu-F8-MF5"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="1LP-YF-7Rj" secondAttribute="bottom" id="Vg5-Gf-zAO"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="centerY" secondItem="BNP-zL-FhU" secondAttribute="centerY" id="Y4i-m2-RYm"/>
                             <constraint firstItem="1LP-YF-7Rj" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leadingMargin" id="bAK-bC-xcJ"/>
                             <constraint firstItem="qMy-9v-tqI" firstAttribute="top" secondItem="kbx-ON-emD" secondAttribute="bottom" id="e4d-iD-OMG"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="centerX" secondItem="BNP-zL-FhU" secondAttribute="centerX" id="eQ5-Dj-CIN"/>
+                            <constraint firstItem="eei-ZG-ji9" firstAttribute="leading" secondItem="p99-zK-bJl" secondAttribute="trailing" constant="8" id="fXn-7c-OvV"/>
                             <constraint firstItem="a8s-46-3XP" firstAttribute="top" secondItem="qMy-9v-tqI" secondAttribute="bottom" constant="8" id="hQg-Se-kw7"/>
                             <constraint firstItem="1LP-YF-7Rj" firstAttribute="top" secondItem="jva-sR-gDA" secondAttribute="bottom" id="jnP-ND-7Ig"/>
                             <constraint firstItem="a8s-46-3XP" firstAttribute="leading" secondItem="BNP-zL-FhU" secondAttribute="leadingMargin" id="k8K-mJ-0BZ"/>
                             <constraint firstItem="kbx-ON-emD" firstAttribute="top" secondItem="1LP-YF-7Rj" secondAttribute="bottom" id="kQq-tX-Eq4"/>
+                            <constraint firstAttribute="trailing" secondItem="eei-ZG-ji9" secondAttribute="trailing" constant="16" id="lRN-Nf-cOJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1LP-YF-7Rj" secondAttribute="trailing" id="vMx-eE-4KC"/>
+                            <constraint firstItem="p99-zK-bJl" firstAttribute="top" secondItem="eei-ZG-ji9" secondAttribute="top" id="wBK-MR-Z9C"/>
                             <constraint firstItem="a8s-46-3XP" firstAttribute="top" secondItem="kbx-ON-emD" secondAttribute="bottom" constant="16" id="zkB-BI-UZf"/>
                         </constraints>
                         <variation key="default">
@@ -130,10 +153,46 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bg6-Rw-dIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="715" y="422"/>
+            <point key="canvasLocation" x="714.39999999999998" y="421.43928035982015"/>
+        </scene>
+        <!--Tip Jar View Controller-->
+        <scene sceneID="f4R-vg-Mcg">
+            <objects>
+                <viewController id="UOe-o8-ciZ" customClass="TipJarViewController" customModule="Marbles" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z9l-PT-G9U"/>
+                        <viewControllerLayoutGuide type="bottom" id="iER-9F-Wvv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hYv-qp-dud" customClass="MainMenuBackgroundView" customModule="Marbles" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djz-Kc-pLS">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="82" id="k6J-u2-9kK"/>
+                                    <constraint firstAttribute="height" constant="47" id="vfP-q4-ROH"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Menu Button"/>
+                                <connections>
+                                    <action selector="menuButtonPressed:" destination="UOe-o8-ciZ" eventType="touchUpInside" id="xr1-up-PBe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="djz-Kc-pLS" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="16" id="sOA-jj-TwH"/>
+                            <constraint firstItem="djz-Kc-pLS" firstAttribute="top" secondItem="Z9l-PT-G9U" secondAttribute="bottom" constant="16" id="zZH-iU-2te"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rcO-pK-pl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1481" y="452"/>
         </scene>
     </scenes>
     <resources>
         <image name="Button" width="21" height="64"/>
+        <image name="Menu Button" width="82" height="47"/>
+        <image name="Tip Jar" width="48" height="48"/>
     </resources>
 </document>

@@ -13,6 +13,7 @@
 		B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5337ACE1CD500B0009C3098 /* Selection Particle.png */; };
 		B5359C931D4810FA00A9C236 /* BunakenUnderwater.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */; };
 		B53891F11C6D520C00006380 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53891F01C6D520C00006380 /* Field.swift */; };
+		B540A8401D97DDDF00941F5D /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540A83F1D97DDDF00941F5D /* TipJarViewController.swift */; };
 		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
 		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
 		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
@@ -50,6 +51,7 @@
 		B5337ACE1CD500B0009C3098 /* Selection Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Selection Particle.png"; path = "Marbles/Assets/Textures/Selection Particle.png"; sourceTree = "<group>"; };
 		B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BunakenUnderwater.ttf; path = Marbles/Assets/BunakenUnderwater.ttf; sourceTree = "<group>"; };
 		B53891F01C6D520C00006380 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		B540A83F1D97DDDF00941F5D /* TipJarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TipJarViewController.swift; path = "Source/Main Menu/TipJarViewController.swift"; sourceTree = "<group>"; };
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
 		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
@@ -189,9 +191,9 @@
 			isa = PBXGroup;
 			children = (
 				B582547B1C5E58090065E283 /* Images.xcassets */,
-				B57918D41C6A741A004214EF /* Main.storyboard */,
-				B57918D61C6A7438004214EF /* LaunchScreen.storyboard */,
 				B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */,
+				B57918D61C6A7438004214EF /* LaunchScreen.storyboard */,
+				B57918D41C6A741A004214EF /* Main.storyboard */,
 				B59640731D5FC68600CABF43 /* Textures */,
 				B59640781D5FC96E00CABF43 /* Models */,
 				B59640791D5FC97300CABF43 /* Particles */,
@@ -238,8 +240,9 @@
 		B5CB02811D22E240005770BB /* Main Menu */ = {
 			isa = PBXGroup;
 			children = (
-				B57918F61C6A76DC004214EF /* MainMenuViewController.swift */,
 				B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */,
+				B57918F61C6A76DC004214EF /* MainMenuViewController.swift */,
+				B540A83F1D97DDDF00941F5D /* TipJarViewController.swift */,
 			);
 			name = "Main Menu";
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B540A8401D97DDDF00941F5D /* TipJarViewController.swift in Sources */,
 				B576D0D61CCC38E5001A5657 /* GameFactory.swift in Sources */,
 				B576D0E21CCCC35D001A5657 /* SpriteKitMarbleFactory.swift in Sources */,
 				B576D0DC1CCCC2DC001A5657 /* Marble.swift in Sources */,
