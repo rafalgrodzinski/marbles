@@ -138,9 +138,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="zkB-BI-UZf"/>
                                 <exclude reference="LMa-Xx-xqO"/>
                                 <exclude reference="kQq-tX-Eq4"/>
-                                <exclude reference="zkB-BI-UZf"/>
                             </mask>
                         </variation>
                     </view>
@@ -167,7 +167,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djz-Kc-pLS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djz-Kc-pLS" userLabel="Menu Button">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="k6J-u2-9kK"/>
                                     <constraint firstAttribute="height" constant="47" id="vfP-q4-ROH"/>
@@ -177,21 +177,100 @@
                                     <action selector="menuButtonPressed:" destination="UOe-o8-ciZ" eventType="touchUpInside" id="xr1-up-PBe"/>
                                 </connections>
                             </button>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" delaysContentTouches="NO" canCancelContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Ud-k7-nsM">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TipCell" rowHeight="72" id="TYV-af-HBI">
+                                        <rect key="frame" x="0.0" y="28" width="359" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TYV-af-HBI" id="Pug-0U-3Q6">
+                                            <frame key="frameInset" width="359" height="71"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjy-pU-Pok" userLabel="Tip Button">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="QHI-Yn-fv8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                    <size key="titleShadowOffset" width="1" height="1"/>
+                                                    <state key="normal" title="Tip" backgroundImage="Button">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyf-uu-HrD" userLabel="Title Label">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <size key="shadowOffset" width="1" height="1"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Amount Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHM-FS-F2N" userLabel="Amount Label">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <size key="shadowOffset" width="1" height="1"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Sjy-pU-Pok" firstAttribute="leading" secondItem="QHM-FS-F2N" secondAttribute="trailing" constant="8" id="5DA-L8-zzf"/>
+                                                <constraint firstAttribute="trailing" secondItem="Sjy-pU-Pok" secondAttribute="trailing" constant="8" id="9ya-Rc-uFn"/>
+                                                <constraint firstItem="Sjy-pU-Pok" firstAttribute="top" secondItem="Pug-0U-3Q6" secondAttribute="top" constant="4" id="H3p-KF-AOs"/>
+                                                <constraint firstAttribute="bottom" secondItem="Sjy-pU-Pok" secondAttribute="bottom" constant="4" id="NPF-pu-2PZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="QHM-FS-F2N" secondAttribute="bottom" constant="8" id="Oee-Nk-zPc"/>
+                                                <constraint firstItem="Wyf-uu-HrD" firstAttribute="leading" secondItem="Pug-0U-3Q6" secondAttribute="leading" constant="8" id="YXu-Iu-6xx"/>
+                                                <constraint firstItem="QHM-FS-F2N" firstAttribute="leading" secondItem="Wyf-uu-HrD" secondAttribute="trailing" constant="8" id="b2C-Ix-Syx"/>
+                                                <constraint firstItem="Wyf-uu-HrD" firstAttribute="top" secondItem="Pug-0U-3Q6" secondAttribute="top" constant="8" id="iuR-tl-eNy"/>
+                                                <constraint firstItem="QHM-FS-F2N" firstAttribute="top" secondItem="Pug-0U-3Q6" secondAttribute="top" constant="8" id="k2x-DF-9oP"/>
+                                                <constraint firstAttribute="bottom" secondItem="Wyf-uu-HrD" secondAttribute="bottom" constant="8" id="sLd-uF-ygG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="UOe-o8-ciZ" id="taj-DI-Pzc"/>
+                                    <outlet property="delegate" destination="UOe-o8-ciZ" id="sse-5W-lfq"/>
+                                </connections>
+                            </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="U0d-aD-CZe">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="Hgx-pg-t0C"/>
+                                </constraints>
+                                <string key="text">Marbles is a completely free and open-source, without any hidden catches. If you're enjoying it, consider leaving a positivie review in the App Store, or even giving me a tip.
+
+The full source code can be found at https://github.com/UnalignedByte/marbles</string>
+                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iER-9F-Wvv" firstAttribute="top" secondItem="8Ud-k7-nsM" secondAttribute="bottom" constant="8" id="1Ym-as-lrR"/>
+                            <constraint firstAttribute="trailing" secondItem="U0d-aD-CZe" secondAttribute="trailing" constant="8" id="NbW-AN-pDL"/>
+                            <constraint firstItem="U0d-aD-CZe" firstAttribute="top" secondItem="djz-Kc-pLS" secondAttribute="bottom" constant="8" id="OzP-pW-4wv"/>
+                            <constraint firstItem="8Ud-k7-nsM" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="8" id="cb3-1e-EQ7"/>
+                            <constraint firstAttribute="trailing" secondItem="8Ud-k7-nsM" secondAttribute="trailing" constant="8" id="hTc-qI-NYN"/>
                             <constraint firstItem="djz-Kc-pLS" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="16" id="sOA-jj-TwH"/>
+                            <constraint firstItem="U0d-aD-CZe" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="8" id="vQE-Gw-a1o"/>
+                            <constraint firstItem="8Ud-k7-nsM" firstAttribute="top" secondItem="U0d-aD-CZe" secondAttribute="bottom" constant="8" id="xRQ-Od-MrQ"/>
                             <constraint firstItem="djz-Kc-pLS" firstAttribute="top" secondItem="Z9l-PT-G9U" secondAttribute="bottom" constant="16" id="zZH-iU-2te"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="menuButton" destination="djz-Kc-pLS" id="b2d-wa-k3D"/>
+                        <outlet property="tableView" destination="8Ud-k7-nsM" id="gy4-hz-G9R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcO-pK-pl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1481" y="452"/>
+            <point key="canvasLocation" x="1480.8" y="451.12443778110946"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Button" width="21" height="64"/>
+        <image name="Button" width="63" height="64"/>
         <image name="Menu Button" width="82" height="47"/>
         <image name="Tip Jar" width="48" height="48"/>
     </resources>

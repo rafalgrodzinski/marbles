@@ -38,6 +38,7 @@
 		B596407B1D5FC9DC00CABF43 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B596407A1D5FC9DC00CABF43 /* Marble.scn */; };
 		B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */; };
 		B59640811D5FE84400CABF43 /* Tile Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640801D5FE84400CABF43 /* Tile Normal.png */; };
+		B5B6827C1D981997005924C7 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6827B1D981997005924C7 /* PurchaseManager.swift */; };
 		B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */; };
 		B5CB02881D23042C005770BB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02871D23042C005770BB /* Button.swift */; };
 		B5DD2B561D56944600F9FFC3 /* GameOverPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */; };
@@ -78,6 +79,7 @@
 		B596407A1D5FC9DC00CABF43 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Marbles/Assets/Models/Marble.scn; sourceTree = "<group>"; };
 		B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Diffuse.png"; path = "Marbles/Assets/Textures/Tile Diffuse.png"; sourceTree = "<group>"; };
 		B59640801D5FE84400CABF43 /* Tile Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tile Normal.png"; path = "Marbles/Assets/Textures/Tile Normal.png"; sourceTree = "<group>"; };
+		B5B6827B1D981997005924C7 /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseManager.swift; path = Source/PurchaseManager.swift; sourceTree = "<group>"; };
 		B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuBackgroundView.swift; path = "Source/Main Menu/MainMenuBackgroundView.swift"; sourceTree = "<group>"; };
 		B5CB02871D23042C005770BB /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Source/Button.swift; sourceTree = "<group>"; };
 		B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				B58254701C5E58090065E283 /* AppDelegate.swift */,
 				B5E6C1731CCE63A700410BBB /* Utils.swift */,
 				B5CB02871D23042C005770BB /* Button.swift */,
+				B5B6827B1D981997005924C7 /* PurchaseManager.swift */,
 				B5CB02811D22E240005770BB /* Main Menu */,
 				B5CB02861D2301F9005770BB /* Game */,
 				B50903E01CD64330004E8E6E /* Score */,
@@ -367,6 +370,7 @@
 				B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */,
 				B57918F71C6A76DC004214EF /* MainMenuViewController.swift in Sources */,
 				B576D0E01CCCC342001A5657 /* MarbleFactory.swift in Sources */,
+				B5B6827C1D981997005924C7 /* PurchaseManager.swift in Sources */,
 				B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */,
 				B53891F11C6D520C00006380 /* Field.swift in Sources */,
 				B5DD2B561D56944600F9FFC3 /* GameOverPopup.swift in Sources */,
