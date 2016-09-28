@@ -20,6 +20,10 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad()
     {
+        // Enable auto-sizing cells
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 72.0
+
         PurchaseManager.sharedInstance.fetchProducts() { (products: [SKProduct]) in
             self.products = products
             self.tableView.reloadData()
@@ -45,12 +49,6 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
         let rowsCount = self.products != nil ? self.products!.count : 0
 
         return rowsCount
-    }
-
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 72.0
     }
 
 
