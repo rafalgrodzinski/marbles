@@ -23,10 +23,11 @@ class MainMenuViewController: UIViewController
     var gameVc: UIViewController?
 
     // Outlets
-    @IBOutlet fileprivate weak var logoLabel: UILabel!
-    @IBOutlet fileprivate weak var highScoreLabel: UILabel!
-    @IBOutlet fileprivate weak var topButton: UIButton!
-    @IBOutlet fileprivate weak var bottomButton: UIButton!
+    @IBOutlet private weak var logoLabel: UILabel!
+    @IBOutlet private weak var highScoreLabel: UILabel!
+    @IBOutlet private weak var topButton: UIButton!
+    @IBOutlet private weak var bottomButton: UIButton!
+    @IBOutlet private weak var tipPromptLabel: UILabel!
 
 
     // MARK: - Initialization -
@@ -100,10 +101,17 @@ class MainMenuViewController: UIViewController
         {
             self.highScoreLabel.isHidden = false
             self.highScoreLabel.text = "High Score: \(ScoreSingleton.sharedInstance.highScore)"
+
+            if UserDefaults.standard.value(forKey: "hasTipped") == nil {
+                self.tipPromptLabel.isHidden = false
+            } else {
+                self.tipPromptLabel.isHidden = true
+            }
         }
         else
         {
             self.highScoreLabel.isHidden = true
+            self.tipPromptLabel.isHidden = true
         }
     }
 

@@ -95,7 +95,7 @@
                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you enjoying the game? How about a tip?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p99-zK-bJl" userLabel="Tip Jar Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you enjoying the game? How about a tip?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p99-zK-bJl" userLabel="Tip Prompt Label">
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -148,6 +148,7 @@
                         <outlet property="bottomButton" destination="qMy-9v-tqI" id="d11-lg-Ese"/>
                         <outlet property="highScoreLabel" destination="a8s-46-3XP" id="0zJ-AS-Gce"/>
                         <outlet property="logoLabel" destination="ewZ-vY-kxM" id="RvZ-ny-oqc"/>
+                        <outlet property="tipPromptLabel" destination="p99-zK-bJl" id="ho0-cC-She"/>
                         <outlet property="topButton" destination="kbx-ON-emD" id="Dqf-Uj-A88"/>
                     </connections>
                 </viewController>
