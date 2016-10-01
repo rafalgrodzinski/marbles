@@ -177,6 +177,17 @@
                                     <action selector="menuButtonPressed:" destination="UOe-o8-ciZ" eventType="touchUpInside" id="xr1-up-PBe"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="U0d-aD-CZe">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="Hgx-pg-t0C"/>
+                                </constraints>
+                                <string key="text">Marbles is a completely free and open-source, without any hidden catches. If you're enjoying it, consider leaving a positivie review in the App Store, or even giving me a tip.
+
+The full source code can be found at https://github.com/UnalignedByte/marbles</string>
+                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" delaysContentTouches="NO" canCancelContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Ud-k7-nsM">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -235,34 +246,39 @@
                                     <outlet property="delegate" destination="UOe-o8-ciZ" id="sse-5W-lfq"/>
                                 </connections>
                             </tableView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="U0d-aD-CZe">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="Hgx-pg-t0C"/>
-                                </constraints>
-                                <string key="text">Marbles is a completely free and open-source, without any hidden catches. If you're enjoying it, consider leaving a positivie review in the App Store, or even giving me a tip.
-
-The full source code can be found at https://github.com/UnalignedByte/marbles</string>
-                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="utc-Dy-RoD" userLabel="Wait Indicator">
+                                <color key="color" red="0.31983876230000002" green="0.77599370479999996" blue="0.1231127977" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It seems that you cannot perform a payment at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GF5-KJ-Ckl">
+                                <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iER-9F-Wvv" firstAttribute="top" secondItem="8Ud-k7-nsM" secondAttribute="bottom" constant="8" id="1Ym-as-lrR"/>
+                            <constraint firstItem="utc-Dy-RoD" firstAttribute="centerX" secondItem="hYv-qp-dud" secondAttribute="centerX" id="9dW-zO-xYe"/>
                             <constraint firstAttribute="trailing" secondItem="U0d-aD-CZe" secondAttribute="trailing" constant="8" id="NbW-AN-pDL"/>
                             <constraint firstItem="U0d-aD-CZe" firstAttribute="top" secondItem="djz-Kc-pLS" secondAttribute="bottom" constant="8" id="OzP-pW-4wv"/>
                             <constraint firstItem="8Ud-k7-nsM" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="8" id="cb3-1e-EQ7"/>
+                            <constraint firstItem="GF5-KJ-Ckl" firstAttribute="centerY" secondItem="hYv-qp-dud" secondAttribute="centerY" id="fQd-nN-qXk"/>
                             <constraint firstAttribute="trailing" secondItem="8Ud-k7-nsM" secondAttribute="trailing" constant="8" id="hTc-qI-NYN"/>
+                            <constraint firstItem="utc-Dy-RoD" firstAttribute="centerY" secondItem="hYv-qp-dud" secondAttribute="centerY" id="ihl-4f-Yy2"/>
+                            <constraint firstAttribute="trailing" secondItem="GF5-KJ-Ckl" secondAttribute="trailing" constant="8" id="rd1-xV-iUl"/>
                             <constraint firstItem="djz-Kc-pLS" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="16" id="sOA-jj-TwH"/>
                             <constraint firstItem="U0d-aD-CZe" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="8" id="vQE-Gw-a1o"/>
+                            <constraint firstItem="GF5-KJ-Ckl" firstAttribute="leading" secondItem="hYv-qp-dud" secondAttribute="leading" constant="8" id="wnB-El-kzb"/>
                             <constraint firstItem="8Ud-k7-nsM" firstAttribute="top" secondItem="U0d-aD-CZe" secondAttribute="bottom" constant="8" id="xRQ-Od-MrQ"/>
                             <constraint firstItem="djz-Kc-pLS" firstAttribute="top" secondItem="Z9l-PT-G9U" secondAttribute="bottom" constant="16" id="zZH-iU-2te"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cannotPayLabel" destination="GF5-KJ-Ckl" id="bEk-h9-KPd"/>
                         <outlet property="menuButton" destination="djz-Kc-pLS" id="b2d-wa-k3D"/>
                         <outlet property="tableView" destination="8Ud-k7-nsM" id="gy4-hz-G9R"/>
+                        <outlet property="waitIndicator" destination="utc-Dy-RoD" id="51F-NE-BnI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcO-pK-pl1" userLabel="First Responder" sceneMemberID="firstResponder"/>

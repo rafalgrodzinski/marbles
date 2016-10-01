@@ -40,13 +40,13 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
     {
         self.productsRequest?.cancel()
 
-        if let products = self.products {
-            completed(products)
+        if !SKPaymentQueue.canMakePayments() {
+            completed([])
             return
         }
 
-        if !SKPaymentQueue.canMakePayments() {
-            completed([])
+        if let products = self.products {
+            completed(products)
             return
         }
 
