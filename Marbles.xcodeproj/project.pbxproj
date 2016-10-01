@@ -41,6 +41,7 @@
 		B5B6827C1D981997005924C7 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6827B1D981997005924C7 /* PurchaseManager.swift */; };
 		B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */; };
 		B5CB02881D23042C005770BB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02871D23042C005770BB /* Button.swift */; };
+		B5DAE6721D9E4D030023A869 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5DAE6711D9E4D030023A869 /* StoreKit.framework */; };
 		B5DD2B561D56944600F9FFC3 /* GameOverPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */; };
 		B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E6C1731CCE63A700410BBB /* Utils.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		B5B6827B1D981997005924C7 /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseManager.swift; path = Source/PurchaseManager.swift; sourceTree = "<group>"; };
 		B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuBackgroundView.swift; path = "Source/Main Menu/MainMenuBackgroundView.swift"; sourceTree = "<group>"; };
 		B5CB02871D23042C005770BB /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Source/Button.swift; sourceTree = "<group>"; };
+		B5DAE6711D9E4D030023A869 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
 		B5E6C1731CCE63A700410BBB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5DAE6721D9E4D030023A869 /* StoreKit.framework in Frameworks */,
 				B573956B1D96EBF900018F49 /* Fabric.framework in Frameworks */,
 				B573956E1D96ECAC00018F49 /* Crashlytics.framework in Frameworks */,
 			);
@@ -110,6 +113,7 @@
 		B573956D1D96EC8300018F49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5DAE6711D9E4D030023A869 /* StoreKit.framework */,
 				B57395691D96EBF900018F49 /* Fabric.framework */,
 				B573956A1D96EBF900018F49 /* Crashlytics.framework */,
 			);
@@ -293,8 +297,13 @@
 				TargetAttributes = {
 					B582546C1C5E58090065E283 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = A674WUF6TD;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -349,7 +358,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Marbles/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b 2b72db766164268b201cc8cdd8bf3e3deeed9f8059880f5873f0a5a0edbdf19d";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    fabricBuildSecretFilePath=\"${PROJECT_DIR}/../private/marbles/fabric_build_secret.txt\"\n\n    if [ -e \"${fabricBuildSecretFilePath}\" ]; then\n        ./Marbles/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b `cat \"${fabricBuildSecretFilePath}\"`\n    fi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -432,6 +441,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
@@ -474,6 +484,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};
@@ -482,6 +493,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = X7G47FFC9G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -489,7 +502,6 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marbles;
 				PRODUCT_NAME = Marbles;
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -500,13 +512,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = X7G47FFC9G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Marbles/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marbles;
 				PRODUCT_NAME = Marbles;
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
