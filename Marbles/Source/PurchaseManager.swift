@@ -66,18 +66,24 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
     // MARK: Products Request Delegate
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse)
     {
-        self.products = response.products
-        self.fetchProductsCallback?(response.products)
+        self.products = response.products.sorted { $0.price.doubleValue < $1.price.doubleValue }
+        self.fetchProductsCallback?(self.products!)
     }
 
 
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])
     {
         for transaction in transactions {
+            #if DEBUG
+                print("Transaction state: \(transaction.transactionState) - \(transaction.error?.localizedDescription)")
+            #endif
+
             switch transaction.transactionState {
             case .purchased:
+                SKPaymentQueue.default().finishTransaction(transaction)
                 self.buyProductCallback?(true)
             case .failed:
+                SKPaymentQueue.default().finishTransaction(transaction)
                 self.buyProductCallback?(false)
             default:
                 break

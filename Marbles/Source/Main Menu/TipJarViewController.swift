@@ -94,8 +94,34 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
         let tipButton = cell.viewWithTag(3)
         if let tip = tipButton as? UIButton {
             tip.titleLabel?.font = UIFont(name: "BunakenUnderwater", size: 28.0)
+            tip.tag = indexPath.row
         }
 
         return cell
+    }
+
+
+    @IBAction private func tipButtonPressed(sender: UIButton)
+    {
+        if let product = self.products?[sender.tag] {
+            self.waitIndicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            self.tableView.isHidden = true
+            PurchaseManager.sharedInstance.buyProduct(product) { (successful: Bool) in
+                if successful {
+                    self.tableView.isHidden = true
+                    self.cannotPayLabel.text = "Thanks for the tip!"
+                    self.cannotPayLabel.isHidden = false
+                } else {
+                    let alert = UIAlertController(title: "Issue with transaction", message: "Could not complete", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+
+                self.waitIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                self.tableView.isHidden = false
+            }
+        }
     }
 }
