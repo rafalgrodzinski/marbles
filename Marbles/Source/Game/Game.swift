@@ -168,13 +168,18 @@ open class Game: NSObject
     {
         self.currentState = state
         self.selectedMarble = nil
-        self.isWaitingForMove = true
+
+        if self.field.isEmpty {
+            self.currentState?.goToNextState()
+        } else {
+            self.isWaitingForMove = true
+        }
     }
 
 
     func executeRemoveAfterMoveState(_ state: State)
     {
-        let removedMarbles = self.field.removeLinesAtMarble(self.selectedMarble!)
+        let removedMarbles = self.field.removeLinesAtMarble(self.selectedMarble)
         self.selectedMarble = nil
 
         ScoreSingleton.sharedInstance.removedMarbles(removedMarbles.count)

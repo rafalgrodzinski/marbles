@@ -20,6 +20,7 @@ class Field
 
     var marbles = [Point : Marble]()
     var isFull: Bool { return self.marbles.count >= self.size.width * self.size.height }
+    var isEmpty: Bool { return self.marbles.count == 0 }
 
 
     // MARK: - Initialization -
@@ -99,18 +100,22 @@ class Field
     }
 
 
-    func removeLinesAtMarble(_ marble: Marble) -> [Marble]
+    func removeLinesAtMarble(_ marble: Marble?) -> [Marble]
     {
         var removedMarbles = Set<Marble>()
 
-        let position = marble.fieldPosition
+        if marble == nil {
+            return removedMarbles.map() { $0 }
+        }
+
+        let position = marble!.fieldPosition
 
         // Check horizontal extent
         var startX = position.x
         for x in stride(from: (startX-1), through: 0, by: -1) {
             let currentMarble = self.marbles[Point(x, position.y)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 startX = x
             } else {
                 break
@@ -121,7 +126,7 @@ class Field
         for x in stride(from: (startX+1), through: self.size.width-1, by: 1) {
             let currentMarble = self.marbles[Point(x, position.y)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 endX = x
             } else {
                 break
@@ -133,7 +138,7 @@ class Field
         for y in stride(from: (startY-1), through: 0, by: -1) {
             let currentMarble = self.marbles[Point(position.x, y)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 startY = y
             } else {
                 break
@@ -144,7 +149,7 @@ class Field
         for y in stride(from: (startY+1), through: self.size.height-1, by: 1) {
             let currentMarble = self.marbles[Point(position.x, y)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 endY = y
             } else {
                 break
@@ -158,7 +163,7 @@ class Field
             let diff = position.x - bottomLeft
             let currentMarble = self.marbles[Point(position.x - diff, position.y - diff)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 startBottomLeft = bottomLeft
             } else {
                 break
@@ -170,7 +175,7 @@ class Field
             let diff = bottomLeft - position.x
             let currentMarble = self.marbles[Point(position.x + diff, position.y + diff)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 endBottomLeft = bottomLeft
             } else {
                 break
@@ -183,7 +188,7 @@ class Field
             let diff = position.x - topLeft
             let currentMarble = self.marbles[Point(position.x - diff, position.y + diff)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 startTopLeft = topLeft
             } else {
                 break
@@ -195,7 +200,7 @@ class Field
             let diff = topLeft - position.x
             let currentMarble = self.marbles[Point(position.x + diff, position.y - diff)]
 
-            if currentMarble?.color == marble.color {
+            if currentMarble?.color == marble!.color {
                 endTopLeft = topLeft
             } else {
                 break
