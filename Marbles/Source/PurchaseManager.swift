@@ -15,7 +15,9 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
     static let sharedInstance = PurchaseManager()
 
     private var productsRequest: SKProductsRequest?
-    private let productIdentifiers: Set<String> = []
+    private let productIdentifiers: Set<String> = ["com.unalignedbyte.marbles.smalltip",
+                                                   "com.unalignedbyte.marbles.mediumtip",
+                                                   "com.unalignedbyte.marbles.largetip"]
 
     private var products: [SKProduct]?
     private var fetchProductsCallback: (([SKProduct]) -> Void)?
@@ -27,12 +29,6 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         super.init()
 
         SKPaymentQueue.default().add(self)
-
-        var p = SKProduct()
-
-        var p2 = SKProduct()
-
-        self.products = [p, p2]
     }
 
 

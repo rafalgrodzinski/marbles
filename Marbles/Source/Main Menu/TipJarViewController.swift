@@ -79,16 +79,16 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
         let titleLabel = cell.viewWithTag(1)
         if let title = titleLabel as? UILabel {
             title.font = UIFont(name: "BunakenUnderwater", size: 24.0)
-            title.text = "My Title"//product?.localizedTitle
+            title.text = product?.localizedTitle
         }
 
         let priceLabel = cell.viewWithTag(2)
         if let price = priceLabel as? UILabel {
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
-            formatter.locale = Locale(identifier: "gb")// product?.priceLocale
+            formatter.locale = product?.priceLocale
             price.font = UIFont(name: "BunakenUnderwater", size: 20.0)
-            price.text = formatter.string(from: 1.0)//product!.price)
+            price.text = formatter.string(from: product!.price)
         }
 
         let tipButton = cell.viewWithTag(3)
