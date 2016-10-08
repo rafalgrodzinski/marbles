@@ -77,18 +77,17 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
                                             customAttributes: nil)
                     #endif
 
-                    self.tableView.isHidden = true
                     self.cannotPayLabel.text = "Thanks for the tip!"
                     self.cannotPayLabel.isHidden = false
                 } else {
                     let alert = UIAlertController(title: "Issue with transaction", message: "Could not complete", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
+                    self.tableView.isHidden = false
                 }
 
                 self.waitIndicator.stopAnimating()
                 self.view.isUserInteractionEnabled = true
-                self.tableView.isHidden = false
             }
         }
     }
