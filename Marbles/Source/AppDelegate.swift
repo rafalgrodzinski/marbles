@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 import Fabric
 import Crashlytics
 
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
         setupAnalytics()
+        setupAudio() // Fix for background music pausing randomly in iOS 10 cause by SceneKit
 
         return true
     }
@@ -30,6 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         #if !DEBUG
             Fabric.with([Crashlytics.self])
         #endif
+    }
+
+
+    private func setupAudio()
+    {
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
     }
 }
 
