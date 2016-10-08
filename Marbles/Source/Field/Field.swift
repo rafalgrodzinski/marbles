@@ -46,7 +46,7 @@ class Field
         var drawnColors = [Int]()
 
         for _ in 0 ..< self.marblesPerSpawn {
-            let color = Int(arc4random()) % self.colorsCount
+            let color = Int(arc4random_uniform(UInt32(self.colorsCount)))
             drawnColors.append(color)
         }
 
@@ -64,8 +64,8 @@ class Field
             }
 
             while true {
-                let x = Int(arc4random()) % self.size.width
-                let y = Int(arc4random()) % self.size.height
+                let x = Int(arc4random_uniform(UInt32(self.size.width)))
+                let y = Int(arc4random_uniform(UInt32(self.size.height)))
                 let position = Point(x, y)
 
                 if self.marbles[position] == nil {

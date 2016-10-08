@@ -12,14 +12,14 @@ import StoreKit
 
 class TipJarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    @IBOutlet private var menuButton: UIButton!
-    @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var waitIndicator: UIActivityIndicatorView!
-    @IBOutlet private var cannotPayLabel: UILabel!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var waitIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var cannotPayLabel: UILabel!
 
     private var products: [SKProduct]?
 
 
+    // MARK: - Initialization
     override func viewDidLoad()
     {
         // Enable auto-sizing cells
@@ -45,13 +45,39 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 
+    // MARK: - Actions
     @IBAction private func menuButtonPressed(_ sender: UIButton)
     {
         self.dismiss(animated: true, completion: nil)
     }
 
 
-    // MARK: UITableView Delegate
+    @IBAction private func tipButtonPressed(sender: UIButton)
+    {
+        if let product = self.products?[sender.tag] {
+            self.waitIndicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            self.tableView.isHidden = true
+            PurchaseManager.sharedInstance.buyProduct(product) { (successful: Bool) in
+                if successful {
+                    self.tableView.isHidden = true
+                    self.cannotPayLabel.text = "Thanks for the tip!"
+                    self.cannotPayLabel.isHidden = false
+                } else {
+                    let alert = UIAlertController(title: "Issue with transaction", message: "Could not complete", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+
+                self.waitIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                self.tableView.isHidden = false
+            }
+        }
+    }
+
+
+    // MARK: - UITableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
@@ -98,30 +124,5 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
         }
 
         return cell
-    }
-
-
-    @IBAction private func tipButtonPressed(sender: UIButton)
-    {
-        if let product = self.products?[sender.tag] {
-            self.waitIndicator.startAnimating()
-            self.view.isUserInteractionEnabled = false
-            self.tableView.isHidden = true
-            PurchaseManager.sharedInstance.buyProduct(product) { (successful: Bool) in
-                if successful {
-                    self.tableView.isHidden = true
-                    self.cannotPayLabel.text = "Thanks for the tip!"
-                    self.cannotPayLabel.isHidden = false
-                } else {
-                    let alert = UIAlertController(title: "Issue with transaction", message: "Could not complete", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-
-                self.waitIndicator.stopAnimating()
-                self.view.isUserInteractionEnabled = true
-                self.tableView.isHidden = false
-            }
-        }
     }
 }

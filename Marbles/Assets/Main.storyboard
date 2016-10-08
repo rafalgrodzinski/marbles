@@ -280,7 +280,6 @@ The full source code can be found at https://github.com/UnalignedByte/marbles</s
                     </view>
                     <connections>
                         <outlet property="cannotPayLabel" destination="GF5-KJ-Ckl" id="bEk-h9-KPd"/>
-                        <outlet property="menuButton" destination="djz-Kc-pLS" id="b2d-wa-k3D"/>
                         <outlet property="tableView" destination="8Ud-k7-nsM" id="gy4-hz-G9R"/>
                         <outlet property="waitIndicator" destination="utc-Dy-RoD" id="51F-NE-BnI"/>
                     </connections>
