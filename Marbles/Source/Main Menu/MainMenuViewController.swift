@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 
 class MainMenuViewController: UIViewController
@@ -48,9 +49,21 @@ class MainMenuViewController: UIViewController
     }
 
 
+    override func viewDidAppear(_ animated: Bool)
+    {
+        #if !DEBUG
+            Answers.logCustomEvent(withName: "Entered View", customAttributes: ["Name" : "MainMenu"])
+        #endif
+    }
+
+
     // MARK: - Actions -
     @IBAction func newGameButtonPressed(_ sender: AnyObject)
     {
+        #if !DEBUG
+            Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Started"])
+        #endif
+
         self.gameVc = UIViewController()
         self.game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5) as? SceneKitGame
         self.gameVc!.view.addSubview(self.game!.view)
@@ -79,6 +92,10 @@ class MainMenuViewController: UIViewController
 
     @IBAction func resumeGameButtonPressed(_ sender: AnyObject)
     {
+        #if !DEBUG
+            Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Resumed"])
+        #endif
+
         self.present(self.gameVc!, animated: true, completion: nil)
     }
 

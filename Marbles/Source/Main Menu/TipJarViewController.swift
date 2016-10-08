@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import Crashlytics
 
 
 class TipJarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
@@ -45,6 +46,12 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 
+    override func viewDidAppear(_ animated: Bool)
+    {
+        Answers.logCustomEvent(withName: "Entered View", customAttributes: ["Name" : "TipJar"])
+    }
+
+
     // MARK: - Actions
     @IBAction private func menuButtonPressed(_ sender: UIButton)
     {
@@ -60,6 +67,16 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
             self.tableView.isHidden = true
             PurchaseManager.sharedInstance.buyProduct(product) { (successful: Bool) in
                 if successful {
+                    #if !DEBUG
+                        Answers.logPurchase(withPrice: product.price,
+                                            currency: product.priceLocale.identifier,
+                                            success: successful as NSNumber?,
+                                            itemName: product.localizedTitle,
+                                            itemType: "Tip",
+                                            itemId: product.productIdentifier,
+                                            customAttributes: nil)
+                    #endif
+
                     self.tableView.isHidden = true
                     self.cannotPayLabel.text = "Thanks for the tip!"
                     self.cannotPayLabel.isHidden = false

@@ -9,6 +9,7 @@
 import SceneKit
 import SpriteKit
 import GLKit
+import Crashlytics
 
 
 class SceneKitGame: Game, UIGestureRecognizerDelegate
@@ -408,6 +409,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     override func gameFinished(_ score: Int, isHighScore: Bool)
     {
+        #if !DEBUG
+            Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Finished",
+                                                                        "Score" : score])
+        #endif
+
         self.gameOverPopup.show(score, isHighScore: isHighScore)
     }
 
