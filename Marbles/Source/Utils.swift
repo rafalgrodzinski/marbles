@@ -11,7 +11,7 @@ import SceneKit
 import Darwin
 
 
-let π = Float(M_PI)
+let π = Float.pi
 
 // MARK - Point -
 struct Point: Hashable, Equatable {

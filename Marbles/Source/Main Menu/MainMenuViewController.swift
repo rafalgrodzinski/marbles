@@ -101,7 +101,7 @@ class MainMenuViewController: UIViewController
 
 
     // MARK: - Internal Control -
-    func updateLogoLabelColorTimeout()
+    @objc func updateLogoLabelColorTimeout()
     {
          self.logoLabel.textColor = UIColor(hue: CGFloat(self.currentLogoHue), saturation: 0.8, brightness: 0.8, alpha: 1.0)
 

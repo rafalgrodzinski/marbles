@@ -75,7 +75,7 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
     {
         for transaction in transactions {
             #if DEBUG
-                print("Transaction state: \(transaction.transactionState) - \(transaction.error?.localizedDescription)")
+                print("Transaction state: \(transaction.transactionState) - \(transaction.error?.localizedDescription ?? "")")
             #endif
 
             switch transaction.transactionState {
