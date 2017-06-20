@@ -20,7 +20,7 @@ class MainMenuViewController: UIViewController
     // Variables
     var currentLogoHue = 100.0/360.0
     var logoColorUpdateTimer: Timer!
-    var game: SceneKitGame?
+    var game: Game?
     var gameVc: UIViewController?
 
     // Outlets
@@ -58,14 +58,16 @@ class MainMenuViewController: UIViewController
 
 
     // MARK: - Actions -
-    @IBAction func newGameButtonPressed(_ sender: AnyObject)
+    @IBAction func newGameButtonPressed(_ sender: UIButton)
     {
         #if !DEBUG
             Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Started"])
         #endif
 
+        let graphicsType: GraphicsType = (sender == bottomButton) ? .arKit : .sceneKit
+
         self.gameVc = UIViewController()
-        self.game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5) as? SceneKitGame
+        self.game = GameFactory.gameWithGraphicsType(graphicsType, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
         self.gameVc!.view.addSubview(self.game!.view)
         self.gameVc!.modalTransitionStyle = .crossDissolve
         self.game!.view.frame = gameVc!.view.bounds
@@ -136,12 +138,15 @@ class MainMenuViewController: UIViewController
     fileprivate func setupForNewGame()
     {
         // Top Button
-        self.topButton.setTitle("New Game", for: UIControlState())
+        self.topButton.setTitle("New Game", for: .normal)
         self.topButton.removeTarget(nil, action: nil, for: .allEvents)
         self.topButton.addTarget(self, action: #selector(newGameButtonPressed), for: .touchUpInside)
 
         // Bottom Button
-        self.bottomButton.isHidden = true
+        //self.bottomButton.isHidden = true
+        self.bottomButton.setTitle("New AR Game", for: .normal)
+        self.bottomButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed(_:)), for: .touchUpInside)
     }
 
 

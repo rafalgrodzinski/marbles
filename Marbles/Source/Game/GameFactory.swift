@@ -12,6 +12,7 @@ import Foundation
 enum GraphicsType {
     case spriteKit
     case sceneKit
+    case arKit
 }
 
 
@@ -25,8 +26,14 @@ class GameFactory
         switch graphicsType {
             case .spriteKit:
                 marbleFactory = SpriteKitMarbleFactory()
-            default:
+            case .sceneKit:
                 marbleFactory = SceneKitMarbleFactory()
+            case .arKit:
+                if #available(iOS 11.0, *) {
+                    marbleFactory = ArKitMarbleFactory()
+                } else {
+                    fatalError()
+                }
         }
 
         // Initialize field
@@ -39,9 +46,16 @@ class GameFactory
             case .spriteKit:
                 game = SpriteKitGame(field: field)
                 (marbleFactory as! SpriteKitMarbleFactory).game = game as! SpriteKitGame
-            default:
+            case .sceneKit:
                 game = SceneKitGame(field: field)
                 (marbleFactory as! SceneKitMarbleFactory).game = game as! SceneKitGame
+            case .arKit:
+                if #available(iOS 11.0, *) {
+                    game = ArKitGame(field: field)
+                    (marbleFactory as! ArKitMarbleFactory).game = game as! ArKitGame
+                } else {
+                    fatalError()
+                }
         }
 
         return game
