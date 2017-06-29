@@ -16,6 +16,6 @@ class SceneKitMarbleFactory: MarbleFactory
         return SceneKitMarble(color: color,
                               fieldPosition: fieldPosition,
                               position: game.marblePositionForFieldPosition(fieldPosition)!,
-                              size: game.tileSize * 0.8)
+                              size: game.marbleSize)
     }
 }

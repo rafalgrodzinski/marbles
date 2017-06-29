@@ -33,7 +33,7 @@ class SceneKitMarble: Marble
 
     var rotationQuat = GLKQuaternionIdentity
 
-    init(color: Int, fieldPosition: Point, position: SCNVector3, size: CGSize)
+    init(color: Int, fieldPosition: Point, position: SCNVector3, size: Float)
     {
         self.node = SceneKitMarble.marblePrototype.duplicate()
         self.marbleLight = SCNLight()
@@ -55,7 +55,7 @@ class SceneKitMarble: Marble
         self.node.position = position
 
         // Scale
-        self.node.scale = SCNVector3Make(Float(size.width), Float(size.height), Float(size.width))
+        self.node.scale = SCNVector3Make(size, size, size)
 
         // And finally the color
         self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]
