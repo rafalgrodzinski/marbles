@@ -41,7 +41,6 @@ class SceneKitMarble: Marble
 
         super.init(color: color, fieldPosition: fieldPosition)
 
-
         // Setup marble's rotation
         let xRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
         let yRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
@@ -54,6 +53,9 @@ class SceneKitMarble: Marble
 
         // Then its position
         self.node.position = position
+
+        // Scale
+        self.node.scale = SCNVector3Make(Float(size.width), Float(size.height), Float(size.width))
 
         // And finally the color
         self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]

@@ -14,24 +14,28 @@ import Crashlytics
 
 class SceneKitGame: Game, UIGestureRecognizerDelegate
 {
-    fileprivate var scene: SCNScene!
-    fileprivate(set) var tileSize: CGSize!
+    internal var scene: SCNScene!
+    fileprivate let tileSize = CGSize(width: 1.0, height: 1.0)
+    fileprivate(set) var marbleSize: CGFloat!
 
-    fileprivate var centerNode: SCNNode!
-    fileprivate var tileSelectionParticleNode: SCNNode!
-    fileprivate var tileSelectionParticle: SCNParticleSystem!
+    internal var centerNode: SCNNode!
+    internal var tileSelectionParticleNode: SCNNode!
+    internal var tileSelectionParticle: SCNParticleSystem!
 
-    fileprivate let boardHeight: Float = 0.25
+    fileprivate var boardHeight: Float = 0.25
     fileprivate let fieldMoveDuration: Float = 0.4
 
-    let tilePrototype: SCNNode = { let tileNode = SCNNode()
-        tileNode.geometry = SCNBox(width: 1.0, height: 1.0, length: 0.25, chamferRadius: 0.0)
+    lazy var tilePrototype: SCNNode = {
+        let tileNode = SCNNode()
+        tileNode.geometry = SCNBox(width: self.tileSize.width , height: self.tileSize.height,
+                                   length: CGFloat(self.boardHeight), chamferRadius: 0.0)
         tileNode.geometry?.materials.first?.diffuse.contents = "Tile Diffuse"
         tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
         tileNode.geometry?.materials.first?.normal.intensity = 0.5
         tileNode.physicsBody = SCNPhysicsBody.static()
         tileNode.castsShadow = false
-        return tileNode }()
+        return tileNode
+    }()
 
     fileprivate var scoreLabel: SKLabelNode!
     fileprivate var scoreLabelShadow: SKLabelNode!
@@ -43,7 +47,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
 
     // MARK: - Initialization -
-    final override func setupView()
+    override func setupView()
     {
         self.view = SCNView()
 
@@ -53,7 +57,19 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
 
 
-    final override func setupCustom()
+    override func setupCustom()
+    {
+        setupScene()
+        setupParticles()
+        setupLight()
+        setupOverlay()
+        setupCamera()
+
+        // Start the game
+        (self.view as! SCNView).isPlaying = true
+    }
+
+    internal func setupScene()
     {
         (self.view as! SCNView).isPlaying = false
         (self.view as! SCNView).antialiasingMode = .multisampling2X
@@ -74,17 +90,31 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         self.scene.physicsWorld.gravity = SCNVector3(0.0, 0.0, -18)
 
-        self.tileSize = CGSize(width: 1.0, height: 1.0)
-
         self.centerNode = SCNNode()
         self.scene.rootNode.addChildNode(self.centerNode)
+    }
 
+    internal func setupParticles()
+    {
         // Selection particle
         self.tileSelectionParticleNode = SCNNode()
         self.scene.rootNode.addChildNode(self.tileSelectionParticleNode)
 
         self.tileSelectionParticle = SCNParticleSystem(named: "Selection.scnp", inDirectory: nil)
+    }
 
+    internal func setupCamera()
+    {
+        // Camera
+        self.cameraNode = SCNNode()
+        self.cameraNode.camera = SCNCamera()
+        let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
+        self.cameraNode.position = SCNVector3(0.0, 0.0, height)
+        self.scene.rootNode.addChildNode(self.cameraNode)
+    }
+
+    internal func setupLight()
+    {
         // Create spot light
         let spotLight = SCNLight()
         spotLight.type = SCNLight.LightType.spot
@@ -118,6 +148,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         ambientLightNode.light = ambientLight
         self.scene.rootNode.addChildNode(ambientLightNode)
 
+        self.scene.rootNode.castsShadow = false
+    }
+
+    internal func setupOverlay()
+    {
         // Create overlay
         let overlayScene = SKScene(size: self.view.frame.size)
         (self.view as! SCNView).overlaySKScene = overlayScene
@@ -171,22 +206,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.gameOverPopup.quitCallback = { [weak self] in self?.quitCallback!() }
         overlayScene.addChild(self.gameOverPopup)
 
-        self.scene.rootNode.castsShadow = false
-
-        // Camera
-        self.cameraNode = SCNNode()
-        self.cameraNode.camera = SCNCamera()
-        let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
-        self.cameraNode.position = SCNVector3(0.0, 0.0, height)
-        self.scene.rootNode.addChildNode(self.cameraNode)
-
-        // Start the game
-        (self.view as! SCNView).isPlaying = true
-
         (self.view as! SCNView).overlaySKScene = overlayScene
     }
 
 
+    // MARK: - Game Logic
     override func showBoard(_ finished: @escaping () -> Void)
     {
         for y in 0 ..< field.size.height {
@@ -195,7 +219,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
                 tileNode.position.z = -Float(self.boardHeight / 2.0)
-                self.scene.rootNode.addChildNode(tileNode)
+                self.centerNode.addChildNode(tileNode)
 
                 tileNode.scale = SCNVector3Zero
                 let delayAction = SCNAction.wait(duration: Double(x + y) * 0.05 + 0.2)
@@ -220,14 +244,15 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         for (index, marble) in marbles.enumerated() {
             let scnMarble = marble as! SceneKitMarble
             let targetPosition = scnMarble.node.position
+            let targetScale = CGFloat(scnMarble.node.scale.x)
             scnMarble.node.scale = SCNVector3Zero
-            scnMarble.node.position.z += 1.0
+            //scnMarble.node.position.z += Float(tileSize.width)
 
             let waitAction = SCNAction.wait(duration: 0.2 * TimeInterval(index))
             let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
             let hideNextAction = SCNAction.run { (node: SCNNode) in self.hideNextMarble(nextMarble) }
 
-            let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
+            let scaleAction = SCNAction.scale(to: targetScale, duration: 0.2)
             let fadeInAction = SCNAction.fadeIn(duration: 0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
             let addGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamic() }
@@ -242,9 +267,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 }
             }
 
-            self.scene.rootNode.addChildNode(scnMarble.node)
+            self.centerNode.addChildNode(scnMarble.node)
 
-            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, /*addGravityAction,*/
                 waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
         }
     }
@@ -314,6 +339,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.tileSelectionParticleNode.addParticleSystem(self.tileSelectionParticle)
 
         let scnMarble = marble as! SceneKitMarble
+        let scale = scnMarble.node.scale
 
         var previousFieldPosition = fieldPath.first!
 
@@ -372,6 +398,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: timingFunction)
                 node.transform = SCNMatrix4FromGLKMatrix4(newRotationMatrix)
                 node.position = newPosition
+                node.scale = scale
                 SCNTransaction.commit()
             }
 

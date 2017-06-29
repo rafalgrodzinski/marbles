@@ -14,7 +14,7 @@ open class Game: NSObject
     internal(set) var view: UIView!
     internal var field: Field
     internal weak var currentState: State?
-    fileprivate var states: [State]!
+    /*fileprivate*/ var states: [State]!
 
     // State data
     fileprivate var isWaitingForMove = false
