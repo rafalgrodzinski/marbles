@@ -32,19 +32,23 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
 
-        if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
-            var modelMatrix = matrix_identity_float4x4
-            modelMatrix.columns.3.z = -1.5
-            modelMatrix = matrix_multiply(currentFrame.camera.transform, modelMatrix)
-            self.centerNode.simdTransform = modelMatrix
-        }
-
-        //self.tileSize = CGSize(width: 0.1, height: 0.1)
-        //self.boardHeight = 0.025
+        marbleSize = 0.1
+        tileSize = CGSize(width: 0.1, height: 0.1)
+        boardHeight = 0.025
     }
 
     override func setupCamera()
     {
+    }
+
+    func setupCenterNode()
+    {
+        if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
+            var modelMatrix = matrix_identity_float4x4
+            modelMatrix.columns.3.z = -1
+            modelMatrix = matrix_multiply(currentFrame.camera.transform, modelMatrix)
+            self.centerNode.simdTransform = modelMatrix
+        }
     }
 
     fileprivate var showBoardCallback: (() -> Void)?
@@ -67,6 +71,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         if isStarted {
             super.handleTap(sender)
         } else {
+            setupCenterNode()
             isStarted = true
             reallyShowBoard()
         }

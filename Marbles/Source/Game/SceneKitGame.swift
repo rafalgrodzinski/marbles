@@ -15,14 +15,14 @@ import Crashlytics
 class SceneKitGame: Game, UIGestureRecognizerDelegate
 {
     internal var scene: SCNScene!
-    let tileSize = CGSize(width: 1.0, height: 1.0)
-    let marbleSize: Float = 1.0
+    internal var marbleSize: Float = 1.0
+    internal var tileSize = CGSize(width: 1.0, height: 1.0)
+    internal var boardHeight: Float = 0.25
 
     internal var centerNode: SCNNode!
     internal var tileSelectionParticleNode: SCNNode!
     internal var tileSelectionParticle: SCNParticleSystem!
 
-    fileprivate var boardHeight: Float = 0.25
     fileprivate let fieldMoveDuration: Float = 0.4
 
     lazy var tilePrototype: SCNNode = {
