@@ -35,6 +35,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         marbleSize = 0.1
         tileSize = CGSize(width: 0.1, height: 0.1)
         boardHeight = 0.025
+        particleSize = 0.1
     }
 
     override func setupCamera()

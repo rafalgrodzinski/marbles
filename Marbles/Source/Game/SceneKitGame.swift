@@ -18,6 +18,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     internal var marbleSize: Float = 1.0
     internal var tileSize = CGSize(width: 1.0, height: 1.0)
     internal var boardHeight: Float = 0.25
+    internal var particleSize: Float = 1.0
 
     internal var centerNode: SCNNode!
     internal var tileSelectionParticleNode: SCNNode!
@@ -98,9 +99,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         // Selection particle
         self.tileSelectionParticleNode = SCNNode()
-        self.scene.rootNode.addChildNode(self.tileSelectionParticleNode)
+        self.centerNode.addChildNode(self.tileSelectionParticleNode)
 
         self.tileSelectionParticle = SCNParticleSystem(named: "Selection.scnp", inDirectory: nil)
+        self.tileSelectionParticle.particleSize *= CGFloat(particleSize)
     }
 
     internal func setupCamera()
