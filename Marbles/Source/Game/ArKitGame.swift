@@ -16,6 +16,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         self.view = ARSCNView()
         let arConfig = ARWorldTrackingSessionConfiguration()
+        arConfig.planeDetection = .horizontal
         (self.view as! ARSCNView).session.run(arConfig)
         (self.view as! ARSCNView).delegate = self
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
@@ -39,21 +40,21 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
     }
 
-    func setupCenterNode()
+    func setupCenterNode(with transform: SCNMatrix4)
     {
-        if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
-            // Setup center node
-            var modelMatrix = matrix_identity_float4x4
-            modelMatrix.columns.3.z = -1
-            modelMatrix = matrix_multiply(currentFrame.camera.transform, modelMatrix)
-            self.centerNode.simdTransform = modelMatrix
+        // Setup center node
+        var modelMatrix = transform
+        let translateMatrix = SCNMatrix4MakeTranslation(0.0, 0.0, 0.0)
+        modelMatrix = SCNMatrix4Mult(translateMatrix, modelMatrix)
+        let rotateMatrix = SCNMatrix4MakeRotation(-Float.pi * 0.5, 0.0, 1.0, 0.0)
+        modelMatrix = SCNMatrix4Mult(rotateMatrix, modelMatrix)
+        self.centerNode.transform = modelMatrix
 
-            // Setup gravity
-            let gravity = self.scene.physicsWorld.gravity
-            let gravityForceMatrix = simd_make_float4(gravity.x, gravity.y, gravity.z, 0.0)
-            let gravityMatrix = simd_mul(currentFrame.camera.transform, gravityForceMatrix)
-            self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
-        }
+        // Setup gravity
+        let gravity = self.scene.physicsWorld.gravity
+        let gravityForceMatrix = simd_make_float4(gravity.x, gravity.y, gravity.z, 0.0)
+        let gravityMatrix = simd_mul(transform, gravityForceMatrix)
+        self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
     }
 
     fileprivate var showBoardCallback: (() -> Void)?
@@ -75,9 +76,21 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         if isStarted {
             super.handleTap(sender)
-        } else {
-            setupCenterNode()
+        } else if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
+            let t = SCNMatrix4(simdMatrix: currentFrame.camera.transform)
+            setupCenterNode(with: t)
             isStarted = true
+            reallyShowBoard()
+        }
+    }
+
+    // MARK: -
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if !isStarted {
+            print("Anchor added!")
+            self.centerNode.removeFromParentNode()
+            node.addChildNode(self.centerNode)
+            self.scene.rootNode.addChildNode(node)
             reallyShowBoard()
         }
     }

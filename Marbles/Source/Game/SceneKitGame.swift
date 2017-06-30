@@ -492,7 +492,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         let x = tileXOrigin + self.tileSize.x * Float(fieldPosition.x)
         let y = tileYOrigin + self.tileSize.y * Float(fieldPosition.y)
 
-        return SCNVector3(x: x, y: y, z: self.tileSize.x * 0.5 * marbleScale)
+        return SCNVector3(x: x, y: y, z: marbleScale * 0.5)
     }
 
 
