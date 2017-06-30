@@ -18,6 +18,6 @@ class ArKitMarbleFactory: MarbleFactory {
         return SceneKitMarble(color: color,
                               fieldPosition: fieldPosition,
                               position: game.marblePositionForFieldPosition(fieldPosition)!,
-                              size: game.marbleSize)
+                              scale: game.marbleScale)
     }
 }

@@ -15,21 +15,26 @@ import Crashlytics
 class SceneKitGame: Game, UIGestureRecognizerDelegate
 {
     internal var scene: SCNScene!
-    internal var marbleSize: Float = 1.0
-    internal var tileSize = CGSize(width: 1.0, height: 1.0)
-    internal var boardHeight: Float = 0.25
-    internal var particleSize: Float = 1.0
-
     internal var centerNode: SCNNode!
-    internal var tileSelectionParticleNode: SCNNode!
-    internal var tileSelectionParticle: SCNParticleSystem!
+    internal var gameScale: Float = 1.0
 
+    fileprivate var tileSelectionParticleNode: SCNNode!
+    fileprivate var tileSelectionParticle: SCNParticleSystem!
+
+    fileprivate let _marbleScale: Float = 1.0
+    internal var marbleScale: Float  {
+        return self._marbleScale * self.gameScale
+    }
+    fileprivate let _tileSize = SCNVector3(x: 1.0, y: 1.0, z: 0.25)
+    fileprivate var tileSize: SCNVector3 {
+        return SCNVector3(x: self._tileSize.x * self.gameScale, y: self._tileSize.y * self.gameScale, z: self._tileSize.z * self.gameScale)
+    }
     fileprivate let fieldMoveDuration: Float = 0.4
 
     lazy var tilePrototype: SCNNode = {
         let tileNode = SCNNode()
-        tileNode.geometry = SCNBox(width: self.tileSize.width , height: self.tileSize.height,
-                                   length: CGFloat(self.boardHeight), chamferRadius: 0.0)
+        tileNode.geometry = SCNBox(width: CGFloat(self.tileSize.x), height: CGFloat(self.tileSize.y),
+                                   length: CGFloat(self.tileSize.z), chamferRadius: 0.0)
         tileNode.geometry?.materials.first?.diffuse.contents = "Tile Diffuse"
         tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
         tileNode.geometry?.materials.first?.normal.intensity = 0.5
@@ -102,7 +107,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.centerNode.addChildNode(self.tileSelectionParticleNode)
 
         self.tileSelectionParticle = SCNParticleSystem(named: "Selection.scnp", inDirectory: nil)
-        self.tileSelectionParticle.particleSize *= CGFloat(particleSize)
+        self.tileSelectionParticle.particleSize *= CGFloat(gameScale)
     }
 
     internal func setupCamera()
@@ -220,7 +225,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 let tileNode = self.tilePrototype.flattenedClone()
                 
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
-                tileNode.position.z = -Float(self.boardHeight / 2.0)
+                tileNode.position.z = -self.tileSize.z / 2.0
                 self.centerNode.addChildNode(tileNode)
 
                 tileNode.scale = SCNVector3Zero
@@ -248,7 +253,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let targetPosition = scnMarble.node.position
             let targetScale = CGFloat(scnMarble.node.scale.x)
             scnMarble.node.scale = SCNVector3Zero
-            scnMarble.node.position.z += Float((tileSize.width + tileSize.height) / 2.0)
+            scnMarble.node.position.z += (tileSize.x + tileSize.y) / 2.0
 
             let waitAction = SCNAction.wait(duration: 0.2 * TimeInterval(index))
             let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
@@ -347,7 +352,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         for (index, position) in fieldPath.enumerated() where index != 0 {
             // Rotation
-            let rotationAngle: Float = (Float(self.tileSize.width) / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
+            let rotationAngle: Float = (self.tileSize.x / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
 
             var xAngle: Float = 0.0
             if position.x > previousFieldPosition.x {
@@ -464,13 +469,13 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     // MARK: - Utils -
     func tilePositionForFieldPosition(_ fieldPosition: Point) -> SCNVector3?
     {
-        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width - self.tileSize.width) / 2.0
-        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height - self.tileSize.height) / 2.0
+        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
+        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y - self.tileSize.y) / 2.0
 
-        let x = tileXOrigin + self.tileSize.width * CGFloat(fieldPosition.x)
-        let y = tileYOrigin + self.tileSize.height * CGFloat(fieldPosition.y)
+        let x = tileXOrigin + self.tileSize.x * Float(fieldPosition.x)
+        let y = tileYOrigin + self.tileSize.y * Float(fieldPosition.y)
 
-        return SCNVector3(x: Float(x), y: Float(y), z: 0.0)
+        return SCNVector3(x: x, y: y, z: 0.0)
     }
 
 
@@ -481,23 +486,23 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 return nil
         }
 
-        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width - self.tileSize.width) / 2.0
-        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height - self.tileSize.width) / 2.0
+        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
+        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y - self.tileSize.x) / 2.0
 
-        let x = tileXOrigin + self.tileSize.width * CGFloat(fieldPosition.x)
-        let y = tileYOrigin + self.tileSize.height * CGFloat(fieldPosition.y)
+        let x = tileXOrigin + self.tileSize.x * Float(fieldPosition.x)
+        let y = tileYOrigin + self.tileSize.y * Float(fieldPosition.y)
 
-        return SCNVector3(x: Float(x), y: Float(y), z: Float(self.tileSize.width) * 0.5 * 0.8)
+        return SCNVector3(x: x, y: y, z: self.tileSize.x * 0.5 * marbleScale)
     }
 
 
     func fieldPositionForPosition(_ position: SCNVector3) -> Point?
     {
-        let tileXOrigin = -(CGFloat(self.field.size.width) * self.tileSize.width) / 2.0
-        let tileYOrigin = -(CGFloat(self.field.size.height) * self.tileSize.height) / 2.0
+        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x) / 2.0
+        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y) / 2.0
 
-        let x = Int((CGFloat(position.x) - tileXOrigin)/self.tileSize.width)
-        let y = Int((CGFloat(position.y) - tileYOrigin)/self.tileSize.height)
+        let x = Int((Float(position.x) - tileXOrigin)/self.tileSize.x)
+        let y = Int((Float(position.y) - tileYOrigin)/self.tileSize.y)
 
         guard x >= 0 && x < self.field.size.width && y >= 0 && y < self.field.size.height else {
             return nil

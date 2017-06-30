@@ -32,10 +32,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
 
-        marbleSize = 0.1
-        tileSize = CGSize(width: 0.1, height: 0.1)
-        boardHeight = 0.025
-        particleSize = 0.1
+        gameScale = 0.1
     }
 
     override func setupCamera()
