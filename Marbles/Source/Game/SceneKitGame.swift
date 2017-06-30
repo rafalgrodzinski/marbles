@@ -248,7 +248,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let targetPosition = scnMarble.node.position
             let targetScale = CGFloat(scnMarble.node.scale.x)
             scnMarble.node.scale = SCNVector3Zero
-            //scnMarble.node.position.z += Float(tileSize.width)
+            scnMarble.node.position.z += Float((tileSize.width + tileSize.height) / 2.0)
 
             let waitAction = SCNAction.wait(duration: 0.2 * TimeInterval(index))
             let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
@@ -271,7 +271,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             self.centerNode.addChildNode(scnMarble.node)
 
-            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, /*addGravityAction,*/
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
                 waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
         }
     }

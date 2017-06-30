@@ -45,10 +45,17 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     func setupCenterNode()
     {
         if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
+            // Setup center node
             var modelMatrix = matrix_identity_float4x4
             modelMatrix.columns.3.z = -1
             modelMatrix = matrix_multiply(currentFrame.camera.transform, modelMatrix)
             self.centerNode.simdTransform = modelMatrix
+
+            // Setup gravity
+            let gravity = self.scene.physicsWorld.gravity
+            let gravityForceMatrix = simd_make_float4(gravity.x, gravity.y, gravity.z, 0.0)
+            let gravityMatrix = simd_mul(currentFrame.camera.transform, gravityForceMatrix)
+            self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
         }
     }
 
