@@ -26,14 +26,10 @@ class GameFactory
         switch graphicsType {
             case .spriteKit:
                 marbleFactory = SpriteKitMarbleFactory()
+            case .arKit:
+                fallthrough
             case .sceneKit:
                 marbleFactory = SceneKitMarbleFactory()
-            case .arKit:
-                if #available(iOS 11.0, *) {
-                    marbleFactory = ArKitMarbleFactory()
-                } else {
-                    fatalError()
-                }
         }
 
         // Initialize field
@@ -52,7 +48,7 @@ class GameFactory
             case .arKit:
                 if #available(iOS 11.0, *) {
                     game = ArKitGame(field: field)
-                    (marbleFactory as! ArKitMarbleFactory).game = game as! ArKitGame
+                    (marbleFactory as! SceneKitMarbleFactory).game = game as! ArKitGame
                 } else {
                     fatalError()
                 }

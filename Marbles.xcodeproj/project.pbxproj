@@ -42,7 +42,6 @@
 		B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */; };
 		B5CB02881D23042C005770BB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02871D23042C005770BB /* Button.swift */; };
 		B5D7150F1EF9CD1D008A5781 /* ArKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7150E1EF9CD1C008A5781 /* ArKitGame.swift */; };
-		B5D715111EF9D3B5008A5781 /* ArKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D715101EF9D3B5008A5781 /* ArKitMarbleFactory.swift */; };
 		B5DAE6721D9E4D030023A869 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5DAE6711D9E4D030023A869 /* StoreKit.framework */; };
 		B5DD2B561D56944600F9FFC3 /* GameOverPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */; };
 		B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E6C1731CCE63A700410BBB /* Utils.swift */; };
@@ -87,7 +86,6 @@
 		B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuBackgroundView.swift; path = "Source/Main Menu/MainMenuBackgroundView.swift"; sourceTree = "<group>"; };
 		B5CB02871D23042C005770BB /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Source/Button.swift; sourceTree = "<group>"; };
 		B5D7150E1EF9CD1C008A5781 /* ArKitGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArKitGame.swift; sourceTree = "<group>"; };
-		B5D715101EF9D3B5008A5781 /* ArKitMarbleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArKitMarbleFactory.swift; sourceTree = "<group>"; };
 		B5DAE6711D9E4D030023A869 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
 		B5E6C1731CCE63A700410BBB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				B576D0DF1CCCC342001A5657 /* MarbleFactory.swift */,
 				B576D0E11CCCC35D001A5657 /* SpriteKitMarbleFactory.swift */,
 				B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */,
-				B5D715101EF9D3B5008A5781 /* ArKitMarbleFactory.swift */,
 			);
 			name = Marbles;
 			path = Source/Marbles;
@@ -402,7 +399,6 @@
 				B5E6C1741CCE63A700410BBB /* Utils.swift in Sources */,
 				B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */,
 				B5D7150F1EF9CD1D008A5781 /* ArKitGame.swift in Sources */,
-				B5D715111EF9D3B5008A5781 /* ArKitMarbleFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
