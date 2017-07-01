@@ -96,7 +96,7 @@ extension SCNNode
 {
     func duplicate() -> SCNNode
     {
-        let node = self.flattenedClone()
+        let node = self.clone()
         node.geometry = self.geometry?.copy() as? SCNGeometry
         node.geometry?.firstMaterial = self.geometry?.firstMaterial?.copy() as? SCNMaterial
 
