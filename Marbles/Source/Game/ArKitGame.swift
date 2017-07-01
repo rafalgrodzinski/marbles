@@ -58,22 +58,24 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     fileprivate func setupNextMarbleScene()
     {
-        // Next marbles view
-        self.nextMarblesView.frame = self.view.frame
-        self.nextMarblesView.isUserInteractionEnabled = false
-        self.view.superview?.addSubview(self.nextMarblesView)
-        self.nextMarblesView.backgroundColor = UIColor.clear
+        DispatchQueue.main.async {
+            // Next marbles view
+            self.nextMarblesView.frame = self.view.frame
+            self.nextMarblesView.isUserInteractionEnabled = false
+            self.view.superview?.addSubview(self.nextMarblesView)
+            self.nextMarblesView.backgroundColor = UIColor.clear
 
-        self.nextMarblesView.scene = SCNScene()
-        self.nextMarblesView.antialiasingMode = .multisampling2X
-        self.nextMarblesView.preferredFramesPerSecond = 60
-        self.nextMarblesView.isPlaying = true
+            self.nextMarblesView.scene = SCNScene()
+            self.nextMarblesView.antialiasingMode = .multisampling2X
+            self.nextMarblesView.preferredFramesPerSecond = 60
+            self.nextMarblesView.isPlaying = true
 
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
-        cameraNode.position = SCNVector3(0.0, 0.0, height)
-        self.nextMarblesView.scene?.rootNode.addChildNode(cameraNode)
+            let cameraNode = SCNNode()
+            cameraNode.camera = SCNCamera()
+            let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
+            cameraNode.position = SCNVector3(0.0, 0.0, height)
+            self.nextMarblesView.scene?.rootNode.addChildNode(cameraNode)
+        }
     }
 
     override func addNextMarble(_ marble: SceneKitMarble)
