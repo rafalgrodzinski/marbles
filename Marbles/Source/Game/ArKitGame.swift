@@ -12,6 +12,7 @@ import ARKit
 @available(iOS 11.0, *)
 class ArKitGame: SceneKitGame, ARSCNViewDelegate
 {
+    fileprivate let nextMarblesView = SCNView()
     override func setupView()
     {
         self.view = ARSCNView()
@@ -55,6 +56,31 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
     }
 
+    fileprivate func setupNextMarbleScene()
+    {
+        // Next marbles view
+        self.nextMarblesView.frame = self.view.frame
+        self.nextMarblesView.isUserInteractionEnabled = false
+        self.view.superview?.addSubview(self.nextMarblesView)
+        self.nextMarblesView.backgroundColor = UIColor.clear
+
+        self.nextMarblesView.scene = SCNScene()
+        self.nextMarblesView.antialiasingMode = .multisampling2X
+        self.nextMarblesView.preferredFramesPerSecond = 60
+        self.nextMarblesView.isPlaying = true
+
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
+        cameraNode.position = SCNVector3(0.0, 0.0, height)
+        self.nextMarblesView.scene?.rootNode.addChildNode(cameraNode)
+    }
+
+    override func addNextMarble(_ marble: SceneKitMarble)
+    {
+        self.nextMarblesView.scene?.rootNode.addChildNode(marble.node)
+    }
+
     fileprivate var showBoardCallback: (() -> Void)?
     override func showBoard(_ finished: @escaping () -> Void)
     {
@@ -75,6 +101,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         if isStarted {
             super.handleTap(sender)
         } else if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
+            setupNextMarbleScene()
             setupCenterNode(with: currentFrame.camera.transform)
             isStarted = true
             reallyShowBoard()
@@ -86,6 +113,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
     {
         if !isStarted {
+            setupNextMarbleScene()
             centerNodeAnchor = anchor
             setupCenterNode(with: anchor.transform)
             isStarted = true

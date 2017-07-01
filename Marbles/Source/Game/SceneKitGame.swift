@@ -52,8 +52,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     fileprivate var nextMarbles = [Marble]()
 
-    fileprivate var cameraNode: SCNNode!
-
 
     // MARK: - Initialization -
     override func setupView()
@@ -116,11 +114,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     internal func setupCamera()
     {
         // Camera
-        self.cameraNode = SCNNode()
-        self.cameraNode.camera = SCNCamera()
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
         let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
-        self.cameraNode.position = SCNVector3(0.0, 0.0, height)
-        self.scene.rootNode.addChildNode(self.cameraNode)
+        cameraNode.position = SCNVector3(0.0, 0.0, height)
+        self.scene.rootNode.addChildNode(cameraNode)
     }
 
     internal func setupLight()
@@ -298,6 +296,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     func showNextMarbles(_ nextMarbleColors: [Int])
     {
+        // Reset game scale to 1.0
+        let savedScale = self.gameScale
+        self.gameScale = 1.0
+
         self.nextMarbles = [Marble]()
 
         for (index, color) in nextMarbleColors.enumerated() {
@@ -307,9 +309,16 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             nextMarble.node.scale = SCNVector3Zero
             nextMarble.node.position.x += 2.6
             nextMarble.node.position.y -= 1.5
-            self.scene.rootNode.addChildNode(nextMarble.node)
+            addNextMarble(nextMarble)
             nextMarble.node.runAction(SCNAction.scale(to: 1.0, duration: 0.2))
         }
+
+        self.gameScale = savedScale
+    }
+
+    func addNextMarble(_ marble: SceneKitMarble)
+    {
+        self.scene.rootNode.addChildNode(marble.node)
     }
 
 
