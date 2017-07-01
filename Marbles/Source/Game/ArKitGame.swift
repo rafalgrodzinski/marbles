@@ -82,7 +82,8 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     // MARK: -
     fileprivate var centerNodeAnchor: ARAnchor?
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
+    {
         if !isStarted {
             centerNodeAnchor = anchor
             setupCenterNode(with: anchor.transform)
@@ -91,9 +92,18 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
     }
 
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
+    {
         if let centerNodeAnchor = centerNodeAnchor, centerNodeAnchor == anchor {
             setupCenterNode(with: anchor.transform)
+        }
+    }
+
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    {
+        if let lightEstimate = (self.view as! ARSCNView).session.currentFrame?.lightEstimate {
+            ambientLight.intensity = lightEstimate.ambientIntensity
+            spotLight.intensity = lightEstimate.ambientIntensity
         }
     }
 }

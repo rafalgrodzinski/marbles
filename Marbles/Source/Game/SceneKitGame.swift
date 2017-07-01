@@ -18,6 +18,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     internal var centerNode: SCNNode!
     internal var gameScale: Float = 1.0
 
+    internal var spotLight: SCNLight!
+    internal var ambientLight: SCNLight!
+
     fileprivate var tileSelectionParticleNode: SCNNode!
     fileprivate var tileSelectionParticle: SCNParticleSystem!
 
@@ -123,7 +126,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     internal func setupLight()
     {
         // Create spot light
-        let spotLight = SCNLight()
+        spotLight = SCNLight()
         spotLight.type = SCNLight.LightType.spot
         spotLight.shadowMode = .forward
         spotLight.castsShadow = true
@@ -147,7 +150,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.centerNode.addChildNode(spotLightNode)
 
         // Create ambient light
-        let ambientLight = SCNLight()
+        ambientLight = SCNLight()
         ambientLight.type = SCNLight.LightType.ambient
         ambientLight.color = UIColor(white: 0.2, alpha: 1.0)
 
