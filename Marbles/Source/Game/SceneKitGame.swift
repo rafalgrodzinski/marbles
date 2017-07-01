@@ -352,7 +352,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         for (index, position) in fieldPath.enumerated() where index != 0 {
             // Rotation
-            let rotationAngle: Float = (self.tileSize.x / (2.0 * π * Float((scnMarble.node.geometry as! SCNSphere).radius))) * 2 * π
+            let radius = Float((scnMarble.node.geometry as! SCNSphere).radius) * gameScale
+            let rotationAngle: Float = (self.tileSize.x / (2.0 * π * radius)) * 2 * π
 
             var xAngle: Float = 0.0
             if position.x > previousFieldPosition.x {
