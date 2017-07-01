@@ -144,7 +144,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         var spotLightPos = self.tilePositionForFieldPosition(Point(-self.field.size.width/2, -self.field.size.height/2))!
         spotLightPos.z = Float((self.field.size.width + self.field.size.height) )
         spotLightNode.position = spotLightPos
-        self.scene.rootNode.addChildNode(spotLightNode)
+        self.centerNode.addChildNode(spotLightNode)
 
         // Create ambient light
         let ambientLight = SCNLight()
@@ -153,9 +153,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         let ambientLightNode = SCNNode()
         ambientLightNode.light = ambientLight
-        self.scene.rootNode.addChildNode(ambientLightNode)
+        self.centerNode.addChildNode(ambientLightNode)
 
-        self.scene.rootNode.castsShadow = false
+        self.centerNode.castsShadow = false
     }
 
     internal func setupOverlay()
@@ -263,7 +263,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let fadeInAction = SCNAction.fadeIn(duration: 0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
             let addGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamic() }
-            let waitToSettle = SCNAction.wait(duration: 0.5)
+            let waitToSettle = SCNAction.wait(duration: 0.8)
             let moveToPoint = SCNAction.move(to: targetPosition, duration: 0.1)
             let removeGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = nil }
 

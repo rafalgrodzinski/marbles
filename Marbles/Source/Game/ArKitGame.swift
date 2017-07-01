@@ -40,19 +40,16 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
     }
 
-    func setupCenterNode(with transform: SCNMatrix4)
+    func setupCenterNode(with transform: simd_float4x4)
     {
         // Setup center node
-        var modelMatrix = transform
-        let translateMatrix = SCNMatrix4MakeTranslation(0.0, 0.0, 0.0)
-        modelMatrix = SCNMatrix4Mult(translateMatrix, modelMatrix)
-        let rotateMatrix = SCNMatrix4MakeRotation(-Float.pi * 0.5, 0.0, 1.0, 0.0)
+        var modelMatrix = SCNMatrix4(simdMatrix: transform)
+        let rotateMatrix = SCNMatrix4MakeRotation(-Float.pi * 0.5, 1.0, 0.0, 0.0) // Make it horizontal
         modelMatrix = SCNMatrix4Mult(rotateMatrix, modelMatrix)
         self.centerNode.transform = modelMatrix
 
         // Setup gravity
-        let gravity = self.scene.physicsWorld.gravity
-        let gravityForceMatrix = simd_make_float4(gravity.x, gravity.y, gravity.z, 0.0)
+        let gravityForceMatrix = simd_make_float4(0.0, -1.8, 0.0, 0.0)
         let gravityMatrix = simd_mul(transform, gravityForceMatrix)
         self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
     }
@@ -77,8 +74,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         if isStarted {
             super.handleTap(sender)
         } else if let currentFrame = (self.view as? ARSCNView)?.session.currentFrame {
-            let t = SCNMatrix4(simdMatrix: currentFrame.camera.transform)
-            setupCenterNode(with: t)
+            setupCenterNode(with: currentFrame.camera.transform)
             isStarted = true
             reallyShowBoard()
         }
@@ -88,9 +84,8 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if !isStarted {
             print("Anchor added!")
-            self.centerNode.removeFromParentNode()
-            node.addChildNode(self.centerNode)
-            self.scene.rootNode.addChildNode(node)
+            setupCenterNode(with: anchor.transform)
+            isStarted = true
             reallyShowBoard()
         }
     }
