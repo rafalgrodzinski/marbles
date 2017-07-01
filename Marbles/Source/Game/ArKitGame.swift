@@ -19,6 +19,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         arConfig.planeDetection = .horizontal
         (self.view as! ARSCNView).session.run(arConfig)
         (self.view as! ARSCNView).delegate = self
+        (self.view as! ARSCNView).automaticallyUpdatesLighting = false
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
         #if DEBUG

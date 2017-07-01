@@ -228,7 +228,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 let tileNode = self.tilePrototype.flattenedClone()
                 
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
-                tileNode.position.z = -self.tileSize.z / 2.0
+                tileNode.position.z = 0.0
                 self.centerNode.addChildNode(tileNode)
 
                 tileNode.scale = SCNVector3Zero
