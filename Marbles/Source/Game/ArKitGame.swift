@@ -81,12 +81,19 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     }
 
     // MARK: -
+    fileprivate var centerNodeAnchor: ARAnchor?
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if !isStarted {
-            print("Anchor added!")
+            centerNodeAnchor = anchor
             setupCenterNode(with: anchor.transform)
             isStarted = true
             reallyShowBoard()
+        }
+    }
+
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        if let centerNodeAnchor = centerNodeAnchor, centerNodeAnchor == anchor {
+            setupCenterNode(with: anchor.transform)
         }
     }
 }
