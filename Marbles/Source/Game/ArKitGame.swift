@@ -104,7 +104,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         let placeholderSize = gameScale * Float(field.size.width)
         let aimPlane = SCNPlane(width: CGFloat(placeholderSize), height: CGFloat(placeholderSize))
-        aimPlane.firstMaterial?.isDoubleSided = true
         aimPlane.firstMaterial?.diffuse.contents = "Aim"
         let aimNode = SCNNode(geometry: aimPlane)
         centerNode.addChildNode(aimNode)
@@ -114,13 +113,10 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         let shadowPlane = SCNFloor()
         shadowPlane.reflectivity = 0.0
-        shadowPlane.reflectionFalloffEnd = 0.1
-        let shadowPlaneMaterial = SCNMaterial()
-        shadowPlaneMaterial.colorBufferWriteMask = []
-        shadowPlane.materials = [shadowPlaneMaterial]
+        shadowPlane.firstMaterial?.colorBufferWriteMask = []
         let shadowPlaneNode = SCNNode(geometry: shadowPlane)
+        shadowPlaneNode.renderingOrder = 1
         shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
-        shadowPlaneNode.castsShadow = true
         centerNode.addChildNode(shadowPlaneNode)
     }
 
