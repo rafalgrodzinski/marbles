@@ -36,7 +36,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
         super.setupScene()
         setupPlaceholder()
-        setupShadowPlane()
 
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
@@ -126,7 +125,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         centerNode.addChildNode(placeholderNode)
     }
 
-    fileprivate func setupShadowPlane()
+    override func setupShadowPlane()
     {
         let shadowPlane = SCNFloor()
         shadowPlane.reflectivity = 0.0

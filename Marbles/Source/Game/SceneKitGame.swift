@@ -66,6 +66,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     override func setupCustom()
     {
         setupScene()
+        setupShadowPlane()
         setupParticles()
         setupLight()
         setupOverlay()
@@ -98,6 +99,20 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         self.centerNode = SCNNode()
         self.scene.rootNode.addChildNode(self.centerNode)
+    }
+
+    internal func setupShadowPlane()
+    {
+        let shadowPlane = SCNFloor()
+        shadowPlane.reflectivity = 0.0
+        shadowPlane.firstMaterial?.diffuse.contents = UIColor.white
+        if #available(iOS 11.0, *) {
+            shadowPlane.firstMaterial?.colorBufferWriteMask = []
+        }
+        let shadowPlaneNode = SCNNode(geometry: shadowPlane)
+
+        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
+        centerNode.addChildNode(shadowPlaneNode)
     }
 
     internal func setupParticles()
