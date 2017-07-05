@@ -36,6 +36,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
         super.setupScene()
         setupPlaceholder()
+        setupShadowPlane()
 
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
@@ -106,8 +107,21 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         aimPlane.firstMaterial?.isDoubleSided = true
         aimPlane.firstMaterial?.diffuse.contents = "Aim"
         let aimNode = SCNNode(geometry: aimPlane)
-        aimNode.rotation = SCNVector4(x: 0.0, y: 1.0, z: 0.0, w: Float.pi)
         centerNode.addChildNode(aimNode)
+    }
+
+    fileprivate func setupShadowPlane()
+    {
+        let shadowPlane = SCNFloor()
+        shadowPlane.reflectivity = 0.0
+        shadowPlane.reflectionFalloffEnd = 0.1
+        let shadowPlaneMaterial = SCNMaterial()
+        shadowPlaneMaterial.colorBufferWriteMask = []
+        shadowPlane.materials = [shadowPlaneMaterial]
+        let shadowPlaneNode = SCNNode(geometry: shadowPlane)
+        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
+        shadowPlaneNode.castsShadow = true
+        centerNode.addChildNode(shadowPlaneNode)
     }
 
     override func addNextMarble(_ marble: SceneKitMarble)

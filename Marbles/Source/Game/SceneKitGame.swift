@@ -42,7 +42,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
         tileNode.geometry?.materials.first?.normal.intensity = 0.5
         tileNode.physicsBody = SCNPhysicsBody.static()
-        tileNode.castsShadow = false
         return tileNode
     }()
 
@@ -126,7 +125,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Create spot light
         spotLight = SCNLight()
         spotLight.type = SCNLight.LightType.spot
-        spotLight.shadowMode = .forward
+        spotLight.shadowMode = .deferred
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
@@ -134,7 +133,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.shadowRadius = 8.0
         spotLight.attenuationEndDistance = 50.0
         spotLight.attenuationStartDistance = 50.0
-        spotLight.zFar = 100.0
+        spotLight.zNear = 1.0 * CGFloat(gameScale)
+        spotLight.zFar = 100.0 * CGFloat(gameScale)
         spotLight.attenuationFalloffExponent = 0
         spotLight.shadowMapSize = CGSize(width: 2048, height: 2048)
 
@@ -143,7 +143,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLightNode.constraints = [SCNLookAtConstraint(target: self.centerNode)]
 
         var spotLightPos = self.tilePositionForFieldPosition(Point(-self.field.size.width/2, -self.field.size.height/2))!
-        spotLightPos.z = Float((self.field.size.width + self.field.size.height) )
+        spotLightPos.z = Float(self.field.size.width + self.field.size.height) * gameScale
         spotLightNode.position = spotLightPos
         self.centerNode.addChildNode(spotLightNode)
 
@@ -155,8 +155,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         let ambientLightNode = SCNNode()
         ambientLightNode.light = ambientLight
         self.centerNode.addChildNode(ambientLightNode)
-
-        self.centerNode.castsShadow = false
     }
 
     internal func setupOverlay()
