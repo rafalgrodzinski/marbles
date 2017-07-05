@@ -129,14 +129,13 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
-        spotLight.shadowSampleCount = 8
-        spotLight.shadowRadius = 8.0
+        spotLight.shadowColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         spotLight.attenuationEndDistance = 50.0
         spotLight.attenuationStartDistance = 50.0
         spotLight.zNear = 1.0 * CGFloat(gameScale)
         spotLight.zFar = 100.0 * CGFloat(gameScale)
         spotLight.attenuationFalloffExponent = 0
-        spotLight.shadowMapSize = CGSize(width: 2048, height: 2048)
+        spotLight.shadowMapSize = CGSize(width: 4096, height: 4096)
 
         let spotLightNode = SCNNode()
         spotLightNode.light = spotLight
