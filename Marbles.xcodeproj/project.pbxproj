@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */; };
 		B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */ = {isa = PBXBuildFile; fileRef = B524A9E21F0BF0CF0072189F /* Plane.scn */; };
-		B524A9E41F0BF1830072189F /* Aim.png in Resources */ = {isa = PBXBuildFile; fileRef = B5904C7C1F0BEC8700F7AC29 /* Aim.png */; };
 		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
 		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
 		B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5337ACE1CD500B0009C3098 /* Selection Particle.png */; };
@@ -80,7 +79,6 @@
 		B58254701C5E58090065E283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Marbles/Assets/Images.xcassets; sourceTree = "<group>"; };
 		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Marbles/Supporting Files/Info.plist"; sourceTree = "<group>"; };
-		B5904C7C1F0BEC8700F7AC29 /* Aim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Aim.png; path = Marbles/Assets/Textures/Aim.png; sourceTree = "<group>"; };
 		B59640741D5FC69C00CABF43 /* Marble Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Normal.png"; path = "Marbles/Assets/Textures/Marble Normal.png"; sourceTree = "<group>"; };
 		B59640751D5FC69C00CABF43 /* Marble Specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Marble Specular.png"; path = "Marbles/Assets/Textures/Marble Specular.png"; sourceTree = "<group>"; };
 		B596407A1D5FC9DC00CABF43 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Marble.scn; path = Marbles/Assets/Models/Marble.scn; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 		B59640731D5FC68600CABF43 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
-				B5904C7C1F0BEC8700F7AC29 /* Aim.png */,
 				B59640741D5FC69C00CABF43 /* Marble Normal.png */,
 				B59640751D5FC69C00CABF43 /* Marble Specular.png */,
 				B5337ACE1CD500B0009C3098 /* Selection Particle.png */,
@@ -353,7 +350,6 @@
 				B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,
 				B59640811D5FE84400CABF43 /* Tile Normal.png in Resources */,
-				B524A9E41F0BF1830072189F /* Aim.png in Resources */,
 				B5359C931D4810FA00A9C236 /* BunakenUnderwater.ttf in Resources */,
 				B5337ACF1CD500B0009C3098 /* Selection Particle.png in Resources */,
 			);

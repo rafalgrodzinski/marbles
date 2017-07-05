@@ -100,13 +100,30 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
     }
 
+    fileprivate var placeholderNode: SCNNode!
     fileprivate func setupPlaceholder()
     {
-        let placeholderSize = gameScale * Float(field.size.width)
-        let aimPlane = SCNPlane(width: CGFloat(placeholderSize), height: CGFloat(placeholderSize))
-        aimPlane.firstMaterial?.diffuse.contents = "Aim"
-        let aimNode = SCNNode(geometry: aimPlane)
-        centerNode.addChildNode(aimNode)
+        placeholderNode = SCNNode()
+        placeholderNode.isHidden = true
+        placeholderNode.opacity = 0.5
+
+        let scaleDownAction = SCNAction.scale(to: 0.9, duration: 0.8)
+        scaleDownAction.timingMode = .easeInEaseOut
+        let scaleUpAction = SCNAction.scale(to: 1.0, duration: 0.8)
+        scaleUpAction.timingMode = .easeInEaseOut
+        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction]))
+        placeholderNode.runAction(pulseAction)
+
+        for y in 0..<field.size.height {
+            for x in 0..<field.size.width {
+                let tileNode = self.tilePrototype.flattenedClone()
+                tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
+                tileNode.position.z = 0.0
+                placeholderNode.addChildNode(tileNode)
+            }
+        }
+
+        centerNode.addChildNode(placeholderNode)
     }
 
     fileprivate func setupShadowPlane()
@@ -133,6 +150,8 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     func reallyShowBoard()
     {
+        placeholderNode.isHidden = true
+        
         if let showBoardCallback = showBoardCallback {
             super.showBoard(showBoardCallback)
         }
@@ -147,6 +166,10 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     func updateCenterNode(with transform: simd_float4x4)
     {
+        if !isStarted {
+            placeholderNode.isHidden = false
+        }
+
         // Setup center node
         var modelMatrix = SCNMatrix4(simdMatrix: transform)
         let rotateMatrix = SCNMatrix4MakeRotation(-Float.pi * 0.5, 1.0, 0.0, 0.0) // Make it horizontal
