@@ -55,8 +55,9 @@ class MainMenuViewController: UIViewController
                                                                            repeats: true)
 
         self.logoLabel.textColor = UIColor.marblesGreen()
-        self.highScoreLabel.textColor = UIColor.marblesLightGreen()
-        self.arModeLabel.textColor = UIColor.marblesLightGreen()
+        self.highScoreLabel.textColor = UIColor.marblesGreen()
+        self.arModeLabel.textColor = UIColor.marblesGreen()
+        self.arModeSwitch.onTintColor = UIColor.marblesGreen()
         self.arUnsupportedLabel.textColor = UIColor.marblesOrange()
         self.tipPromptLabel.textColor = UIColor.white
 
