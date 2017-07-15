@@ -119,6 +119,7 @@ class MainMenuViewController: UIViewController
 
     @IBAction func arModeSwitchToggled(_ sender: UISwitch)
     {
+        self.isArModeSelected = sender.isOn
     }
 
 

@@ -65,7 +65,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         guard let skScene = (view as! SCNView).overlaySKScene else { return }
 
         // Place Board Button
-        let placeBoardButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button"))
+        let placeBoardButton = Button(defaultTexture: SKTexture(imageNamed: "Place Board Button"))
         let center = CGPoint(x: view.frame.midX, y: view.frame.midY - placeBoardButton.size.height * 2.0)
         placeBoardButton.position = center
         skScene.addChild(placeBoardButton)
