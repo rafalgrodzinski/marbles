@@ -81,7 +81,7 @@ class MainMenuViewController: UIViewController
     }
 
 
-    private func setupGame(field: Field?)
+    private func setupGame(field: Field?, drawnMarbleColors: [Int]?)
     {
         let graphicsType: GraphicsType = self.isArModeSelected ? .arKit : .sceneKit
 
@@ -93,6 +93,7 @@ class MainMenuViewController: UIViewController
         if let field = field {
             self.game!.field = field
         }
+        self.game!.drawnMarbleColors = drawnMarbleColors
 
         self.game!.pauseCallback = { [weak self] in
             self?.currentLogoHue = 100.0/360.0
@@ -118,7 +119,7 @@ class MainMenuViewController: UIViewController
         #endif
 
 
-        setupGame(field: nil)
+        setupGame(field: nil, drawnMarbleColors: nil)
 
         self.game!.startGame()
         self.present(self.gameVc!, animated: true, completion: nil)
@@ -132,7 +133,7 @@ class MainMenuViewController: UIViewController
         #endif
 
         if self.isArModeChanged {
-            setupGame(field: game?.field)
+            setupGame(field: game?.field, drawnMarbleColors: game?.drawnMarbleColors)
             self.game?.resumeGame()
         }
 

@@ -78,6 +78,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     internal func setupScene()
     {
+        // This becomes incorrect on resume in different AR mode
+        (self.field.marbleFactory as! SceneKitMarbleFactory).game = self
+
         (self.view as! SCNView).isPlaying = false
         (self.view as! SCNView).antialiasingMode = .multisampling2X
         (self.view as! SCNView).preferredFramesPerSecond = 60
@@ -192,7 +195,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         overlayScene.addChild(self.scoreLabelShadow)
         overlayScene.addChild(self.scoreLabel)
-        self.updateScore(0)
+        self.updateScore(ScoreSingleton.sharedInstance.currentScore)
 
         // Next label
         let nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
@@ -233,6 +236,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     // MARK: - Game Logic
     override func showBoard(_ finished: @escaping () -> Void)
     {
+        let isResumingGame = self.field.marbles.count > 0
+
         for y in 0 ..< field.size.height {
             for x in 0 ..< field.size.width {
                 let tileNode = self.tilePrototype.flattenedClone()
@@ -241,18 +246,20 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 tileNode.position.z = 0.0
                 self.centerNode.addChildNode(tileNode)
 
-                tileNode.scale = SCNVector3Zero
-                let delayAction = SCNAction.wait(duration: Double(x + y) * 0.05 + 0.2)
-                let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
-                scaleAction.timingMode = .easeInEaseOut
+                if !isResumingGame {
+                    tileNode.scale = SCNVector3Zero
+                    let delayAction = SCNAction.wait(duration: Double(x + y) * 0.05 + 0.2)
+                    let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
+                    scaleAction.timingMode = .easeInEaseOut
 
-                let sequence = SCNAction.sequence([delayAction, scaleAction])
+                    let sequence = SCNAction.sequence([delayAction, scaleAction])
 
-                tileNode.runAction(sequence)
+                    tileNode.runAction(sequence)
+                }
             }
         }
 
-        let delay = DispatchTime.now() + Double(Int64(Double(NSEC_PER_SEC) * 1.0)) / Double(NSEC_PER_SEC)
+        let delay = DispatchTime.now() + Double(Int64(Double(NSEC_PER_SEC) * (isResumingGame ? 0.0 : 1.0))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: delay) {
             finished()
         }
@@ -261,12 +268,19 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
     override func showMarbles(_ marbles: [Marble], nextMarbleColors: [Int], finished: @escaping () -> Void)
     {
+        let isResumingGame = self.currentState == nil
+
         for (index, marble) in marbles.enumerated() {
             let scnMarble = marble as! SceneKitMarble
+            scnMarble.node.position = self.marblePositionForFieldPosition(scnMarble.fieldPosition)!
+            scnMarble.node.scale = SCNVector3(x: gameScale, y: gameScale, z: gameScale)
             let targetPosition = scnMarble.node.position
             let targetScale = CGFloat(scnMarble.node.scale.x)
-            scnMarble.node.scale = SCNVector3Zero
-            scnMarble.node.position.z += (tileSize.x + tileSize.y) / 2.0
+
+            if !isResumingGame {
+                scnMarble.node.scale = SCNVector3Zero
+                scnMarble.node.position.z += (tileSize.x + tileSize.y) / 2.0
+            }
 
             let waitAction = SCNAction.wait(duration: 0.2 * TimeInterval(index))
             let nextMarble: Marble? = self.nextMarbles.count > index ? self.nextMarbles[index] : nil
@@ -289,8 +303,12 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             self.centerNode.addChildNode(scnMarble.node)
 
-            scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
-                waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
+            if !isResumingGame {
+                scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
+                                                             waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
+            } else {
+                self.showNextMarbles(drawnMarbleColors!)
+            }
         }
     }
 

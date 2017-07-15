@@ -13,13 +13,15 @@ open class Game: NSObject
 {
     internal(set) var view: UIView!
     internal var field: Field
+    internal var drawnMarbleColors: [Int]?
     internal weak var currentState: State?
     /*fileprivate*/ var states: [State]!
+    var resumeState: State!
+
 
     // State data
     fileprivate var isWaitingForMove = false
     fileprivate weak var selectedMarble: Marble?
-    fileprivate var drawnMarbleColors: [Int]?
     fileprivate var spawnedMarbles: NSHashTable<Marble>?
 
     // Callbacks
@@ -50,6 +52,7 @@ open class Game: NSObject
 
         let moveState = State()
         moveState.command = { [weak self] (state: State) in self?.executeMoveState(state) }
+        resumeState = moveState
 
         let removeAfterMoveState = State()
         removeAfterMoveState.command = { [weak self] (state: State) in self?.executeRemoveAfterMoveState(state) }
@@ -105,12 +108,12 @@ open class Game: NSObject
 
     func resumeGame()
     {
-        // Setup score singleton
-        ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
-
         // Load all the objects
         self.setupCustom()
+        let marbles = self.field.marbles.map {  $0.value }
+        self.showMarbles(marbles, nextMarbleColors: self.drawnMarbleColors!, finished: {})
 
+        self.states[0].nextState = self.resumeState
         self.states[0].execute()
     }
 
