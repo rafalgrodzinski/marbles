@@ -23,6 +23,14 @@ class MainMenuViewController: UIViewController
     var game: Game?
     var gameVc: UIViewController?
     var isArModeSelected = true
+    var isArModeChanged: Bool {
+        if #available(iOS 11.0, *) {
+            let isGameInAr = self.game! is ArKitGame
+            return isGameInAr != self.isArModeSelected
+        }
+
+        return false
+    }
 
     // Outlets
     @IBOutlet private weak var logoLabel: UILabel!
@@ -113,7 +121,11 @@ class MainMenuViewController: UIViewController
             Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Resumed"])
         #endif
 
-        self.present(self.gameVc!, animated: true, completion: nil)
+        if self.isArModeChanged {
+
+        } else {
+            self.present(self.gameVc!, animated: true, completion: nil)
+        }
     }
 
 
