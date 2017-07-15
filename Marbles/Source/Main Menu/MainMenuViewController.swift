@@ -81,6 +81,35 @@ class MainMenuViewController: UIViewController
     }
 
 
+    private func setupGame(field: Field?)
+    {
+        let graphicsType: GraphicsType = self.isArModeSelected ? .arKit : .sceneKit
+
+        self.gameVc = UIViewController()
+        self.game = GameFactory.gameWithGraphicsType(graphicsType, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5, field: field)
+        self.gameVc!.view.addSubview(self.game!.view)
+        self.gameVc!.modalTransitionStyle = .crossDissolve
+        self.game!.view.frame = gameVc!.view.bounds
+        if let field = field {
+            self.game!.field = field
+        }
+
+        self.game!.pauseCallback = { [weak self] in
+            self?.currentLogoHue = 100.0/360.0
+            self?.updateHighScoreLabel()
+            self?.setupForResume()
+            self?.gameVc!.dismiss(animated: false, completion: nil)
+        }
+
+        self.game!.quitCallback = { [weak self] in
+            self?.currentLogoHue = 100.0/360.0
+            self?.updateHighScoreLabel()
+            self?.setupForNewGame()
+            self?.gameVc!.dismiss(animated: false, completion: nil)
+        }
+    }
+
+
     // MARK: - Actions -
     @IBAction func newGameButtonPressed(_ sender: UIButton)
     {
@@ -88,28 +117,8 @@ class MainMenuViewController: UIViewController
             Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Started"])
         #endif
 
-        let graphicsType: GraphicsType = self.isArModeSelected ? .arKit : .sceneKit
 
-        self.gameVc = UIViewController()
-        self.game = GameFactory.gameWithGraphicsType(graphicsType, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
-        self.gameVc!.view.addSubview(self.game!.view)
-        self.gameVc!.modalTransitionStyle = .crossDissolve
-        self.game!.view.frame = gameVc!.view.bounds
-
-        weak var welf = self
-        self.game!.pauseCallback = {
-            welf?.currentLogoHue = 100.0/360.0
-            welf?.updateHighScoreLabel()
-            welf?.setupForResume()
-            welf?.gameVc!.dismiss(animated: false, completion: nil)
-        }
-
-        self.game!.quitCallback = {
-            welf?.currentLogoHue = 100.0/360.0
-            welf?.updateHighScoreLabel()
-            welf?.setupForNewGame()
-            welf?.gameVc!.dismiss(animated: false, completion: nil)
-        }
+        setupGame(field: nil)
 
         self.game!.startGame()
         self.present(self.gameVc!, animated: true, completion: nil)
@@ -123,10 +132,11 @@ class MainMenuViewController: UIViewController
         #endif
 
         if self.isArModeChanged {
-
-        } else {
-            self.present(self.gameVc!, animated: true, completion: nil)
+            setupGame(field: game?.field)
+            self.game?.resumeGame()
         }
+
+        self.present(self.gameVc!, animated: true, completion: nil)
     }
 
 

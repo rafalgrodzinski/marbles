@@ -83,7 +83,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         (self.view as! SCNView).preferredFramesPerSecond = 60
         self.view.backgroundColor = UIColor.white
 
-        if(self.scene == nil) {
+        if self.scene == nil {
             self.scene = SCNScene()
             (self.view as! SCNView).scene = self.scene!
 

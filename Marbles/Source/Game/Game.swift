@@ -103,6 +103,17 @@ open class Game: NSObject
         self.states[0].execute()
     }
 
+    func resumeGame()
+    {
+        // Setup score singleton
+        ScoreSingleton.sharedInstance.newGameWithColorsCount(self.field.colorsCount, lineLength: self.field.lineLength)
+
+        // Load all the objects
+        self.setupCustom()
+
+        self.states[0].execute()
+    }
+
 
     // MARK: - State -
     func executeStartupState(_ state: State)

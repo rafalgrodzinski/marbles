@@ -25,7 +25,7 @@ class GameFactory
     }
 
 
-    class func gameWithGraphicsType(_ graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int) -> Game
+    class func gameWithGraphicsType(_ graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int, field: Field? = nil) -> Game
     {
         // Initialize marble factory
         var marbleFactory: MarbleFactory!
@@ -40,7 +40,7 @@ class GameFactory
         }
 
         // Initialize field
-        let field = Field(size: size, colorsCount: colorsCount, marblesPerSpawn: marblesPerSpawn, lineLength: lineLength, marbleFactory: marbleFactory)
+        let field = field ?? Field(size: size, colorsCount: colorsCount, marblesPerSpawn: marblesPerSpawn, lineLength: lineLength, marbleFactory: marbleFactory)
 
         // Initialize game
         var game: Game!
