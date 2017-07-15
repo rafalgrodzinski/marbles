@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ARKit
 
 
 enum GraphicsType {
@@ -18,6 +19,12 @@ enum GraphicsType {
 
 class GameFactory
 {
+    class var isArModeAvailable: Bool {
+        if #available(iOS 11.0, *) { return ARWorldTrackingSessionConfiguration.isSupported }
+        return false
+    }
+
+
     class func gameWithGraphicsType(_ graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int) -> Game
     {
         // Initialize marble factory

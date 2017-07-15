@@ -22,6 +22,7 @@ class MainMenuViewController: UIViewController
     var logoColorUpdateTimer: Timer!
     var game: Game?
     var gameVc: UIViewController?
+    var isArModeSelected = true
 
     // Outlets
     @IBOutlet private weak var logoLabel: UILabel!
@@ -29,6 +30,9 @@ class MainMenuViewController: UIViewController
     @IBOutlet private weak var topButton: UIButton!
     @IBOutlet private weak var bottomButton: UIButton!
     @IBOutlet private weak var tipPromptLabel: UILabel!
+    @IBOutlet private weak var arModeLabel: UILabel!
+    @IBOutlet private weak var arModeSwitch: UISwitch!
+    @IBOutlet private weak var arUnsupportedLabel: UILabel!
 
 
     // MARK: - Initialization -
@@ -43,7 +47,18 @@ class MainMenuViewController: UIViewController
                                                                            repeats: true)
 
         self.logoLabel.textColor = UIColor.marblesGreen()
-        self.highScoreLabel.textColor = UIColor.marblesGreen()
+        self.highScoreLabel.textColor = UIColor.marblesLightGreen()
+        self.arModeLabel.textColor = UIColor.marblesLightGreen()
+        self.arUnsupportedLabel.textColor = UIColor.marblesOrange()
+        self.tipPromptLabel.textColor = UIColor.white
+
+        if !GameFactory.isArModeAvailable {
+            self.isArModeSelected = false
+            self.arModeLabel.isEnabled = false
+            self.arModeSwitch.isEnabled = false
+            self.arModeSwitch.isOn = false
+            self.arUnsupportedLabel.isHidden = false
+        }
 
         self.setupForNewGame()
     }
@@ -64,7 +79,7 @@ class MainMenuViewController: UIViewController
             Answers.logCustomEvent(withName: "Game", customAttributes: ["Action" : "Started"])
         #endif
 
-        let graphicsType: GraphicsType = (sender == bottomButton) ? .arKit : .sceneKit
+        let graphicsType: GraphicsType = self.isArModeSelected ? .arKit : .sceneKit
 
         self.gameVc = UIViewController()
         self.game = GameFactory.gameWithGraphicsType(graphicsType, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5)
@@ -99,6 +114,11 @@ class MainMenuViewController: UIViewController
         #endif
 
         self.present(self.gameVc!, animated: true, completion: nil)
+    }
+
+
+    @IBAction func arModeSwitchToggled(_ sender: UISwitch)
+    {
     }
 
 
@@ -143,10 +163,7 @@ class MainMenuViewController: UIViewController
         self.topButton.addTarget(self, action: #selector(newGameButtonPressed), for: .touchUpInside)
 
         // Bottom Button
-        //self.bottomButton.isHidden = true
-        self.bottomButton.setTitle("New AR Game", for: .normal)
-        self.bottomButton.removeTarget(nil, action: nil, for: .allEvents)
-        self.bottomButton.addTarget(self, action: #selector(newGameButtonPressed(_:)), for: .touchUpInside)
+        self.bottomButton.isHidden = true
     }
 
 

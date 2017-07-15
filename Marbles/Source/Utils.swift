@@ -111,7 +111,20 @@ extension UIColor
     {
         return UIColor(red: 0.55, green: 0.89, blue: 0.21, alpha: 1.0)
     }
+
+
+    class func marblesLightGreen() -> UIColor
+    {
+        return UIColor(red: 0.64, green: 0.78, blue: 0.58, alpha: 1.0)
+    }
+
+
+    class func marblesOrange() -> UIColor
+    {
+        return UIColor(red: 0.78, green: 0.38, blue: 0.03, alpha: 1.0)
+    }
 }
+
 
 extension SCNMatrix4
 {
