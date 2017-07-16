@@ -15,8 +15,8 @@ open class Game: NSObject
     internal var field: Field
     internal var drawnMarbleColors: [Int]?
     internal weak var currentState: State?
-    /*fileprivate*/ var states: [State]!
-    var resumeState: State!
+    private var states: [State]!
+    private var resumeState: State!
 
 
     // State data
@@ -111,10 +111,10 @@ open class Game: NSObject
         // Load all the objects
         self.setupCustom()
         let marbles = self.field.marbles.map {  $0.value }
+        self.showBoard({})
         self.showMarbles(marbles, nextMarbleColors: self.drawnMarbleColors!, finished: {})
 
-        self.states[0].nextState = self.resumeState
-        self.states[0].execute()
+        self.resumeState.execute()
     }
 
 
