@@ -307,7 +307,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
                                                              waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
             } else {
-                self.showNextMarbles(drawnMarbleColors!)
+                self.showNextMarbles(self.drawnMarbleColors!)
             }
         }
     }
