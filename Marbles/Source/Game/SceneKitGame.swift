@@ -289,7 +289,12 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let scaleAction = SCNAction.scale(to: targetScale, duration: 0.2)
             let fadeInAction = SCNAction.fadeIn(duration: 0.1)
             let appearAction = SCNAction.group([scaleAction, fadeInAction])
-            let addGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = SCNPhysicsBody.dynamic() }
+            let addGravityAction = SCNAction.run { [unowned self] (node: SCNNode) in
+                let diameter = (node.geometry as! SCNSphere).radius * 2.0 * CGFloat(self.gameScale)
+                node.physicsBody = SCNPhysicsBody.dynamic()
+                let physicsShape = SCNBox(width: diameter, height: diameter, length: diameter, chamferRadius: 0.0)
+                node.physicsBody?.physicsShape = SCNPhysicsShape(geometry: physicsShape, options: nil)
+            }
             let waitToSettle = SCNAction.wait(duration: 0.8)
             let moveToPoint = SCNAction.move(to: targetPosition, duration: 0.1)
             let removeGravityAction = SCNAction.run { (node: SCNNode) in node.physicsBody = nil }

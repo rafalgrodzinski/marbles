@@ -35,6 +35,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         gameScale = boardWidthInCm / (100.0 * Float(field.size.width))
 
         super.setupScene()
+        //self.scene.physicsWorld.gravity = SCNVector3(x: 0.0, y: -1.0, z: 0.0)
         setupPlaceholder()
 
         self.view.backgroundColor = UIColor.clear
@@ -114,6 +115,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         for y in 0..<field.size.height {
             for x in 0..<field.size.width {
                 let tileNode = self.tilePrototype.flattenedClone()
+                tileNode.physicsBody = nil
                 tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
                 tileNode.position.z = 0.0
                 placeholderNode.addChildNode(tileNode)
@@ -148,6 +150,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     func reallyShowBoard()
     {
         placeholderNode.isHidden = true
+        placeholderNode.removeFromParentNode()
         
         if let showBoardCallback = showBoardCallback {
             super.showBoard(showBoardCallback)

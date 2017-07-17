@@ -45,7 +45,7 @@ class SceneKitMarble: Marble
         let xRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
         let yRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
         let zRot = (Float(arc4random() % 1000) / 1000.0) * 1.0
-        let angle = (Float(arc4random() % 1000) / 1000.0) * 2.0 * π
+        let angle = Float(0.0)// (Float(arc4random() % 1000) / 1000.0) * 2.0 * π
 
         let rotationMatrix = GLKMatrix4MakeRotation(angle, xRot, yRot, zRot)
         self.rotationQuat = GLKQuaternionMakeWithMatrix4(rotationMatrix)
