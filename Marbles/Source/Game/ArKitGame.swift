@@ -136,6 +136,26 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         centerNode.addChildNode(shadowPlaneNode)
     }
 
+
+    override func setupParticles()
+    {
+        super.setupParticles()
+
+        // Velocity
+        self.tileSelectionParticle.particleVelocity *= CGFloat(self.gameScale)
+        // Particle size
+        // For some reason doing self.titleSelectionParticle.particleSize = ... doesn't work, probably a bug
+        let animation = CAKeyframeAnimation()
+        animation.values = [self.gameScale]
+        let particleController = SCNParticlePropertyController(animation: animation)
+        self.tileSelectionParticle.propertyControllers = [SCNParticleSystem.ParticleProperty.size: particleController]
+        // Emitter size
+        if let sphere = self.tileSelectionParticle.emitterShape as? SCNSphere {
+            sphere.radius *= CGFloat(self.gameScale)
+        }
+    }
+
+
     override func addNextMarble(_ marble: SceneKitMarble)
     {
         self.nextMarblesView.scene?.rootNode.addChildNode(marble.node)

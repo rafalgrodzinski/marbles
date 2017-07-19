@@ -21,8 +21,8 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     internal var spotLight: SCNLight!
     internal var ambientLight: SCNLight!
 
-    fileprivate var tileSelectionParticleNode: SCNNode!
-    fileprivate var tileSelectionParticle: SCNParticleSystem!
+    internal var tileSelectionParticleNode: SCNNode!
+    internal var tileSelectionParticle: SCNParticleSystem!
 
     fileprivate let _marbleScale: Float = 1.0
     internal var marbleScale: Float  {
@@ -125,7 +125,6 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.centerNode.addChildNode(self.tileSelectionParticleNode)
 
         self.tileSelectionParticle = SCNParticleSystem(named: "Selection.scnp", inDirectory: nil)
-        self.tileSelectionParticle.particleSize *= CGFloat(gameScale)
     }
 
     internal func setupCamera()
