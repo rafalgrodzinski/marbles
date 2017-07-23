@@ -86,16 +86,48 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.view.superview?.addSubview(self.nextMarblesView)
         self.nextMarblesView.backgroundColor = UIColor.clear
 
+        // Scene
         self.nextMarblesView.scene = SCNScene()
         self.nextMarblesView.antialiasingMode = .multisampling2X
         self.nextMarblesView.preferredFramesPerSecond = 60
         self.nextMarblesView.isPlaying = true
 
+        // Camera
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         let height = Float(self.field.size.width > self.field.size.height ? self.field.size.width : self.field.size.height) * 1.6
         cameraNode.position = SCNVector3(0.0, 0.0, height)
         self.nextMarblesView.scene?.rootNode.addChildNode(cameraNode)
+
+        // Create spot light
+        let spotLight = SCNLight()
+        spotLight.type = SCNLight.LightType.spot
+        spotLight.castsShadow = false
+        spotLight.spotInnerAngle = 45.0;
+        spotLight.spotOuterAngle = 90.0;
+        spotLight.attenuationEndDistance = 50.0
+        spotLight.attenuationStartDistance = 50.0
+        spotLight.zNear = 1.0
+        spotLight.zFar = 100.0
+        spotLight.attenuationFalloffExponent = 0
+
+        let spotLightNode = SCNNode()
+        spotLightNode.light = spotLight
+        spotLightNode.constraints = [SCNLookAtConstraint(target: self.nextMarblesView.scene?.rootNode)]
+
+        var spotLightPos = self.tilePositionForFieldPosition(Point(-self.field.size.width/2, -self.field.size.height/2))!
+        spotLightPos.z = Float(self.field.size.width + self.field.size.height)
+        spotLightNode.position = spotLightPos
+        self.nextMarblesView.scene?.rootNode.addChildNode(spotLightNode)
+
+        // Create ambient light
+        let ambientLight = SCNLight()
+        ambientLight.type = SCNLight.LightType.ambient
+        ambientLight.color = UIColor(white: 0.2, alpha: 1.0)
+
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = ambientLight
+        self.nextMarblesView.scene?.rootNode.addChildNode(ambientLightNode)
     }
 
     fileprivate var placeholderNode: SCNNode!
