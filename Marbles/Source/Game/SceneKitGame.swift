@@ -146,7 +146,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
-        spotLight.shadowColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        spotLight.shadowColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         spotLight.attenuationEndDistance = 50.0
         spotLight.attenuationStartDistance = 50.0
         spotLight.zNear = 1.0 * CGFloat(gameScale)
@@ -251,7 +251,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                     let scaleAction = SCNAction.scale(to: 1.0, duration: 0.2)
                     scaleAction.timingMode = .easeInEaseOut
 
-                    let sequence = SCNAction.sequence([delayAction, scaleAction])
+                    let sequence = SCNAction.sequence([delayAction, scaleAction])!
 
                     tileNode.runAction(sequence)
                 }
@@ -287,7 +287,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             let scaleAction = SCNAction.scale(to: targetScale, duration: 0.2)
             let fadeInAction = SCNAction.fadeIn(duration: 0.1)
-            let appearAction = SCNAction.group([scaleAction, fadeInAction])
+            let appearAction = SCNAction.group([scaleAction, fadeInAction])!
             let addGravityAction = SCNAction.run { [unowned self] (node: SCNNode) in
                 let diameter = (node.geometry as! SCNSphere).radius * 2.0 * CGFloat(self.gameScale)
                 node.physicsBody = SCNPhysicsBody.dynamic()
@@ -309,7 +309,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             if !isResumingGame {
                 scnMarble.node.runAction(SCNAction.sequence([waitAction, hideNextAction, appearAction, addGravityAction,
-                                                             waitToSettle, moveToPoint, removeGravityAction, runBlockAction]))
+                                                             waitToSettle, moveToPoint, removeGravityAction, runBlockAction])!)
             } else {
                 self.showNextMarbles(self.drawnMarbleColors!)
             }
@@ -323,7 +323,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let scaleAction = SCNAction.scale(to: 0.0, duration: 0.2)
             let removeAction = SCNAction.removeFromParentNode()
 
-            nextMarble.node.runAction(SCNAction.sequence([scaleAction, removeAction]))
+            nextMarble.node.runAction(SCNAction.sequence([scaleAction, removeAction])!)
         }
     }
 
@@ -365,11 +365,11 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             let scaleAction = SCNAction.scale(to: 0.0, duration: 0.2)
             let fadeOutAction = SCNAction.fadeOut(duration: 0.2)
-            let disappearAction = SCNAction.group([scaleAction, fadeOutAction])
+            let disappearAction = SCNAction.group([scaleAction, fadeOutAction])!
             let removeAction = SCNAction.removeFromParentNode()
             let runBlockAction = SCNAction.run { (node: SCNNode) in if index == marbles.count-1 { finished() } }
 
-            scnMarble.node.runAction(SCNAction.sequence([waitAction, disappearAction, removeAction, runBlockAction]))
+            scnMarble.node.runAction(SCNAction.sequence([waitAction, disappearAction, removeAction, runBlockAction])!)
         }
     }
 
@@ -460,7 +460,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
             let runBlockAction = SCNAction.run { (node: SCNNode) in if index == fieldPath.count-1 { finished() } }
 
-            (marble as! SceneKitMarble).node.runAction(SCNAction.sequence([waitAction, animAct, lastWaitAction, runBlockAction]))
+            (marble as! SceneKitMarble).node.runAction(SCNAction.sequence([waitAction, animAct, lastWaitAction, runBlockAction])!)
 
             previousFieldPosition = position
         }

@@ -141,7 +141,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         scaleDownAction.timingMode = .easeInEaseOut
         let scaleUpAction = SCNAction.scale(to: 1.0, duration: 0.8)
         scaleUpAction.timingMode = .easeInEaseOut
-        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction]))
+        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction])!)!
         placeholderNode.runAction(pulseAction)
 
         for y in 0..<field.size.height {
