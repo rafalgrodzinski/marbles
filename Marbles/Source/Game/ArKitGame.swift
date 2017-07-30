@@ -32,17 +32,45 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     override func setupScene()
     {
-        gameScale = boardWidthInCm / (100.0 * Float(field.size.width))
+        self.gameScale = boardWidthInCm / (100.0 * Float(field.size.width))
 
         super.setupScene()
         //self.scene.physicsWorld.gravity = SCNVector3(x: 0.0, y: -1.0, z: 0.0)
-        setupPlaceholder()
+        self.setupPlaceholder()
 
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
 
-        setupDebug()
+        self.setupDebug()
     }
+
+    fileprivate var placeholderNode: SCNNode!
+    fileprivate func setupPlaceholder()
+    {
+        self.placeholderNode = SCNNode()
+        self.placeholderNode.isHidden = true
+        self.placeholderNode.opacity = 0.5
+
+        let scaleDownAction = SCNAction.scale(to: 0.9, duration: 0.8)
+        scaleDownAction.timingMode = .easeInEaseOut
+        let scaleUpAction = SCNAction.scale(to: 1.0, duration: 0.8)
+        scaleUpAction.timingMode = .easeInEaseOut
+        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction])!)!
+        self.placeholderNode.runAction(pulseAction)
+
+        for y in 0..<field.size.height {
+            for x in 0..<field.size.width {
+                let tileNode = self.tilePrototype.flattenedClone()
+                tileNode.physicsBody = nil
+                tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
+                tileNode.position.z = 0.0
+                self.placeholderNode.addChildNode(tileNode)
+            }
+        }
+
+        self.centerNode.addChildNode(self.placeholderNode)
+    }
+
 
     fileprivate var debugLabel: UILabel!
     fileprivate func setupDebug()
@@ -54,8 +82,35 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         debugLabel.text = "Just started"
     }
 
-    override func setupCamera()
+
+    override func setupShadowPlane()
     {
+        let shadowPlane = SCNFloor()
+        shadowPlane.reflectivity = 0.0
+        shadowPlane.firstMaterial?.colorBufferWriteMask = []
+        let shadowPlaneNode = SCNNode(geometry: shadowPlane)
+        shadowPlaneNode.renderingOrder = 1
+        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
+        centerNode.addChildNode(shadowPlaneNode)
+    }
+
+
+    override func setupParticles()
+    {
+        super.setupParticles()
+
+        // Velocity
+        self.tileSelectionParticle.particleVelocity *= CGFloat(self.gameScale)
+        // Particle size
+        // For some reason doing self.titleSelectionParticle.particleSize = ... doesn't work, probably a bug
+        let animation = CAKeyframeAnimation()
+        animation.values = [self.gameScale]
+        let particleController = SCNParticlePropertyController(animation: animation)
+        self.tileSelectionParticle.propertyControllers = [SCNParticleSystem.ParticleProperty.size: particleController]
+        // Emitter size
+        if let sphere = self.tileSelectionParticle.emitterShape as? SCNSphere {
+            sphere.radius *= CGFloat(self.gameScale)
+        }
     }
 
 
@@ -77,6 +132,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
             self?.reallyShowBoard()
         }
     }
+
 
     fileprivate func setupNextMarbleScene()
     {
@@ -130,61 +186,17 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.nextMarblesView.scene?.rootNode.addChildNode(ambientLightNode)
     }
 
-    fileprivate var placeholderNode: SCNNode!
-    fileprivate func setupPlaceholder()
+
+    override func setupCamera()
     {
-        placeholderNode = SCNNode()
-        placeholderNode.isHidden = true
-        placeholderNode.opacity = 0.5
-
-        let scaleDownAction = SCNAction.scale(to: 0.9, duration: 0.8)
-        scaleDownAction.timingMode = .easeInEaseOut
-        let scaleUpAction = SCNAction.scale(to: 1.0, duration: 0.8)
-        scaleUpAction.timingMode = .easeInEaseOut
-        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction])!)!
-        placeholderNode.runAction(pulseAction)
-
-        for y in 0..<field.size.height {
-            for x in 0..<field.size.width {
-                let tileNode = self.tilePrototype.flattenedClone()
-                tileNode.physicsBody = nil
-                tileNode.position = self.tilePositionForFieldPosition(Point(x, y))!
-                tileNode.position.z = 0.0
-                placeholderNode.addChildNode(tileNode)
-            }
-        }
-
-        centerNode.addChildNode(placeholderNode)
-    }
-
-    override func setupShadowPlane()
-    {
-        let shadowPlane = SCNFloor()
-        shadowPlane.reflectivity = 0.0
-        shadowPlane.firstMaterial?.colorBufferWriteMask = []
-        let shadowPlaneNode = SCNNode(geometry: shadowPlane)
-        shadowPlaneNode.renderingOrder = 1
-        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
-        centerNode.addChildNode(shadowPlaneNode)
     }
 
 
-    override func setupParticles()
+    // MARK: - Game Logic
+    fileprivate var showBoardCallback: (() -> Void)?
+    override func showBoard(_ finished: @escaping () -> Void)
     {
-        super.setupParticles()
-
-        // Velocity
-        self.tileSelectionParticle.particleVelocity *= CGFloat(self.gameScale)
-        // Particle size
-        // For some reason doing self.titleSelectionParticle.particleSize = ... doesn't work, probably a bug
-        let animation = CAKeyframeAnimation()
-        animation.values = [self.gameScale]
-        let particleController = SCNParticlePropertyController(animation: animation)
-        self.tileSelectionParticle.propertyControllers = [SCNParticleSystem.ParticleProperty.size: particleController]
-        // Emitter size
-        if let sphere = self.tileSelectionParticle.emitterShape as? SCNSphere {
-            sphere.radius *= CGFloat(self.gameScale)
-        }
+        self.showBoardCallback = finished
     }
 
 
@@ -193,11 +205,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.nextMarblesView.scene?.rootNode.addChildNode(marble.node)
     }
 
-    fileprivate var showBoardCallback: (() -> Void)?
-    override func showBoard(_ finished: @escaping () -> Void)
-    {
-        showBoardCallback = finished
-    }
 
     func reallyShowBoard()
     {
