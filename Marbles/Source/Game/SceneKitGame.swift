@@ -45,8 +45,10 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         return tileNode
     }()
 
-    fileprivate var scoreLabel: SKLabelNode!
-    fileprivate var scoreLabelShadow: SKLabelNode!
+    internal var scoreLabel: SKLabelNode!
+    internal var scoreLabelShadow: SKLabelNode!
+    internal var nextLabel: SKLabelNode!
+    internal var nextLabelShadow: SKLabelNode!
     fileprivate var gameOverPopup: GameOverPopup!
 
     fileprivate var nextMarbles = [Marble]()
@@ -197,7 +199,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.updateScore(ScoreSingleton.sharedInstance.currentScore)
 
         // Next label
-        let nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
+        self.nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         nextLabel.fontSize = 32.0
         nextLabel.fontColor = UIColor.marblesGreen()
         nextLabel.horizontalAlignmentMode = .left
@@ -206,7 +208,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         nextLabel.text = "Next:"
 
         // Next label shadow
-        let nextLabelShadow =  nextLabel.copy() as! SKLabelNode
+        self.nextLabelShadow =  nextLabel.copy() as! SKLabelNode
         nextLabelShadow.fontColor = UIColor.black
         nextLabelShadow.alpha = 1.0
         nextLabelShadow.position.x += 1.5

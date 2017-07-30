@@ -15,6 +15,16 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     // MARK: - Setup
     fileprivate let boardWidthInCm: Float = 20.0
     fileprivate let nextMarblesView = SCNView()
+    fileprivate var isScoreAndNextMarblesVisible: Bool = true {
+        didSet {
+            self.nextMarblesView.isHidden = !isScoreAndNextMarblesVisible
+            self.scoreLabel.isHidden = !isScoreAndNextMarblesVisible
+            self.scoreLabelShadow.isHidden = !isScoreAndNextMarblesVisible
+            self.nextLabel.isHidden = !isScoreAndNextMarblesVisible
+            self.nextLabelShadow.isHidden = !isScoreAndNextMarblesVisible
+        }
+    }
+
     override func setupView()
     {
         self.view = ARSCNView()
@@ -118,6 +128,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         super.setupOverlay()
         self.setupNextMarbleScene()
+        self.isScoreAndNextMarblesVisible = false
 
         guard let skScene = (view as! SCNView).overlaySKScene else { return }
 
@@ -129,7 +140,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         placeBoardButton.callback = { [weak self] in
             placeBoardButton.removeFromParent()
             self?.isStarted = true
-            self?.reallyShowBoard()
+            self?.placeBoard()
         }
     }
 
@@ -206,10 +217,11 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     }
 
 
-    func reallyShowBoard()
+    func placeBoard()
     {
-        placeholderNode.isHidden = true
-        placeholderNode.removeFromParentNode()
+        self.placeholderNode.isHidden = true
+        self.placeholderNode.removeFromParentNode()
+        self.isScoreAndNextMarblesVisible = true
         
         if let showBoardCallback = showBoardCallback {
             super.showBoard(showBoardCallback)
