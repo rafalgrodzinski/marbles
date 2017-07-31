@@ -61,13 +61,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.placeholderNode.isHidden = true
         self.placeholderNode.opacity = 0.5
 
-        let scaleDownAction = SCNAction.scale(to: 0.9, duration: 0.8)
-        scaleDownAction.timingMode = .easeInEaseOut
-        let scaleUpAction = SCNAction.scale(to: 1.0, duration: 0.8)
-        scaleUpAction.timingMode = .easeInEaseOut
-        let pulseAction = SCNAction.repeatForever(SCNAction.sequence([scaleDownAction, scaleUpAction])!)!
-        self.placeholderNode.runAction(pulseAction)
-
         for y in 0..<field.size.height {
             for x in 0..<field.size.width {
                 let tileNode = self.tilePrototype.flattenedClone()
@@ -128,7 +121,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         super.setupOverlay()
         self.setupNextMarbleScene()
-        self.isScoreAndNextMarblesVisible = false
+        self.isScoreAndNextMarblesVisible = (self.currentState == nil)
 
         guard let skScene = (view as! SCNView).overlaySKScene else { return }
 
@@ -253,7 +246,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.scene.physicsWorld.gravity = SCNVector3(x: gravityMatrix.x, y: gravityMatrix.y, z: gravityMatrix.z)
     }
 
-    // MARK: -
+    // MARK: - ARKit
     fileprivate var centerNodeAnchor: ARAnchor?
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
     {
