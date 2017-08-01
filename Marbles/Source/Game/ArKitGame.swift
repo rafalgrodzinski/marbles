@@ -121,7 +121,9 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         super.setupOverlay()
         self.setupNextMarbleScene()
-        self.isScoreAndNextMarblesVisible = (self.currentState == nil)
+
+        let isResumingGame = self.field.marbles.count > 0
+        self.isScoreAndNextMarblesVisible = isResumingGame
 
         guard let skScene = (view as! SCNView).overlaySKScene else { return }
 
