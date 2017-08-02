@@ -73,6 +73,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
 
         self.centerNode.addChildNode(self.placeholderNode)
+        self.centerNode.isHidden = true
     }
 
 
@@ -245,6 +246,8 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         if !isStarted {
             placeholderNode.isHidden = false
         }
+
+        self.centerNode.isHidden = false
 
         // Setup center node
         var modelMatrix = SCNMatrix4(simdMatrix: transform)
