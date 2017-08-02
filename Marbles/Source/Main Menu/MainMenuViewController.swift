@@ -26,7 +26,7 @@ class MainMenuViewController: UIViewController
     var isArModeChanged: Bool {
         if #available(iOS 11.0, *) {
             let isGameInAr = self.game! is ArKitGame
-            return isGameInAr != self.isArModeSelected
+            return isGameInAr || (isGameInAr != self.isArModeSelected)
         }
 
         return false
