@@ -15,6 +15,9 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     // MARK: - Setup
     fileprivate let boardWidthInCm: Float = 20.0
     fileprivate let nextMarblesView = SCNView()
+    fileprivate var placeBoardButton: Button!
+    fileprivate var extraInfoLabel: SKLabelNode!
+
     fileprivate var isScoreAndNextMarblesVisible: Bool = true {
         didSet {
             self.nextMarblesView.isHidden = !isScoreAndNextMarblesVisible
@@ -50,8 +53,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
         self.view.backgroundColor = UIColor.clear
         self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
-
-        self.setupDebug()
     }
 
     fileprivate var placeholderNode: SCNNode!
@@ -72,17 +73,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
 
         self.centerNode.addChildNode(self.placeholderNode)
-    }
-
-
-    fileprivate var debugLabel: UILabel!
-    fileprivate func setupDebug()
-    {
-        debugLabel = UILabel()
-        debugLabel.frame = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 30.0)
-        debugLabel.textAlignment = .center
-        view.addSubview(debugLabel)
-        debugLabel.text = "Just started"
     }
 
 
@@ -128,15 +118,35 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         guard let skScene = (view as! SCNView).overlaySKScene else { return }
 
         // Place Board Button
-        let placeBoardButton = Button(defaultTexture: SKTexture(imageNamed: "Place Board Button"))
+        self.placeBoardButton = Button(defaultTexture: SKTexture(imageNamed: "Place Board Button"))
+        self.placeBoardButton.isHidden = true
         let center = CGPoint(x: view.frame.midX, y: view.frame.midY - placeBoardButton.size.height * 2.0)
-        placeBoardButton.position = center
+        self.placeBoardButton.position = center
         skScene.addChild(placeBoardButton)
-        placeBoardButton.callback = { [weak self] in
-            placeBoardButton.removeFromParent()
+        self.placeBoardButton.callback = { [weak self] in
+            self?.placeBoardButton.removeFromParent()
+            self?.extraInfoLabel.removeFromParent()
             self?.isStarted = true
             self?.placeBoard()
         }
+
+        self.setupExtraInfoLabel()
+    }
+
+
+    fileprivate func setupExtraInfoLabel()
+    {
+        guard let skScene = (view as! SCNView).overlaySKScene else { return }
+
+        self.extraInfoLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
+        self.extraInfoLabel.text = "Look around to find a surface..."
+        self.extraInfoLabel.fontSize = 28.0
+        self.extraInfoLabel.fontColor = UIColor.marblesGreen()
+        self.extraInfoLabel.horizontalAlignmentMode = .center
+        self.extraInfoLabel.verticalAlignmentMode = .center
+        self.extraInfoLabel.position = CGPoint(x: self.placeBoardButton.position.x,
+                                               y: self.placeBoardButton.position.y +  self.placeBoardButton.size.height * 4.0)
+        skScene.addChild(self.extraInfoLabel)
     }
 
 
@@ -252,11 +262,14 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     fileprivate var centerNodeAnchor: ARAnchor?
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
     {
+        if isStarted { return }
+
         DispatchQueue.main.async { [unowned self] in
             if self.centerNodeAnchor == nil {
                 self.centerNodeAnchor = anchor
                 self.updateCenterNode(with: anchor.transform)
-                self.debugLabel.text = "Renderer added anchor"
+                self.extraInfoLabel.text = "Surface found!"
+                self.placeBoardButton.isHidden = false
             }
         }
     }
@@ -265,7 +278,6 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     {
         if let centerNodeAnchor = centerNodeAnchor, centerNodeAnchor == anchor {
             DispatchQueue.main.async { [unowned self] in
-                self.debugLabel.text = "Anchor updated"
                 self.updateCenterNode(with: anchor.transform)
             }
         }
@@ -289,13 +301,13 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
             let screenCenter = CGPoint(x: self.view.frame.midX, y: self.view.frame.midY)
             if let result = (self.view as! ARSCNView).hitTest(screenCenter, types: .featurePoint).first {
                 if let anchor = result.anchor {
-                    self.debugLabel.text = "New Anchor!"
                     self.centerNodeAnchor = anchor
                     self.updateCenterNode(with: anchor.transform)
                 } else {
-                    self.debugLabel.text = "New Position!"
                     self.updateCenterNode(with: result.worldTransform)
                 }
+                self.extraInfoLabel.text = "Surface found!"
+                self.placeBoardButton.isHidden = false
             }
         }
     }
