@@ -273,6 +273,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         for (index, marble) in marbles.enumerated() {
             let scnMarble = marble as! SceneKitMarble
+            scnMarble.selected = false
             scnMarble.node.position = self.marblePositionForFieldPosition(scnMarble.fieldPosition)!
             scnMarble.node.scale = SCNVector3(x: gameScale, y: gameScale, z: gameScale)
             let targetPosition = scnMarble.node.position
