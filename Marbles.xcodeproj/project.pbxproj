@@ -36,7 +36,6 @@
 		B582547C1C5E58090065E283 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
 		B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640741D5FC69C00CABF43 /* Marble Normal.png */; };
 		B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640751D5FC69C00CABF43 /* Marble Specular.png */; };
-		B596407B1D5FC9DC00CABF43 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B596407A1D5FC9DC00CABF43 /* Marble.scn */; };
 		B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */; };
 		B59640811D5FE84400CABF43 /* Tile Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640801D5FE84400CABF43 /* Tile Normal.png */; };
 		B5B6827C1D981997005924C7 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6827B1D981997005924C7 /* PurchaseManager.swift */; };
@@ -91,6 +90,7 @@
 		B5DAE6711D9E4D030023A869 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B5DD2B551D56944600F9FFC3 /* GameOverPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
 		B5E6C1731CCE63A700410BBB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
+		B5F810D81F5613A8002D76EB /* Icon Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = "Icon Scene.scn"; path = "Marbles/Assets/Models/Icon Scene.scn"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +240,7 @@
 			children = (
 				B596407A1D5FC9DC00CABF43 /* Marble.scn */,
 				B524A9E21F0BF0CF0072189F /* Plane.scn */,
+				B5F810D81F5613A8002D76EB /* Icon Scene.scn */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -342,7 +343,6 @@
 			files = (
 				B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */,
 				B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */,
-				B596407B1D5FC9DC00CABF43 /* Marble.scn in Resources */,
 				B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */,
 				B582547C1C5E58090065E283 /* Images.xcassets in Resources */,
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,

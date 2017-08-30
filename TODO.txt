@@ -1,0 +1,4 @@
+- Restarting in AR mode
+- Gravity in AR mode
+- Time to roll
+- Selection when resuming in AR mode

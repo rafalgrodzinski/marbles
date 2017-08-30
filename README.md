@@ -1,5 +1,5 @@
 # Marbles
-![Marbles Logo](https://github.com/UnalignedByte/marbles/blob/master/Graphics/Logo.png?raw=true)
+![Marbles Logo](https://github.com/UnalignedByte/marbles/Marbles/Assets/Images.xcassets/AppIcon.appiconset/AppIcon@3x.png?raw=true)
 
 ## What is it?
 **Marbles** is a match five game written in Swift. It uses SceneKit for 3D rendering and ARKit for augumented reality capabilities.
