@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */; };
+		B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
 		B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */ = {isa = PBXBuildFile; fileRef = B524A9E21F0BF0CF0072189F /* Plane.scn */; };
 		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
 		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
@@ -33,7 +34,6 @@
 		B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57918D61C6A7438004214EF /* LaunchScreen.storyboard */; };
 		B57918F71C6A76DC004214EF /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57918F61C6A76DC004214EF /* MainMenuViewController.swift */; };
 		B58254711C5E58090065E283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58254701C5E58090065E283 /* AppDelegate.swift */; };
-		B582547C1C5E58090065E283 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
 		B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640741D5FC69C00CABF43 /* Marble Normal.png */; };
 		B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640751D5FC69C00CABF43 /* Marble Specular.png */; };
 		B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */; };
@@ -344,8 +344,8 @@
 				B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */,
 				B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */,
 				B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */,
-				B582547C1C5E58090065E283 /* Images.xcassets in Resources */,
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,
+				B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */,
 				B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */,
 				B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,
