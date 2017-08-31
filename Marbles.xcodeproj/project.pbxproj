@@ -276,9 +276,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B582546C1C5E58090065E283 /* Marbles */ = {
+		B582546C1C5E58090065E283 /* Marbles AR */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles" */;
+			buildConfigurationList = B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles AR" */;
 			buildPhases = (
 				B58254691C5E58090065E283 /* Sources */,
 				B582546A1C5E58090065E283 /* Frameworks */,
@@ -289,7 +289,7 @@
 			);
 			dependencies = (
 			);
-			name = Marbles;
+			name = "Marbles AR";
 			productName = Marbles;
 			productReference = B582546D1C5E58090065E283 /* Marbles.app */;
 			productType = "com.apple.product-type.application";
@@ -331,7 +331,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B582546C1C5E58090065E283 /* Marbles */,
+				B582546C1C5E58090065E283 /* Marbles AR */,
 			);
 		};
 /* End PBXProject section */
@@ -568,7 +568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles" */ = {
+		B58254831C5E58090065E283 /* Build configuration list for PBXNativeTarget "Marbles AR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B58254841C5E58090065E283 /* Debug */,
