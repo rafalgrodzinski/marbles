@@ -124,7 +124,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="newGameButtonPressed:" target="XfG-lQ-9wD" id="bmY-pU-dgt"/>
+                                    <action selector="newGameButtonPressed:" target="XfG-lQ-9wD" id="yXj-Ww-qF7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -132,7 +132,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="697"/>
         </scene>
     </scenes>
 </document>

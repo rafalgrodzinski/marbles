@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
+		B518B6E81F57741F001A40A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Assets.xcassets */; };
 		B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */ = {isa = PBXBuildFile; fileRef = B524A9E21F0BF0CF0072189F /* Plane.scn */; };
 		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
 		B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
@@ -65,6 +65,8 @@
 		B5A949F21F5C5883004C0530 /* Selection.scnp in Resources */ = {isa = PBXBuildFile; fileRef = B52C79591CD4F0B000A86DAE /* Selection.scnp */; };
 		B5A949F41F5C5902004C0530 /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A949F31F5C5901004C0530 /* ScoreSingleton.swift */; };
 		B5A949F51F5C5902004C0530 /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A949F31F5C5901004C0530 /* ScoreSingleton.swift */; };
+		B5A949F71F5C5EB2004C0530 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A949F61F5C5E46004C0530 /* Assets.xcassets */; };
+		B5A949F81F5C5EB2004C0530 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A949F61F5C5E46004C0530 /* Assets.xcassets */; };
 		B5B6827C1D981997005924C7 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6827B1D981997005924C7 /* PurchaseManager.swift */; };
 		B5CB02831D22E263005770BB /* MainMenuBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */; };
 		B5CB02881D23042C005770BB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB02871D23042C005770BB /* Button.swift */; };
@@ -113,7 +115,7 @@
 		B57918F61C6A76DC004214EF /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		B582546D1C5E58090065E283 /* Marbles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marbles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58254701C5E58090065E283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B582547B1C5E58090065E283 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B582547B1C5E58090065E283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B58254801C5E58090065E283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B584762A1F5C44A300E3B131 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B58476321F5C4D5C00E3B131 /* GameOverPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPopup.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile Diffuse.png"; sourceTree = "<group>"; };
 		B59640801D5FE84400CABF43 /* Tile Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile Normal.png"; sourceTree = "<group>"; };
 		B5A949F31F5C5901004C0530 /* ScoreSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSingleton.swift; sourceTree = "<group>"; };
+		B5A949F61F5C5E46004C0530 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5B6827B1D981997005924C7 /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		B5CB02821D22E263005770BB /* MainMenuBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuBackgroundView.swift; sourceTree = "<group>"; };
 		B5CB02871D23042C005770BB /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -221,7 +224,7 @@
 		B5688B551F58C2D900A4F780 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				B582547B1C5E58090065E283 /* Images.xcassets */,
+				B582547B1C5E58090065E283 /* Assets.xcassets */,
 				B57918D61C6A7438004214EF /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
@@ -369,6 +372,7 @@
 		B5FE7EDB1F5C57DC001BAC21 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B5A949F61F5C5E46004C0530 /* Assets.xcassets */,
 				B5FE7EE51F5C5834001BAC21 /* Fonts */,
 				B5FE7EDD1F5C5809001BAC21 /* Textures */,
 				B5FE7EE31F5C582A001BAC21 /* Models */,
@@ -527,6 +531,7 @@
 				B5FE7EDE1F5C581B001BAC21 /* Marble Normal.png in Resources */,
 				B5A949F21F5C5883004C0530 /* Selection.scnp in Resources */,
 				B5A949EB1F5C586A004C0530 /* BunakenUnderwater.ttf in Resources */,
+				B5A949F81F5C5EB2004C0530 /* Assets.xcassets in Resources */,
 				B5FE7EE01F5C581B001BAC21 /* Selection Particle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,8 +544,9 @@
 				B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */,
 				B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */,
 				B57918D71C6A7438004214EF /* LaunchScreen.storyboard in Resources */,
-				B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */,
+				B518B6E81F57741F001A40A5 /* Assets.xcassets in Resources */,
 				B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */,
+				B5A949F71F5C5EB2004C0530 /* Assets.xcassets in Resources */,
 				B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */,
 				B5A949F01F5C5876004C0530 /* Marble.scn in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,

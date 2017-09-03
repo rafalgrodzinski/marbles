@@ -10,42 +10,47 @@ import Cocoa
 import SceneKit
 
 class MainMenuViewController: NSViewController {
-    //var game: Game?
-    var gameVc: NSViewController?
+    var game: Game?
 
     // MARK: - Initialization
-    /*private func setupGame(field: Field?, drawnMarbleColors: [Int]?)
+    private func setupGame(field: Field?, drawnMarbleColors: [Int]?)
     {
-        self.gameVc = NSViewController()
-        self.game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5, field: field)
-        self.gameVc!.view.addSubview(self.game!.view)
-        //self.gameVc!.modalTransitionStyle = .crossDissolve
-        self.game!.view.frame = gameVc!.view.bounds
+        let game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5, field: field)
+        self.game = game
+        game.view.frame = view.bounds
         if let field = field {
-            self.game!.field = field
+            game.field = field
         }
-        self.game!.drawnMarbleColors = drawnMarbleColors
+        game.drawnMarbleColors = drawnMarbleColors
 
-        self.game!.pauseCallback = { [weak self] in
+        game.pauseCallback = { [weak self] in
             //self?.currentLogoHue = 100.0/360.0
             //self?.updateHighScoreLabel()
             //self?.setupForResume()
-            self?.gameVc!.dismiss(animated: false)
+            //self?.gameVc!.dismiss(animated: false)
         }
 
-        self.game!.quitCallback = { [weak self] in
+        game.quitCallback = { [weak self] in
             //self?.currentLogoHue = 100.0/360.0
             //self?.updateHighScoreLabel()
             //self?.setupForNewGame()
-            self?.gameVc!.dismiss(animated: false)
+            //self?.gameVc!.dismiss(animated: false)
         }
-    }*/
+    }
 
     // MARK: - Actions
     @IBAction func newGameButtonPressed(_ sender: NSButton) {
-        //setupGame(field: nil, drawnMarbleColors: nil)
+        setupGame(field: nil, drawnMarbleColors: nil)
 
-        //self.game!.startGame()
-        //self.present(self.gameVc!, animated: true, completion: nil)
+        guard let game = self.game else { fatalError() }
+
+        game.startGame()
+
+        view.addSubview(game.view)
+        game.view.translatesAutoresizingMaskIntoConstraints = false
+        let horizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view": game.view])
+        let vertical = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view": game.view])
+        let constraints = [horizontal, vertical].flatMap { $0 }
+        view.addConstraints(constraints)
     }
 }
