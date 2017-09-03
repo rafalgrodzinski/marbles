@@ -12,7 +12,7 @@ import GLKit
 import Crashlytics
 
 
-class SceneKitGame: Game//, UIGestureRecognizerDelegate
+class SceneKitGame: Game
 {
     internal var scene: SCNScene!
     internal var centerNode: SCNNode!
@@ -86,7 +86,7 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
         (self.field.marbleFactory as! SceneKitMarbleFactory).game = self
 
         (self.view as! SCNView).isPlaying = false
-        (self.view as! SCNView).antialiasingMode = .multisampling2X
+        (self.view as! SCNView).antialiasingMode = .multisampling4X
         (self.view as! SCNView).preferredFramesPerSecond = 60
         //self.view.backgroundColor = Color.white
 
@@ -97,7 +97,11 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
             //let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
             //self.view.superview?.insertSubview(backgroundView, at: 0)
 
-            //self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+            #if os(iOS)
+                self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+            #else
+                view.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(handleTap)))
+            #endif
         } else {
             self.scene.rootNode.enumerateChildNodes() { (node, p) in node.removeFromParentNode() }
         }
@@ -196,8 +200,8 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
         self.scoreLabelShadow.position.x += 1.5
         self.scoreLabelShadow.position.y -= 1.5
 
-        overlayScene.addChild(self.scoreLabelShadow)
-        overlayScene.addChild(self.scoreLabel)
+        //overlayScene.addChild(self.scoreLabelShadow)
+        //overlayScene.addChild(self.scoreLabel)
         self.updateScore(ScoreSingleton.sharedInstance.currentScore)
 
         // Next label
@@ -216,14 +220,14 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
         nextLabelShadow.position.x += 1.5
         nextLabelShadow.position.y -= 1.5
 
-        overlayScene.addChild(nextLabelShadow)
-        overlayScene.addChild(nextLabel)
+        //overlayScene.addChild(nextLabelShadow)
+        //overlayScene.addChild(nextLabel)
 
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
         menuButton.callback =  { [weak self] in self?.pauseCallback!() }
-        overlayScene.addChild(menuButton)
+        //overlayScene.addChild(menuButton)
 
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
@@ -505,9 +509,14 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
 
 
     // MARK: - Control -
-    /*@objc func handleTap(_ sender: UITapGestureRecognizer)
+    @objc func handleTap(_ sender: AnyObject)
     {
-        let results = (self.view as! SCNView).hitTest(sender.location(in: self.view), options: nil)
+        #if os(iOS)
+            let  recognizer = sender as! UITapGestureRecognizer
+        #else
+            let recognizer = sender as! NSClickGestureRecognizer
+        #endif
+        let results = (self.view as! SCNView).hitTest(recognizer.location(in: self.view), options: nil)
 
         for result in results {
             if let fieldPosition = self.fieldPositionForPosition(result.node.position) {
@@ -515,8 +524,7 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
                 break
             }
         }
-    }*/
-
+    }
 
     // MARK: - Utils -
     func tilePositionForFieldPosition(_ fieldPosition: Point) -> SCNVector3?
@@ -562,14 +570,4 @@ class SceneKitGame: Game//, UIGestureRecognizerDelegate
 
         return Point(x, y)
     }
-
-
-    /*deinit
-    {
-        for node in self.scene.rootNode.childNodes {
-            node.geometry = nil
-            node.removeAllActions()
-            node.removeFromParentNode()
-        }
-    }*/
 }
