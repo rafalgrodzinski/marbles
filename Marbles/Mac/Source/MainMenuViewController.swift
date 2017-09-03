@@ -28,6 +28,7 @@ class MainMenuViewController: NSViewController {
             //self?.updateHighScoreLabel()
             //self?.setupForResume()
             //self?.gameVc!.dismiss(animated: false)
+            self?.game?.view.removeFromSuperview()
         }
 
         game.quitCallback = { [weak self] in

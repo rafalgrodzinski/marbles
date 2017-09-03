@@ -37,7 +37,8 @@ class Button: SKSpriteNode
 
 
     // MARK: - Control -
-    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    #if os(iOS)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.showPressed()
     }
@@ -76,7 +77,39 @@ class Button: SKSpriteNode
         }
 
         self.showDefault()
-    }*/
+    }
+
+    #else
+
+    override func mouseDown(with event: NSEvent) {
+        self.showPressed()
+    }
+
+    override func mouseUp(with event: NSEvent) {
+        self.mouseExited(with: event)
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        self.showDefault()
+
+        let location = event.location(in: self.parent!)
+        if self.contains(location) {
+            if let callback = self.callback {
+                callback()
+            }
+        }
+    }
+
+    override func mouseDragged(with event: NSEvent) {
+        let location = event.location(in: self.parent!)
+        if self.contains(location) {
+            self.showPressed()
+            return
+        }
+
+        self.showDefault()
+    }
+    #endif
 
 
     // MARK: - Internal Control -

@@ -185,6 +185,7 @@ class SceneKitGame: Game
     {
         // Create overlay
         let overlayScene = SKScene(size: self.view.frame.size)
+        overlayScene.scaleMode = .aspectFit
         (self.view as! SCNView).overlaySKScene = overlayScene
 
         // Score label
@@ -200,8 +201,8 @@ class SceneKitGame: Game
         self.scoreLabelShadow.position.x += 1.5
         self.scoreLabelShadow.position.y -= 1.5
 
-        //overlayScene.addChild(self.scoreLabelShadow)
-        //overlayScene.addChild(self.scoreLabel)
+        overlayScene.addChild(self.scoreLabelShadow)
+        overlayScene.addChild(self.scoreLabel)
         self.updateScore(ScoreSingleton.sharedInstance.currentScore)
 
         // Next label
@@ -220,14 +221,14 @@ class SceneKitGame: Game
         nextLabelShadow.position.x += 1.5
         nextLabelShadow.position.y -= 1.5
 
-        //overlayScene.addChild(nextLabelShadow)
-        //overlayScene.addChild(nextLabel)
+        overlayScene.addChild(nextLabelShadow)
+        overlayScene.addChild(nextLabel)
 
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
         menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
         menuButton.callback =  { [weak self] in self?.pauseCallback!() }
-        //overlayScene.addChild(menuButton)
+        overlayScene.addChild(menuButton)
 
         // Game over popup
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
@@ -235,8 +236,6 @@ class SceneKitGame: Game
         self.gameOverPopup.restartCallback = { [weak self] in self?.startGame() }
         self.gameOverPopup.quitCallback = { [weak self] in self?.quitCallback!() }
         overlayScene.addChild(self.gameOverPopup)
-
-        (self.view as! SCNView).overlaySKScene = overlayScene
     }
 
 
