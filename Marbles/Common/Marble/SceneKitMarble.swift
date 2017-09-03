@@ -9,7 +9,6 @@
 import SceneKit
 import GLKit
 
-
 class SceneKitMarble: Marble
 {
     static let marblePrototype: SCNNode = { let marbleScene = SCNScene(named: "Marble.scn")!
@@ -55,7 +54,7 @@ class SceneKitMarble: Marble
         self.node.position = position
 
         // Scale
-        self.node.scale = SCNVector3Make(scale, scale, scale)
+        self.node.scale = SCNVector3Make(FloatType(scale), FloatType(scale), FloatType(scale))
 
         // And finally the color
         self.node.geometry?.firstMaterial?.diffuse.contents = self.colors[color]

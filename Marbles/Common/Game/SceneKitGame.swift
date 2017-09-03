@@ -12,7 +12,7 @@ import GLKit
 import Crashlytics
 
 
-class SceneKitGame: Game, UIGestureRecognizerDelegate
+class SceneKitGame: Game//, UIGestureRecognizerDelegate
 {
     internal var scene: SCNScene!
     internal var centerNode: SCNNode!
@@ -30,7 +30,9 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     }
     fileprivate let _tileSize = SCNVector3(x: 1.0, y: 1.0, z: 0.25)
     fileprivate var tileSize: SCNVector3 {
-        return SCNVector3(x: self._tileSize.x * self.gameScale, y: self._tileSize.y * self.gameScale, z: self._tileSize.z * self.gameScale)
+        return SCNVector3(x: self._tileSize.x * FloatType(self.gameScale),
+                          y: self._tileSize.y * FloatType(self.gameScale),
+                          z: self._tileSize.z * FloatType(self.gameScale))
     }
     fileprivate let fieldMoveDuration: Float = 0.4
 
@@ -86,16 +88,16 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         (self.view as! SCNView).isPlaying = false
         (self.view as! SCNView).antialiasingMode = .multisampling2X
         (self.view as! SCNView).preferredFramesPerSecond = 60
-        self.view.backgroundColor = UIColor.white
+        //self.view.backgroundColor = Color.white
 
         if self.scene == nil {
             self.scene = SCNScene()
             (self.view as! SCNView).scene = self.scene!
 
-            let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
-            self.view.superview?.insertSubview(backgroundView, at: 0)
+            //let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
+            //self.view.superview?.insertSubview(backgroundView, at: 0)
 
-            self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+            //self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         } else {
             self.scene.rootNode.enumerateChildNodes() { (node, p) in node.removeFromParentNode() }
         }
@@ -110,13 +112,13 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
     {
         let shadowPlane = SCNFloor()
         shadowPlane.reflectivity = 0.0
-        shadowPlane.firstMaterial?.diffuse.contents = UIColor.white
-        if #available(iOS 11.0, *) {
+        shadowPlane.firstMaterial?.diffuse.contents = Color.white
+        if #available(iOS 11.0, OSX 10.13, *) {
             shadowPlane.firstMaterial?.colorBufferWriteMask = []
         }
         let shadowPlaneNode = SCNNode(geometry: shadowPlane)
 
-        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: Float.pi * 0.5)
+        shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: π * 0.5)
         centerNode.addChildNode(shadowPlaneNode)
     }
 
@@ -148,7 +150,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLight.castsShadow = true
         spotLight.spotInnerAngle = 45.0;
         spotLight.spotOuterAngle = 90.0;
-        spotLight.shadowColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        spotLight.shadowColor = Color.color(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         spotLight.attenuationEndDistance = 50.0
         spotLight.attenuationStartDistance = 50.0
         spotLight.zNear = 1.0 * CGFloat(gameScale)
@@ -161,14 +163,14 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         spotLightNode.constraints = [SCNLookAtConstraint(target: self.centerNode)]
 
         var spotLightPos = self.tilePositionForFieldPosition(Point(-self.field.size.width/2, -self.field.size.height/2))!
-        spotLightPos.z = Float(self.field.size.width + self.field.size.height) * gameScale
+        spotLightPos.z = FloatType(self.field.size.width + self.field.size.height) * FloatType(gameScale)
         spotLightNode.position = spotLightPos
         self.centerNode.addChildNode(spotLightNode)
 
         // Create ambient light
         ambientLight = SCNLight()
         ambientLight.type = SCNLight.LightType.ambient
-        ambientLight.color = UIColor(white: 0.2, alpha: 1.0)
+        ambientLight.color = Color.color(red: 0.2, green: 0.2, blue: 0.2)
 
         let ambientLightNode = SCNNode()
         ambientLightNode.light = ambientLight
@@ -184,13 +186,13 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Score label
         self.scoreLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.scoreLabel.fontSize = 32.0
-        self.scoreLabel.fontColor = UIColor.marblesGreen()
+        self.scoreLabel.fontColor = Color.marblesGreen
         self.scoreLabel.horizontalAlignmentMode = .center
         self.scoreLabel.verticalAlignmentMode = .center
         self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0)
         // Score label shadow
         self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
-        self.scoreLabelShadow.fontColor = UIColor.black
+        self.scoreLabelShadow.fontColor = Color.black
         self.scoreLabelShadow.position.x += 1.5
         self.scoreLabelShadow.position.y -= 1.5
 
@@ -201,7 +203,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         // Next label
         self.nextLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         nextLabel.fontSize = 32.0
-        nextLabel.fontColor = UIColor.marblesGreen()
+        nextLabel.fontColor = Color.marblesGreen
         nextLabel.horizontalAlignmentMode = .left
         nextLabel.verticalAlignmentMode = .center
         nextLabel.position = CGPoint(x: 16.0, y: overlayScene.size.height/6.0)
@@ -209,7 +211,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         // Next label shadow
         self.nextLabelShadow =  nextLabel.copy() as! SKLabelNode
-        nextLabelShadow.fontColor = UIColor.black
+        nextLabelShadow.fontColor = Color.black
         nextLabelShadow.alpha = 1.0
         nextLabelShadow.position.x += 1.5
         nextLabelShadow.position.y -= 1.5
@@ -275,7 +277,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
             let scnMarble = marble as! SceneKitMarble
             scnMarble.selected = false
             scnMarble.node.position = self.marblePositionForFieldPosition(scnMarble.fieldPosition)!
-            scnMarble.node.scale = SCNVector3(x: gameScale, y: gameScale, z: gameScale)
+            scnMarble.node.scale = SCNVector3(x: FloatType(gameScale), y: FloatType(gameScale), z: FloatType(gameScale))
             let targetPosition = scnMarble.node.position
             let targetScale = CGFloat(scnMarble.node.scale.x)
 
@@ -401,17 +403,17 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         for (index, position) in fieldPath.enumerated() where index != 0 {
             // Rotation
-            let radius = Float((scnMarble.node.geometry as! SCNSphere).radius) * gameScale
-            let rotationAngle: Float = (self.tileSize.x / (2.0 * π * radius)) * 2 * π
+            let radius = FloatType((scnMarble.node.geometry as! SCNSphere).radius) * FloatType(gameScale)
+            let rotationAngle: FloatType = (self.tileSize.x / (2.0 * π * radius)) * 2 * π
 
-            var xAngle: Float = 0.0
+            var xAngle: FloatType = 0.0
             if position.x > previousFieldPosition.x {
                 xAngle = rotationAngle
             } else if (position.x < previousFieldPosition.x) {
                 xAngle = -rotationAngle
             }
 
-            var yAngle: Float = 0.0
+            var yAngle: FloatType = 0.0
             if position.y < previousFieldPosition.y {
                 yAngle = rotationAngle
             } else if (position.y > previousFieldPosition.y) {
@@ -503,7 +505,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
 
     // MARK: - Control -
-    @objc func handleTap(_ sender: UITapGestureRecognizer)
+    /*@objc func handleTap(_ sender: UITapGestureRecognizer)
     {
         let results = (self.view as! SCNView).hitTest(sender.location(in: self.view), options: nil)
 
@@ -513,17 +515,17 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 break
             }
         }
-    }
+    }*/
 
 
     // MARK: - Utils -
     func tilePositionForFieldPosition(_ fieldPosition: Point) -> SCNVector3?
     {
-        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
-        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y - self.tileSize.y) / 2.0
+        let tileXOrigin = -(FloatType(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
+        let tileYOrigin = -(FloatType(self.field.size.height) * self.tileSize.y - self.tileSize.y) / 2.0
 
-        let x = tileXOrigin + self.tileSize.x * Float(fieldPosition.x)
-        let y = tileYOrigin + self.tileSize.y * Float(fieldPosition.y)
+        let x = tileXOrigin + self.tileSize.x * FloatType(fieldPosition.x)
+        let y = tileYOrigin + self.tileSize.y * FloatType(fieldPosition.y)
 
         return SCNVector3(x: x, y: y, z: 0.0)
     }
@@ -536,23 +538,23 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
                 return nil
         }
 
-        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
-        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y - self.tileSize.x) / 2.0
+        let tileXOrigin = -(FloatType(self.field.size.width) * self.tileSize.x - self.tileSize.x) / 2.0
+        let tileYOrigin = -(FloatType(self.field.size.height) * self.tileSize.y - self.tileSize.x) / 2.0
 
-        let x = tileXOrigin + self.tileSize.x * Float(fieldPosition.x)
-        let y = tileYOrigin + self.tileSize.y * Float(fieldPosition.y)
+        let x = tileXOrigin + self.tileSize.x * FloatType(fieldPosition.x)
+        let y = tileYOrigin + self.tileSize.y * FloatType(fieldPosition.y)
 
-        return SCNVector3(x: x, y: y, z: marbleScale * 0.5)
+        return SCNVector3(x: x, y: y, z: FloatType(marbleScale) * 0.5)
     }
 
 
     func fieldPositionForPosition(_ position: SCNVector3) -> Point?
     {
-        let tileXOrigin = -(Float(self.field.size.width) * self.tileSize.x) / 2.0
-        let tileYOrigin = -(Float(self.field.size.height) * self.tileSize.y) / 2.0
+        let tileXOrigin = -(FloatType(self.field.size.width) * self.tileSize.x) / 2.0
+        let tileYOrigin = -(FloatType(self.field.size.height) * self.tileSize.y) / 2.0
 
-        let x = Int((Float(position.x) - tileXOrigin)/self.tileSize.x)
-        let y = Int((Float(position.y) - tileYOrigin)/self.tileSize.y)
+        let x = Int((FloatType(position.x) - tileXOrigin)/self.tileSize.x)
+        let y = Int((FloatType(position.y) - tileYOrigin)/self.tileSize.y)
 
         guard x >= 0 && x < self.field.size.width && y >= 0 && y < self.field.size.height else {
             return nil

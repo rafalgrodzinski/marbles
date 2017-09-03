@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
 import ARKit
+#endif
 
 
 enum GraphicsType {
@@ -19,11 +21,12 @@ enum GraphicsType {
 
 class GameFactory
 {
+    #if os(iOS)
     class var isArModeAvailable: Bool {
         if #available(iOS 11.0, *) { return ARWorldTrackingSessionConfiguration.isSupported }
         return false
     }
-
+    #endif
 
     class func gameWithGraphicsType(_ graphicsType: GraphicsType, size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int, field: Field? = nil) -> Game
     {
@@ -32,7 +35,11 @@ class GameFactory
 
         switch graphicsType {
             case .spriteKit:
+                #if os(iOS)
                 marbleFactory = SpriteKitMarbleFactory()
+                #else
+                fatalError()
+                #endif
             case .arKit:
                 fallthrough
             case .sceneKit:
@@ -47,18 +54,26 @@ class GameFactory
 
         switch graphicsType {
             case .spriteKit:
+                #if os(iOS)
                 game = SpriteKitGame(field: field)
                 (marbleFactory as! SpriteKitMarbleFactory).game = game as! SpriteKitGame
+                #else
+                fatalError()
+                #endif
             case .sceneKit:
                 game = SceneKitGame(field: field)
                 (marbleFactory as! SceneKitMarbleFactory).game = game as! SceneKitGame
             case .arKit:
+                #if os(iOS)
                 if #available(iOS 11.0, *) {
                     game = ArKitGame(field: field)
                     (marbleFactory as! SceneKitMarbleFactory).game = game as! ArKitGame
                 } else {
                     fatalError()
                 }
+                #else
+                fatalError()
+                #endif
         }
 
         return game

@@ -113,7 +113,7 @@ class TipJarViewController: UIViewController, UITableViewDataSource, UITableView
         let product = self.products?[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "TipCell", for: indexPath)
-        cell.backgroundColor = UIColor.marblesGreen().withAlphaComponent(0.4)
+        cell.backgroundColor = Color.marblesGreen.withAlphaComponent(0.4)
         cell.layer.cornerRadius = 5.0
         cell.layer.borderColor = UIColor.white.cgColor
         cell.layer.borderWidth = 1.0

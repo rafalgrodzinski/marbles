@@ -29,11 +29,11 @@ open class GameOverPopup: SKNode
         super.init()
 
         // Background
-        let path = UIBezierPath(rect: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)).cgPath
+        /*let path = UIBezierPath(rect: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)).cgPath
         let background = SKShapeNode(path: path, centered: true)
-        background.fillColor = UIColor(white: 0.0, alpha: 0.7)
-        background.strokeColor = UIColor.clear
-        self.addChild(background)
+        background.fillColor = Color.color(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
+        background.strokeColor = Color.clear
+        self.addChild(background)*/
 
         // Setup restart button
         let restartButton = Button(defaultTexture: SKTexture(imageNamed: "Restart Button"))
@@ -49,14 +49,14 @@ open class GameOverPopup: SKNode
         // Top label
         self.topLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.topLabel.fontSize = 32.0
-        self.topLabel.fontColor = UIColor.marblesGreen()
+        self.topLabel.fontColor = Color.marblesGreen
         self.topLabel.horizontalAlignmentMode = .center
         self.topLabel.verticalAlignmentMode = .center
         self.topLabel.position = CGPoint(x: 0.0, y: restartButton.size.height*0.5 + self.topLabel.fontSize*2.0)
 
         // Top label shadow
         self.topLabelShadow = self.topLabel.copy() as! SKLabelNode
-        self.topLabelShadow.fontColor = UIColor.black
+        self.topLabelShadow.fontColor = Color.black
         self.topLabelShadow.position.x += 1.5
         self.topLabelShadow.position.y -= 1.5
 
@@ -66,14 +66,14 @@ open class GameOverPopup: SKNode
         // Bottom label
         self.bottomLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.bottomLabel.fontSize = 32.0
-        self.bottomLabel.fontColor = UIColor.marblesGreen()
+        self.bottomLabel.fontColor = Color.marblesGreen
         self.bottomLabel.horizontalAlignmentMode = .center
         self.bottomLabel.verticalAlignmentMode = .center
         self.bottomLabel.position = CGPoint(x: 0.0, y: restartButton.size.height/2.0 + self.bottomLabel.fontSize)
 
         // Bottom label shadow
         self.bottomLabelShadow = self.bottomLabel.copy() as! SKLabelNode
-        self.bottomLabelShadow.fontColor = UIColor.black
+        self.bottomLabelShadow.fontColor = Color.black
         self.bottomLabelShadow.position.x += 1.5
         self.bottomLabelShadow.position.y -= 1.5
 

@@ -10,7 +10,6 @@ class SceneKitMarbleFactory: MarbleFactory
 {
     weak var game: SceneKitGame!
 
-
     override func marbleWithColor(_ color: Int, fieldPosition: Point) -> Marble!
     {
         return SceneKitMarble(color: color,

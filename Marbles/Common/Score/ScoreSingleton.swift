@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class ScoreSingleton
 {
     static let sharedInstance = ScoreSingleton()
@@ -26,14 +25,12 @@ class ScoreSingleton
     let baseScore = 10
     let extraScore = 5
 
-
     fileprivate init()
     {
         if let highScoreValue = UserDefaults.standard.value(forKey: "kHighScore") {
             self.highScore = (highScoreValue as! NSNumber).intValue
         }
     }
-
 
     func newGameWithColorsCount(_ colorsCount: Int, lineLength: Int)
     {
@@ -42,7 +39,6 @@ class ScoreSingleton
         self.colorsCount = colorsCount
         self.lineLength = lineLength
     }
-
 
     func removedMarbles(_ marblesCount: Int)
     {

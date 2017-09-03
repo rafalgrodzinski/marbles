@@ -6,12 +6,20 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
 
 open class Game: NSObject
 {
+    #if os(iOS)
     internal(set) var view: UIView!
+    #else
+    internal(set) var view: NSView!
+    #endif
     internal var field: Field
     internal var drawnMarbleColors: [Int]?
     internal weak var currentState: State?

@@ -6,12 +6,22 @@
 //  Copyright © 2016 UnalignedByte. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 import SceneKit
 import Darwin
 
 
+#if os(iOS)
 let π = Float.pi
+#else
+let π = CGFloat.pi
+#endif
+
+#if os(iOS)
+    typealias FloatType = Float
+#else
+    typealias FloatType = CGFloat
+#endif
 
 // MARK - Point -
 struct Point: Hashable, Equatable {
@@ -104,35 +114,13 @@ extension SCNNode
     }
 }
 
-
-extension UIColor
-{
-    class func marblesGreen() -> UIColor
-    {
-        return UIColor(red: 0.55, green: 0.89, blue: 0.21, alpha: 1.0)
-    }
-
-
-    class func marblesLightGreen() -> UIColor
-    {
-        return UIColor(red: 0.64, green: 0.78, blue: 0.58, alpha: 1.0)
-    }
-
-
-    class func marblesOrange() -> UIColor
-    {
-        return UIColor(red: 0.78, green: 0.38, blue: 0.03, alpha: 1.0)
-    }
-}
-
-
 extension SCNMatrix4
 {
  init(simdMatrix: simd_float4x4)
     {
-        self.init(m11: simdMatrix.columns.0.x, m12: simdMatrix.columns.0.y, m13: simdMatrix.columns.0.z, m14: simdMatrix.columns.0.w,
-                  m21: simdMatrix.columns.1.x, m22: simdMatrix.columns.1.y, m23: simdMatrix.columns.1.z, m24: simdMatrix.columns.1.w,
-                  m31: simdMatrix.columns.2.x, m32: simdMatrix.columns.2.y, m33: simdMatrix.columns.2.z, m34: simdMatrix.columns.2.w,
-                  m41: simdMatrix.columns.3.x, m42: simdMatrix.columns.3.y, m43: simdMatrix.columns.3.z, m44: simdMatrix.columns.3.w)
+        self.init(m11: FloatType(simdMatrix.columns.0.x), m12: FloatType(simdMatrix.columns.0.y), m13: FloatType(simdMatrix.columns.0.z), m14: FloatType(simdMatrix.columns.0.w),
+                  m21: FloatType(simdMatrix.columns.1.x), m22: FloatType(simdMatrix.columns.1.y), m23: FloatType(simdMatrix.columns.1.z), m24: FloatType(simdMatrix.columns.1.w),
+                  m31: FloatType(simdMatrix.columns.2.x), m32: FloatType(simdMatrix.columns.2.y), m33: FloatType(simdMatrix.columns.2.z), m34: FloatType(simdMatrix.columns.2.w),
+                  m41: FloatType(simdMatrix.columns.3.x), m42: FloatType(simdMatrix.columns.3.y), m43: FloatType(simdMatrix.columns.3.z), m44: FloatType(simdMatrix.columns.3.w))
     }
 }

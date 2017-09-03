@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Field
 {
     let size: Size
@@ -22,7 +21,6 @@ class Field
     var isFull: Bool { return self.marbles.count >= self.size.width * self.size.height }
     var isEmpty: Bool { return self.marbles.count == 0 }
 
-
     // MARK: - Initialization -
     init(size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int, marbleFactory: MarbleFactory)
     {
@@ -33,13 +31,11 @@ class Field
         self.marbleFactory = marbleFactory
     }
 
-
     // MARK: - Control -
     func reset()
     {
         self.marbles = [Point : Marble]()
     }
-
 
     func drawNextMarbleColors() -> [Int]
     {
@@ -52,7 +48,6 @@ class Field
 
         return drawnColors
     }
-
 
     func spawnMarbles(_ marbleColors: [Int]) -> [Marble]
     {
@@ -84,7 +79,6 @@ class Field
         return spawnedMarbles
     }
 
-
     func moveMarble(_ marble: Marble, toPosition to: Point) -> [Point]?
     {
         let path = self.pathFinder.pathFromFieldPosition(marble.fieldPosition, toFieldPosition: to, field: self)
@@ -98,7 +92,6 @@ class Field
 
         return path
     }
-
 
     func removeLinesAtMarble(_ marble: Marble?) -> [Marble]
     {
@@ -155,7 +148,6 @@ class Field
                 break
             }
         }
-
 
         // Check accross - bottom left to top right
         var startBottomLeft = position.x

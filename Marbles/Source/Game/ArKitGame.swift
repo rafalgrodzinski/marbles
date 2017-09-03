@@ -36,7 +36,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         (self.view as! ARSCNView).session.run(arConfig)
         (self.view as! ARSCNView).delegate = self
         (self.view as! ARSCNView).automaticallyUpdatesLighting = false
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        //self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
 
         #if DEBUG
             (self.view as! ARSCNView).showsStatistics = true
@@ -142,7 +142,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.extraInfoLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.extraInfoLabel.text = "Look around to find a surface..."
         self.extraInfoLabel.fontSize = 28.0
-        self.extraInfoLabel.fontColor = UIColor.marblesGreen()
+        self.extraInfoLabel.fontColor = Color.marblesGreen
         self.extraInfoLabel.horizontalAlignmentMode = .center
         self.extraInfoLabel.verticalAlignmentMode = .center
         self.extraInfoLabel.position = CGPoint(x: self.placeBoardButton.position.x,
@@ -236,10 +236,10 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
 
     // MARK: - Control -
     fileprivate var isStarted = false
-    override func handleTap(_ sender: UITapGestureRecognizer)
+    /*override func handleTap(_ sender: UITapGestureRecognizer)
     {
         super.handleTap(sender)
-    }
+    }*/
 
     func updateCenterNode(with transform: simd_float4x4)
     {

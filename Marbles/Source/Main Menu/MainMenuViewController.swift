@@ -54,12 +54,12 @@ class MainMenuViewController: UIViewController
                                                                            userInfo: nil,
                                                                            repeats: true)
 
-        self.logoLabel.textColor = UIColor.marblesGreen()
-        self.highScoreLabel.textColor = UIColor.marblesGreen()
-        self.arModeLabel.textColor = UIColor.marblesGreen()
-        self.arModeSwitch.onTintColor = UIColor.marblesGreen()
-        self.arUnsupportedLabel.textColor = UIColor.marblesOrange()
-        self.tipPromptLabel.textColor = UIColor.white
+        self.logoLabel.textColor = Color.marblesGreen
+        self.highScoreLabel.textColor = Color.marblesGreen
+        self.arModeLabel.textColor = Color.marblesGreen
+        self.arModeSwitch.onTintColor = Color.marblesGreen
+        self.arUnsupportedLabel.textColor = Color.marblesOrange
+        self.tipPromptLabel.textColor = Color.white
 
         if !GameFactory.isArModeAvailable {
             self.isArModeSelected = false

@@ -24,7 +24,7 @@ class Button: SKSpriteNode
         self.defaultTexture = defaultTexture
         self.pressedTexture = pressedTexture
 
-        super.init(texture: defaultTexture, color: UIColor.clear, size: defaultTexture.size())
+        super.init(texture: defaultTexture, color: Color.clear, size: defaultTexture.size())
 
         self.isUserInteractionEnabled = true
     }
@@ -37,7 +37,7 @@ class Button: SKSpriteNode
 
 
     // MARK: - Control -
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.showPressed()
     }
@@ -76,7 +76,7 @@ class Button: SKSpriteNode
         }
 
         self.showDefault()
-    }
+    }*/
 
 
     // MARK: - Internal Control -
@@ -92,7 +92,7 @@ class Button: SKSpriteNode
         if let pressedTexture = self.pressedTexture {
             self.texture = pressedTexture
         } else {
-            self.color = UIColor(white: 0.0, alpha: 1.0)
+            self.color = Color.black
             self.colorBlendFactor = 0.5
         }
     }
