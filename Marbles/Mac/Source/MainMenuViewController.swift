@@ -13,10 +13,12 @@ class MainMenuViewController: NSViewController {
     var game: Game?
     @IBOutlet var topButton: NSButton!
     @IBOutlet var bottomButton: NSButton!
+    @IBOutlet var highScoreLabel: NSTextField!
 
     // MARK: - Initialization
     override func viewDidLoad()
     {
+        updateHighScoreLabel()
         setupForNewGame()
     }
 
@@ -58,7 +60,6 @@ class MainMenuViewController: NSViewController {
 
     private func set(title: String, forButton button: NSButton)
     {
-        // Top Button
         let titleShadow = NSShadow()
         titleShadow.shadowColor = NSColor.black
         titleShadow.shadowBlurRadius = 2.0
@@ -70,6 +71,31 @@ class MainMenuViewController: NSViewController {
                                                                     NSAttributedStringKey.shadow          : titleShadow,
                                                                     NSAttributedStringKey.paragraphStyle  : paragraphStyle]
         button.attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
+    }
+
+    private func updateHighScoreLabel()
+    {
+        /*if ScoreSingleton.sharedInstance.highScore > 0
+        {*/
+            let titleShadow = NSShadow()
+            titleShadow.shadowColor = NSColor.black
+            titleShadow.shadowBlurRadius = 1.5
+            titleShadow.shadowOffset = NSSize(width: 1.5, height: -1.5)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let titleAttributes: [NSAttributedStringKey : AnyObject] = [NSAttributedStringKey.font            : NSFont(name: "BunakenUnderwater", size: 24.0)!,
+                                                                        NSAttributedStringKey.foregroundColor : Color.marblesGreen,
+                                                                        NSAttributedStringKey.shadow          : titleShadow,
+                                                                        NSAttributedStringKey.paragraphStyle  : paragraphStyle]
+            self.highScoreLabel.attributedStringValue = NSAttributedString(string: "High Score: \(ScoreSingleton.sharedInstance.highScore)",
+                                                                           attributes: titleAttributes)
+
+            self.highScoreLabel.isHidden = false
+        /*}
+        else
+        {
+            self.highScoreLabel.isHidden = true
+        }*/
     }
 
     // MARK: - Actions

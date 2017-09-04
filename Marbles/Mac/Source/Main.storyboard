@@ -121,13 +121,13 @@
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gEZ-iu-unj" userLabel="Logo Label">
                                         <rect key="frame" x="-2" y="44" width="484" height="62"/>
-                                        <shadow key="shadow" blurRadius="1">
+                                        <shadow key="shadow" blurRadius="2">
                                             <size key="offset" width="2" height="2"/>
                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </shadow>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Marbles" id="gfl-kt-0S3">
                                             <font key="font" size="64" name="BunakenUnderwater"/>
-                                            <color key="textColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="0.0" colorSpace="calibratedRGB"/>
                                         </textFieldCell>
                                     </textField>
@@ -164,12 +164,26 @@
                                     <font key="font" size="28" name="BunakenUnderwater"/>
                                 </buttonCell>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Od1-Wn-RGq">
+                                <rect key="frame" x="110" y="135" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="73S-wN-Vtc"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="Apq-lu-YQ2">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Em8-Qz-aR3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="5jU-OT-03X"/>
                             <constraint firstItem="Em8-Qz-aR3" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="90i-Wn-Sgm"/>
                             <constraint firstItem="Fxh-kL-dIq" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Cl3-j7-6dq"/>
                             <constraint firstItem="Oeh-ZU-abE" firstAttribute="top" secondItem="Em8-Qz-aR3" secondAttribute="bottom" constant="16" id="LZs-3j-PyN"/>
+                            <constraint firstItem="Od1-Wn-RGq" firstAttribute="leading" secondItem="Fxh-kL-dIq" secondAttribute="leading" id="LbW-Xt-RMu"/>
+                            <constraint firstItem="Od1-Wn-RGq" firstAttribute="trailing" secondItem="Fxh-kL-dIq" secondAttribute="trailing" id="T4d-oN-i9O"/>
+                            <constraint firstItem="Od1-Wn-RGq" firstAttribute="top" secondItem="Fxh-kL-dIq" secondAttribute="bottom" constant="16" id="bRA-Sf-uVz"/>
                             <constraint firstAttribute="trailing" secondItem="Em8-Qz-aR3" secondAttribute="trailing" id="e4S-m5-Vn2"/>
                             <constraint firstItem="Oeh-ZU-abE" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="j8b-lb-gCw"/>
                             <constraint firstItem="Fxh-kL-dIq" firstAttribute="top" secondItem="Oeh-ZU-abE" secondAttribute="bottom" constant="8" id="jqM-cL-QOA"/>
@@ -177,6 +191,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomButton" destination="Fxh-kL-dIq" id="cmV-eC-KgZ"/>
+                        <outlet property="highScoreLabel" destination="Od1-Wn-RGq" id="RCh-Qd-eNC"/>
                         <outlet property="topButton" destination="Oeh-ZU-abE" id="tNw-II-MWf"/>
                     </connections>
                 </viewController>
