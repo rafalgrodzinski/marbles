@@ -86,7 +86,7 @@ class SceneKitGame: Game
         (self.field.marbleFactory as! SceneKitMarbleFactory).game = self
 
         (self.view as! SCNView).isPlaying = false
-        (self.view as! SCNView).antialiasingMode = .multisampling4X
+        (self.view as! SCNView).antialiasingMode = .multisampling2X
         (self.view as! SCNView).preferredFramesPerSecond = 60
         //self.view.backgroundColor = Color.white
 
@@ -100,7 +100,9 @@ class SceneKitGame: Game
             #if os(iOS)
                 self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
             #else
-                view.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(handleTap)))
+                let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(handleTap))
+                clickRecognizer.delaysPrimaryMouseButtonEvents = false
+                view.addGestureRecognizer(clickRecognizer)
             #endif
         } else {
             self.scene.rootNode.enumerateChildNodes() { (node, p) in node.removeFromParentNode() }
@@ -121,6 +123,7 @@ class SceneKitGame: Game
             shadowPlane.firstMaterial?.colorBufferWriteMask = []
         }
         let shadowPlaneNode = SCNNode(geometry: shadowPlane)
+        shadowPlaneNode.categoryBitMask = 0
 
         shadowPlaneNode.rotation = SCNVector4(x: 1.0, y: 0.0, z: 0.0, w: π * 0.5)
         centerNode.addChildNode(shadowPlaneNode)
