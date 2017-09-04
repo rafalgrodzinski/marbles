@@ -15,15 +15,15 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Main Menu View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="hM4-6T-mFf">
             <objects>
-                <viewController id="8SB-Rx-thH" customClass="MainMenuViewController" customModule="Marbles" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8SB-Rx-thH" customClass="MenuViewController" customModule="Marbles" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jva-sR-gDA"/>
                         <viewControllerLayoutGuide type="bottom" id="7yi-Mv-Clj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU" customClass="MainMenuBackgroundView" customModule="Marbles" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="BNP-zL-FhU" customClass="MenuBackgroundView" customModule="Marbles" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -31,7 +31,7 @@
                                 <rect key="frame" x="16" y="20" width="343" height="281.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marbles AR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewZ-vY-kxM">
-                                        <rect key="frame" x="0.0" y="109.5" width="343" height="64"/>
+                                        <rect key="frame" x="0.0" y="103" width="343" height="77"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="Zkj-Kf-5pY"/>
                                         </constraints>
@@ -129,7 +129,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8s-46-3XP">
-                                <rect key="frame" x="16" y="437.5" width="343" height="24.5"/>
+                                <rect key="frame" x="16" y="437.5" width="343" height="29"/>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="24"/>
                                 <color key="textColor" red="0.64350000000000007" green="0.78000000000000003" blue="0.58499999999999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -213,7 +213,7 @@
                         <viewControllerLayoutGuide type="top" id="Z9l-PT-G9U"/>
                         <viewControllerLayoutGuide type="bottom" id="iER-9F-Wvv"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hYv-qp-dud" customClass="MainMenuBackgroundView" customModule="Marbles" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="hYv-qp-dud" customClass="MenuBackgroundView" customModule="Marbles" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -310,7 +310,7 @@ The full source code can be found at https://github.com/UnalignedByte/marbles</s
                                 <color key="color" red="0.31983876230000002" green="0.77599370479999996" blue="0.1231127977" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It seems that you cannot perform a payment at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GF5-KJ-Ckl">
-                                <rect key="frame" x="8" y="325.5" width="359" height="17.5"/>
+                                <rect key="frame" x="8" y="323.5" width="359" height="21"/>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

@@ -18,8 +18,9 @@
 		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
 		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
 		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
+		B556DC731F5D8CFB00C95E68 /* MenuBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B556DC721F5D8CFB00C95E68 /* MenuBackgroundView.swift */; };
 		B5688B3E1F58BEEB00A4F780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5688B3D1F58BEEB00A4F780 /* AppDelegate.swift */; };
-		B5688B401F58BEEB00A4F780 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5688B3F1F58BEEB00A4F780 /* MainMenuViewController.swift */; };
+		B5688B401F58BEEB00A4F780 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5688B3F1F58BEEB00A4F780 /* MenuViewController.swift */; };
 		B5688B421F58BEEB00A4F780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5688B411F58BEEB00A4F780 /* Assets.xcassets */; };
 		B5688B511F58C14000A4F780 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5688B501F58C11700A4F780 /* Main.storyboard */; };
 		B5688B661F5C3E6E00A4F780 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E6C1731CCE63A700410BBB /* Utils.swift */; };
@@ -92,9 +93,10 @@
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
 		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
+		B556DC721F5D8CFB00C95E68 /* MenuBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBackgroundView.swift; sourceTree = "<group>"; };
 		B5688B3B1F58BEEB00A4F780 /* Marbles Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Marbles Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5688B3D1F58BEEB00A4F780 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B5688B3F1F58BEEB00A4F780 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		B5688B3F1F58BEEB00A4F780 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		B5688B411F58BEEB00A4F780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5688B461F58BEEB00A4F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5688B471F58BEEB00A4F780 /* Marbles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Marbles.entitlements; sourceTree = "<group>"; };
@@ -156,6 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B556DC741F5D8D0600C95E68 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B5688B501F58C11700A4F780 /* Main.storyboard */,
+				B5688B3D1F58BEEB00A4F780 /* AppDelegate.swift */,
+				B5688B3F1F58BEEB00A4F780 /* MenuViewController.swift */,
+				B556DC721F5D8CFB00C95E68 /* MenuBackgroundView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		B5688B3C1F58BEEB00A4F780 /* Marbles */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,9 +209,7 @@
 		B5688B4F1F58C04600A4F780 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B5688B501F58C11700A4F780 /* Main.storyboard */,
-				B5688B3D1F58BEEB00A4F780 /* AppDelegate.swift */,
-				B5688B3F1F58BEEB00A4F780 /* MainMenuViewController.swift */,
+				B556DC741F5D8D0600C95E68 /* Menu */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -580,7 +591,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5688B401F58BEEB00A4F780 /* MainMenuViewController.swift in Sources */,
+				B5688B401F58BEEB00A4F780 /* MenuViewController.swift in Sources */,
 				B5688B3E1F58BEEB00A4F780 /* AppDelegate.swift in Sources */,
 				B584761E1F5C431A00E3B131 /* PathFinderProtocol.swift in Sources */,
 				B58476181F5C415200E3B131 /* Marble.swift in Sources */,
@@ -598,6 +609,7 @@
 				B58476361F5C4E7800E3B131 /* SceneKitGame.swift in Sources */,
 				B58476291F5C446400E3B131 /* Button.swift in Sources */,
 				B584761A1F5C42DA00E3B131 /* MarbleFactory.swift in Sources */,
+				B556DC731F5D8CFB00C95E68 /* MenuBackgroundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

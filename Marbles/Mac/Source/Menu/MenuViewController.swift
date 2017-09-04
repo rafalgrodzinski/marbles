@@ -9,7 +9,7 @@
 import Cocoa
 import SceneKit
 
-class MainMenuViewController: NSViewController {
+class MenuViewController: NSViewController {
     var game: Game?
     @IBOutlet var topButton: NSButton!
     @IBOutlet var bottomButton: NSButton!
