@@ -55,6 +55,8 @@ class SceneKitGame: Game
 
     fileprivate var nextMarbles = [Marble]()
 
+    fileprivate var oldBounds: NSRect?
+
 
     // MARK: - Initialization -
     override func setupView()
@@ -92,6 +94,7 @@ class SceneKitGame: Game
 
         if self.scene == nil {
             self.scene = SCNScene()
+            (self.view as! SCNView).delegate = self
             (self.view as! SCNView).scene = self.scene!
 
             //let backgroundView = MainMenuBackgroundView(frame: self.view.bounds)
@@ -186,9 +189,12 @@ class SceneKitGame: Game
 
     internal func setupOverlay()
     {
+        // Remove old overlay
+        //(self.view as! SCNView).overlaySKScene = nil
+
         // Create overlay
         let overlayScene = SKScene(size: self.view.frame.size)
-        overlayScene.scaleMode = .aspectFit
+        overlayScene.scaleMode = .resizeFill
         (self.view as! SCNView).overlaySKScene = overlayScene
 
         // Score label
@@ -571,5 +577,22 @@ class SceneKitGame: Game
         }
 
         return Point(x, y)
+    }
+}
+
+extension SceneKitGame: SCNSceneRendererDelegate
+{
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    {
+        DispatchQueue.main.async { [unowned self] in
+            if let oldBounds = self.oldBounds {
+                if self.view.bounds != oldBounds {
+                    self.setupOverlay()
+                    self.oldBounds = self.view.bounds
+                }
+            } else {
+                self.oldBounds = self.view.bounds
+            }
+        }
     }
 }
