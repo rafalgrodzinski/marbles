@@ -149,9 +149,6 @@
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" size="28" name="BunakenUnderwater"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="newGameButtonPressed:" target="XfG-lQ-9wD" id="AED-KB-7NV"/>
-                                </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Fxh-kL-dIq" userLabel="Bottom Button">
                                 <rect key="frame" x="112" y="183" width="256" height="64"/>

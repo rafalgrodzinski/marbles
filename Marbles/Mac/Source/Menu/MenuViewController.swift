@@ -40,29 +40,48 @@ class MenuViewController: NSViewController {
         game.drawnMarbleColors = drawnMarbleColors
 
         game.pauseCallback = { [weak self] in
-            //self?.currentLogoHue = 100.0/360.0
-            //self?.updateHighScoreLabel()
-            //self?.setupForResume()
-            //self?.gameVc!.dismiss(animated: false)
-            self?.game?.view.removeFromSuperview()
+            self?.currentLogoHue = 100.0/360.0
+            self?.updateHighScoreLabel()
+            self?.setupForResume()
+            self?.game?.view.isHidden = true
         }
 
         game.quitCallback = { [weak self] in
-            //self?.currentLogoHue = 100.0/360.0
-            //self?.updateHighScoreLabel()
-            //self?.setupForNewGame()
-            //self?.gameVc!.dismiss(animated: false)
+            self?.currentLogoHue = 100.0/360.0
+            self?.updateHighScoreLabel()
+            self?.setupForNewGame()
         }
     }
 
     private func setupForNewGame()
     {
+        // In case of previus game being here
+        game?.view.removeFromSuperview()
+        game = nil
+
         // Top Button
         topButton.isHidden = false
         set(title: "New Game", forButton: topButton)
+        topButton.target = self
+        topButton.action = #selector(newGameButtonPressed)
 
         // Bottom Button
         bottomButton.isHidden = true
+    }
+
+    private func setupForResume()
+    {
+        // Top Button
+        topButton.isHidden = false
+        set(title: "Resume", forButton: topButton)
+        topButton.target = self
+        topButton.action = #selector(resumeGameButtonPressed)
+
+        // Bottom Button
+        bottomButton.isHidden = false
+        set(title: "New Game", forButton: bottomButton)
+        bottomButton.target = self
+        bottomButton.action = #selector(newGameButtonPressed)
     }
 
     private func set(title: String, forButton button: NSButton)
@@ -82,8 +101,8 @@ class MenuViewController: NSViewController {
 
     private func updateHighScoreLabel()
     {
-        /*if ScoreSingleton.sharedInstance.highScore > 0
-        {*/
+        if ScoreSingleton.sharedInstance.highScore > 0
+        {
             let titleShadow = NSShadow()
             titleShadow.shadowColor = NSColor.black
             titleShadow.shadowBlurRadius = 1.5
@@ -98,11 +117,11 @@ class MenuViewController: NSViewController {
                                                                            attributes: titleAttributes)
 
             self.highScoreLabel.isHidden = false
-        /*}
+        }
         else
         {
             self.highScoreLabel.isHidden = true
-        }*/
+        }
     }
 
     private func setupLogoColorUpdateTimer()
@@ -125,8 +144,17 @@ class MenuViewController: NSViewController {
     }
 
     // MARK: - Actions
+    @IBAction func resumeGameButtonPressed(_ sender: NSButton)
+    {
+        game?.view.isHidden = false
+    }
+
     @IBAction func newGameButtonPressed(_ sender: NSButton)
     {
+        // In case of previus game being here
+        game?.view.removeFromSuperview()
+        game = nil
+
         setupGame(field: nil, drawnMarbleColors: nil)
 
         guard let game = self.game else { fatalError() }
