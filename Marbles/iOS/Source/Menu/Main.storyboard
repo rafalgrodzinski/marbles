@@ -347,7 +347,7 @@ The full source code can be found at https://github.com/UnalignedByte/marbles</s
         </scene>
     </scenes>
     <resources>
-        <image name="Button" width="63" height="64"/>
+        <image name="Button" width="256" height="64"/>
         <image name="Menu Button" width="82" height="47"/>
         <image name="Tip Jar" width="48" height="48"/>
     </resources>

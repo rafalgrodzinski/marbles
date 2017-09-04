@@ -11,8 +11,15 @@ import SceneKit
 
 class MainMenuViewController: NSViewController {
     var game: Game?
+    @IBOutlet var topButton: NSButton!
+    @IBOutlet var bottomButton: NSButton!
 
     // MARK: - Initialization
+    override func viewDidLoad()
+    {
+        setupForNewGame()
+    }
+
     private func setupGame(field: Field?, drawnMarbleColors: [Int]?)
     {
         let game = GameFactory.gameWithGraphicsType(.sceneKit, size: Size(9, 9), colorsCount: 5, marblesPerSpawn: 3, lineLength: 5, field: field)
@@ -39,8 +46,35 @@ class MainMenuViewController: NSViewController {
         }
     }
 
+    private func setupForNewGame()
+    {
+        // Top Button
+        topButton.isHidden = false
+        set(title: "New Game", forButton: topButton)
+
+        // Bottom Button
+        bottomButton.isHidden = true
+    }
+
+    private func set(title: String, forButton button: NSButton)
+    {
+        // Top Button
+        let titleShadow = NSShadow()
+        titleShadow.shadowColor = NSColor.black
+        titleShadow.shadowBlurRadius = 2.0
+        titleShadow.shadowOffset = NSSize(width: 2, height: -2)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let titleAttributes: [NSAttributedStringKey : AnyObject] = [NSAttributedStringKey.font            : NSFont(name: "BunakenUnderwater", size: 28.0)!,
+                                                                    NSAttributedStringKey.foregroundColor : NSColor.white,
+                                                                    NSAttributedStringKey.shadow          : titleShadow,
+                                                                    NSAttributedStringKey.paragraphStyle  : paragraphStyle]
+        button.attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
+    }
+
     // MARK: - Actions
-    @IBAction func newGameButtonPressed(_ sender: NSButton) {
+    @IBAction func newGameButtonPressed(_ sender: NSButton)
+    {
         setupGame(field: nil, drawnMarbleColors: nil)
 
         guard let game = self.game else { fatalError() }

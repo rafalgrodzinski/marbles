@@ -5,19 +5,8 @@
       "scale" : "1x"
     },
     {
-      "resizing" : {
-        "mode" : "3-part-horizontal",
-        "center" : {
-          "mode" : "tile",
-          "width" : 87
-        },
-        "cap-insets" : {
-          "right" : 20,
-          "left" : 19
-        }
-      },
       "idiom" : "universal",
-      "filename" : "Untitled.png",
+      "filename" : "Button@2x.png",
       "scale" : "2x"
     },
     {

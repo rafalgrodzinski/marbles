@@ -82,7 +82,6 @@
                     </connections>
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Marbles_Mac" customModuleProvider="target"/>
-                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -91,11 +90,12 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="500" height="500"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="500" height="500"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -113,26 +113,79 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="MainMenuViewController" customModule="Marbles_Mac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="485"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRS-gS-slm">
-                                <rect key="frame" x="218" y="38" width="81" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wg9-aW-kN9">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Em8-Qz-aR3" userLabel="Logo Label Container View">
+                                <rect key="frame" x="0.0" y="335" width="480" height="150"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gEZ-iu-unj" userLabel="Logo Label">
+                                        <rect key="frame" x="-2" y="44" width="484" height="62"/>
+                                        <shadow key="shadow" blurRadius="1">
+                                            <size key="offset" width="2" height="2"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </shadow>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Marbles" id="gfl-kt-0S3">
+                                            <font key="font" size="64" name="BunakenUnderwater"/>
+                                            <color key="textColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gEZ-iu-unj" firstAttribute="leading" secondItem="Em8-Qz-aR3" secondAttribute="leading" id="WXJ-gA-R07"/>
+                                    <constraint firstAttribute="height" constant="150" id="dpK-UM-ct6"/>
+                                    <constraint firstItem="gEZ-iu-unj" firstAttribute="centerY" secondItem="Em8-Qz-aR3" secondAttribute="centerY" id="vp4-GO-OIl"/>
+                                    <constraint firstAttribute="trailing" secondItem="gEZ-iu-unj" secondAttribute="trailing" id="yZL-qg-Nju"/>
+                                </constraints>
+                            </customView>
+                            <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeh-ZU-abE">
+                                <rect key="frame" x="112" y="255" width="256" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="prd-he-JV0"/>
+                                    <constraint firstAttribute="width" constant="256" id="yDh-pp-V72"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" title="Top Button" bezelStyle="shadowlessSquare" image="Button" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="8pm-Lo-QDR">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" size="28" name="BunakenUnderwater"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="newGameButtonPressed:" target="XfG-lQ-9wD" id="yXj-Ww-qF7"/>
+                                    <action selector="newGameButtonPressed:" target="XfG-lQ-9wD" id="AED-KB-7NV"/>
                                 </connections>
                             </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Fxh-kL-dIq" userLabel="Bottom Button">
+                                <rect key="frame" x="112" y="183" width="256" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="NVG-xC-ok4"/>
+                                    <constraint firstAttribute="width" constant="256" id="ZpC-I5-xfZ"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" title="Bottom Button" bezelStyle="shadowlessSquare" image="Button" imagePosition="overlaps" alignment="center" inset="2" id="Crl-zi-1Of">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" size="28" name="BunakenUnderwater"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="Em8-Qz-aR3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="5jU-OT-03X"/>
+                            <constraint firstItem="Em8-Qz-aR3" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="90i-Wn-Sgm"/>
+                            <constraint firstItem="Fxh-kL-dIq" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Cl3-j7-6dq"/>
+                            <constraint firstItem="Oeh-ZU-abE" firstAttribute="top" secondItem="Em8-Qz-aR3" secondAttribute="bottom" constant="16" id="LZs-3j-PyN"/>
+                            <constraint firstAttribute="trailing" secondItem="Em8-Qz-aR3" secondAttribute="trailing" id="e4S-m5-Vn2"/>
+                            <constraint firstItem="Oeh-ZU-abE" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="j8b-lb-gCw"/>
+                            <constraint firstItem="Fxh-kL-dIq" firstAttribute="top" secondItem="Oeh-ZU-abE" secondAttribute="bottom" constant="8" id="jqM-cL-QOA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomButton" destination="Fxh-kL-dIq" id="cmV-eC-KgZ"/>
+                        <outlet property="topButton" destination="Oeh-ZU-abE" id="tNw-II-MWf"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="697"/>
+            <point key="canvasLocation" x="75" y="804.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Button" width="256" height="64"/>
+    </resources>
 </document>
