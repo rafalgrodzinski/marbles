@@ -9,16 +9,23 @@
 import Cocoa
 import SceneKit
 
+private let logoColorUpdateInterval = 1.0/60.0
+private let logoColorUpdateAmount = 1.0/(60.0 * 15.0)
+
 class MenuViewController: NSViewController {
-    var game: Game?
-    @IBOutlet var topButton: NSButton!
-    @IBOutlet var bottomButton: NSButton!
-    @IBOutlet var highScoreLabel: NSTextField!
+    private var game: Game?
+    private var currentLogoHue = 100.0/360.0
+    private var logoColorUpdateTimer: Timer!
+    @IBOutlet private var logoLabel: NSTextField!
+    @IBOutlet private var topButton: NSButton!
+    @IBOutlet private var bottomButton: NSButton!
+    @IBOutlet private var highScoreLabel: NSTextField!
 
     // MARK: - Initialization
     override func viewDidLoad()
     {
         updateHighScoreLabel()
+        setupLogoColorUpdateTimer()
         setupForNewGame()
     }
 
@@ -96,6 +103,25 @@ class MenuViewController: NSViewController {
         {
             self.highScoreLabel.isHidden = true
         }*/
+    }
+
+    private func setupLogoColorUpdateTimer()
+    {
+        self.logoColorUpdateTimer = Timer.scheduledTimer(timeInterval: logoColorUpdateInterval,
+                                                         target: self,
+                                                         selector: #selector(updateLogoLabelColorTimeout),
+                                                         userInfo: nil,
+                                                         repeats: true)
+    }
+
+    @objc private func updateLogoLabelColorTimeout()
+    {
+        logoLabel.textColor = NSColor(deviceHue: CGFloat(self.currentLogoHue), saturation: 0.8, brightness: 0.8, alpha: 1.0)
+
+        self.currentLogoHue += logoColorUpdateAmount
+        if self.currentLogoHue > 1.0 {
+            self.currentLogoHue = 0.0
+        }
     }
 
     // MARK: - Actions

@@ -192,6 +192,7 @@
                     <connections>
                         <outlet property="bottomButton" destination="Fxh-kL-dIq" id="cmV-eC-KgZ"/>
                         <outlet property="highScoreLabel" destination="Od1-Wn-RGq" id="RCh-Qd-eNC"/>
+                        <outlet property="logoLabel" destination="gEZ-iu-unj" id="vup-vt-5ly"/>
                         <outlet property="topButton" destination="Oeh-ZU-abE" id="tNw-II-MWf"/>
                     </connections>
                 </viewController>
