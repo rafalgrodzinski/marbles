@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B50BD9171D96E79D00D3F2CE /* ScoreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BD9161D96E79D00D3F2CE /* ScoreSingleton.swift */; };
+		B51046EF1F68809100A5B132 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B596407A1D5FC9DC00CABF43 /* Marble.scn */; };
 		B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B582547B1C5E58090065E283 /* Images.xcassets */; };
 		B524A9E31F0BF0CF0072189F /* Plane.scn in Resources */ = {isa = PBXBuildFile; fileRef = B524A9E21F0BF0CF0072189F /* Plane.scn */; };
 		B52C261C1CD803B300317D4C /* PathFinderGridAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C261B1CD803B300317D4C /* PathFinderGridAdapter.swift */; };
@@ -348,6 +349,7 @@
 				B518B6E81F57741F001A40A5 /* Images.xcassets in Resources */,
 				B52C795B1CD4F0B000A86DAE /* Selection.scnp in Resources */,
 				B59640761D5FC69C00CABF43 /* Marble Normal.png in Resources */,
+				B51046EF1F68809100A5B132 /* Marble.scn in Resources */,
 				B57918D51C6A741A004214EF /* Main.storyboard in Resources */,
 				B59640811D5FE84400CABF43 /* Tile Normal.png in Resources */,
 				B5359C931D4810FA00A9C236 /* BunakenUnderwater.ttf in Resources */,

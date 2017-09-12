@@ -31,7 +31,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
     override func setupView()
     {
         self.view = ARSCNView()
-        let arConfig = ARWorldTrackingSessionConfiguration()
+        let arConfig = ARWorldTrackingConfiguration()
         arConfig.planeDetection = .horizontal
         (self.view as! ARSCNView).session.run(arConfig)
         (self.view as! ARSCNView).delegate = self
