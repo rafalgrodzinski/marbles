@@ -136,3 +136,16 @@ extension SCNMatrix4
                   m41: simdMatrix.columns.3.x, m42: simdMatrix.columns.3.y, m43: simdMatrix.columns.3.z, m44: simdMatrix.columns.3.w)
     }
 }
+
+private var _topMargin: CGFloat = 0.0
+extension UIView
+{
+    class var topMargin: CGFloat {
+        get {
+            return _topMargin
+        }
+        set {
+            _topMargin = newValue
+        }
+    }
+}

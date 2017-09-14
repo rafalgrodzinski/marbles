@@ -187,7 +187,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
         self.scoreLabel.fontColor = UIColor.marblesGreen()
         self.scoreLabel.horizontalAlignmentMode = .center
         self.scoreLabel.verticalAlignmentMode = .center
-        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0)
+        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0 - UIView.topMargin)
         // Score label shadow
         self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
         self.scoreLabelShadow.fontColor = UIColor.black
@@ -219,7 +219,7 @@ class SceneKitGame: Game, UIGestureRecognizerDelegate
 
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
-        menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0)
+        menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0 - UIView.topMargin)
         menuButton.callback =  { [weak self] in self?.pauseCallback!() }
         overlayScene.addChild(menuButton)
 

@@ -78,6 +78,10 @@ class MainMenuViewController: UIViewController
         #if !DEBUG
             Answers.logCustomEvent(withName: "Entered View", customAttributes: ["Name" : "MainMenu"])
         #endif
+
+        if #available(iOS 11.0, *) {
+            UIView.topMargin = view.safeAreaInsets.top
+        }
     }
 
 
