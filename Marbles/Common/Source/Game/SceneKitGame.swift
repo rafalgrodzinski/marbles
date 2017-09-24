@@ -55,7 +55,7 @@ class SceneKitGame: Game
 
     fileprivate var nextMarbles = [Marble]()
 
-    #if os(mac)
+    #if os(macOS)
     fileprivate var oldBounds: NSRect?
     #endif
 
@@ -199,13 +199,18 @@ class SceneKitGame: Game
         overlayScene.scaleMode = .resizeFill
         (self.view as! SCNView).overlaySKScene = overlayScene
 
+        var topMargin: CGFloat = 0.0
+        #if os(iOS)
+            topMargin = UIView.topMargin
+        #endif
+
         // Score label
         self.scoreLabel = SKLabelNode(fontNamed: "BunakenUnderwater")
         self.scoreLabel.fontSize = 32.0
         self.scoreLabel.fontColor = Color.marblesGreen
         self.scoreLabel.horizontalAlignmentMode = .center
         self.scoreLabel.verticalAlignmentMode = .center
-        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0 - UIView.topMargin)
+        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0 - topMargin)
         // Score label shadow
         self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
         self.scoreLabelShadow.fontColor = Color.black
@@ -237,7 +242,7 @@ class SceneKitGame: Game
 
         // Menu button
         let menuButton = Button(defaultTexture: SKTexture(imageNamed: "Menu Button") , pressedTexture: nil)
-        menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0 - UIView.topMargin)
+        menuButton.position = CGPoint(x: menuButton.size.width/2.0 + 16.0, y: overlayScene.size.height - menuButton.size.height/2.0 - 16.0 - topMargin)
         menuButton.callback =  { [weak self] in self?.pauseCallback!() }
         overlayScene.addChild(menuButton)
 
@@ -586,7 +591,7 @@ extension SceneKitGame: SCNSceneRendererDelegate
 {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
-        #if os(mac)
+        #if os(macOS)
         DispatchQueue.main.async { [unowned self] in
             if let oldBounds = self.oldBounds {
                 if self.view.bounds != oldBounds {

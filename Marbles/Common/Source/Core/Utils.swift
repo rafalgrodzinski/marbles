@@ -125,6 +125,7 @@ extension SCNMatrix4
     }
 }
 
+#if os(iOS)
 private var _topMargin: CGFloat = 0.0
 extension UIView
 {
@@ -137,3 +138,4 @@ extension UIView
         }
     }
 }
+#endif
