@@ -55,7 +55,9 @@ class SceneKitGame: Game
 
     fileprivate var nextMarbles = [Marble]()
 
+    #if os(mac)
     fileprivate var oldBounds: NSRect?
+    #endif
 
 
     // MARK: - Initialization -
@@ -584,6 +586,7 @@ extension SceneKitGame: SCNSceneRendererDelegate
 {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
+        #if os(mac)
         DispatchQueue.main.async { [unowned self] in
             if let oldBounds = self.oldBounds {
                 if self.view.bounds != oldBounds {
@@ -594,5 +597,6 @@ extension SceneKitGame: SCNSceneRendererDelegate
                 self.oldBounds = self.view.bounds
             }
         }
+        #endif
     }
 }

@@ -310,7 +310,7 @@ The full source code can be found at https://github.com/UnalignedByte/marbles</s
                                 <color key="color" red="0.31983876230000002" green="0.77599370479999996" blue="0.1231127977" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It seems that you cannot perform a payment at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GF5-KJ-Ckl">
-                                <rect key="frame" x="8" y="323.5" width="359" height="21"/>
+                                <rect key="frame" x="8" y="324" width="359" height="21"/>
                                 <fontDescription key="fontDescription" name="BunakenUnderwater" family="Bunaken Underwater" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -347,7 +347,7 @@ The full source code can be found at https://github.com/UnalignedByte/marbles</s
         </scene>
     </scenes>
     <resources>
-        <image name="Button" width="256" height="64"/>
+        <image name="Button" width="21" height="64"/>
         <image name="Menu Button" width="82" height="47"/>
         <image name="Tip Jar" width="48" height="48"/>
     </resources>

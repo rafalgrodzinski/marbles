@@ -1,6 +1,6 @@
 //
-//  GameViewController.swift
-//  Kulki
+//  MenuViewController.swift
+//  Marbles AR
 //
 //  Created by Rafal Grodzinski on 09/02/16.
 //  Copyright © 2016 UnalignedByte. All rights reserved.
@@ -10,7 +10,7 @@ import UIKit
 import Crashlytics
 
 
-class MainMenuViewController: UIViewController
+class MenuViewController: UIViewController
 {
     // Constant
     let logoColorUpdateInterval = 1.0/60.0

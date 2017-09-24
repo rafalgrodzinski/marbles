@@ -1,6 +1,6 @@
 //
 //  TipJarViewController.swift
-//  Marbles
+//  Marbles AR
 //
 //  Created by Rafal Grodzinski on 25/09/2016.
 //  Copyright © 2016 UnalignedByte. All rights reserved.

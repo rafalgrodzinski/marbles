@@ -1,6 +1,6 @@
 //
 //  MainMenuBackgroundView.swift
-//  Kulki
+//  Marbles AR
 //
 //  Created by Rafal Grodzinski on 28/06/16.
 //  Copyright © 2016 UnalignedByte. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class MainMenuBackgroundView: UIView
+class MenuBackgroundView: UIView
 {
     override func draw(_ rect: CGRect)
     {

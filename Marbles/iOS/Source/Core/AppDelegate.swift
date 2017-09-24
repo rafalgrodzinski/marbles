@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Kulki
+//  Marbles AR
 //
 //  Created by Rafal Grodzinski on 31/01/16.
 //  Copyright © 2016 UnalignedByte. All rights reserved.

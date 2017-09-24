@@ -1,6 +1,6 @@
 //
 //  ArKitGame.swift
-//  Marbles
+//  Marbles AR
 //
 //  Created by Rafal Grodzinski on 20/06/2017.
 //  Copyright © 2017 UnalignedByte. All rights reserved.
@@ -52,7 +52,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         self.setupPlaceholder()
 
         self.view.backgroundColor = UIColor.clear
-        self.view.superview?.subviews.filter { $0 is MainMenuBackgroundView }.first?.removeFromSuperview()
+        self.view.superview?.subviews.filter { $0 is MenuBackgroundView }.first?.removeFromSuperview()
     }
 
     fileprivate var placeholderNode: SCNNode!
@@ -286,7 +286,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
     }
 
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    override func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         if let lightEstimate = (self.view as! ARSCNView).session.currentFrame?.lightEstimate {
             ambientLight.intensity = lightEstimate.ambientIntensity
