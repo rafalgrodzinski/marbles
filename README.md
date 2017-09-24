@@ -1,5 +1,5 @@
 # Marbles & Marbles AR
-![Marbles Logo](https://github.com/UnalignedByte/marbles/raw/master/Marbles/Assets/Images.xcassets/AppIcon.appiconset/AppIcon%403x.png)
+![Marbles Logo](https://github.com/UnalignedByte/marbles/raw/master/Marbles/iOS/Assets/Assets.xcassets/AppIcon.appiconset/AppIcon%403x.png)
 
 ## What is it?
 **Marbles** & **Marbles AR** is a match five game for Mac and iOS. It is written in Swift and uses SceneKit for 3D rendering. The iOS counterpart uses ARKit to support augumented reality.
