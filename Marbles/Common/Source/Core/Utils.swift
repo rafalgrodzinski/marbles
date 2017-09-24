@@ -124,3 +124,16 @@ extension SCNMatrix4
                   m41: FloatType(simdMatrix.columns.3.x), m42: FloatType(simdMatrix.columns.3.y), m43: FloatType(simdMatrix.columns.3.z), m44: FloatType(simdMatrix.columns.3.w))
     }
 }
+
+private var _topMargin: CGFloat = 0.0
+extension UIView
+{
+    class var topMargin: CGFloat {
+        get {
+            return _topMargin
+        }
+        set {
+            _topMargin = newValue
+        }
+    }
+}

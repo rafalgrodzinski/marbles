@@ -23,7 +23,7 @@ class GameFactory
 {
     #if os(iOS)
     class var isArModeAvailable: Bool {
-        if #available(iOS 11.0, *) { return ARWorldTrackingSessionConfiguration.isSupported }
+        if #available(iOS 11.0, *) { return ARWorldTrackingConfiguration.isSupported }
         return false
     }
     #endif
