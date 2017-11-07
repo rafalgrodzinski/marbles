@@ -286,7 +286,7 @@ class ArKitGame: SceneKitGame, ARSCNViewDelegate
         }
     }
 
-    override func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         if let lightEstimate = (self.view as! ARSCNView).session.currentFrame?.lightEstimate {
             ambientLight.intensity = lightEstimate.ambientIntensity

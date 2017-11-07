@@ -54,10 +54,7 @@ class SceneKitGame: Game
     fileprivate var gameOverPopup: GameOverPopup!
 
     fileprivate var nextMarbles = [Marble]()
-
-    #if os(macOS)
-    fileprivate var oldBounds: NSRect?
-    #endif
+    private var boundsObservation: NSKeyValueObservation?
 
 
     // MARK: - Initialization -
@@ -80,6 +77,13 @@ class SceneKitGame: Game
         setupOverlay()
         setupCamera()
 
+        // Update overlay on resize
+        #if os(macOS)
+            boundsObservation = view.observe(\.frame) { [unowned self] object, change in
+                self.setupOverlay()
+            }
+        #endif
+
         // Start the game
         (self.view as! SCNView).isPlaying = true
     }
@@ -90,7 +94,11 @@ class SceneKitGame: Game
         (self.field.marbleFactory as! SceneKitMarbleFactory).game = self
 
         (self.view as! SCNView).isPlaying = false
-        (self.view as! SCNView).antialiasingMode = .multisampling2X
+        #if os(macOS)
+            (self.view as! SCNView).antialiasingMode = .multisampling4X
+        #else
+            (self.view as! SCNView).antialiasingMode = .multisampling2X
+        #endif
         (self.view as! SCNView).preferredFramesPerSecond = 60
         //self.view.backgroundColor = Color.white
 
@@ -191,9 +199,6 @@ class SceneKitGame: Game
 
     internal func setupOverlay()
     {
-        // Remove old overlay
-        //(self.view as! SCNView).overlaySKScene = nil
-
         // Create overlay
         let overlayScene = SKScene(size: self.view.frame.size)
         overlayScene.scaleMode = .resizeFill
@@ -210,7 +215,11 @@ class SceneKitGame: Game
         self.scoreLabel.fontColor = Color.marblesGreen
         self.scoreLabel.horizontalAlignmentMode = .center
         self.scoreLabel.verticalAlignmentMode = .center
-        self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0 - topMargin)
+        #if os(macOS)
+            self.scoreLabel.position = CGPoint(x: overlayScene.size.width/2.0, y: overlayScene.size.height - 32.0 - topMargin)
+        #else
+            self.scoreLabel.position = CGPoint(x: overlayScene.size.width*2.0/3.0, y: overlayScene.size.height - 32.0 - topMargin)
+        #endif
         // Score label shadow
         self.scoreLabelShadow =  self.scoreLabel.copy() as! SKLabelNode
         self.scoreLabelShadow.fontColor = Color.black
@@ -589,10 +598,10 @@ class SceneKitGame: Game
 
 extension SceneKitGame: SCNSceneRendererDelegate
 {
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    /*func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         #if os(macOS)
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.sync { [unowned self] in
             if let oldBounds = self.oldBounds {
                 if self.view.bounds != oldBounds {
                     self.setupOverlay()
@@ -603,5 +612,5 @@ extension SceneKitGame: SCNSceneRendererDelegate
             }
         }
         #endif
-    }
+    }*/
 }
