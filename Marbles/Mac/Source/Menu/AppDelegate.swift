@@ -7,7 +7,14 @@
 //
 
 import Cocoa
+import Fabric
+import Crashlytics
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        #if !DEBUG
+            Fabric.with([Crashlytics.self])
+        #endif
+    }
 }

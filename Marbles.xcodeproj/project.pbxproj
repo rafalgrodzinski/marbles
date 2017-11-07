@@ -60,6 +60,8 @@
 		B59640771D5FC69C00CABF43 /* Marble Specular.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640751D5FC69C00CABF43 /* Marble Specular.png */; };
 		B596407D1D5FD8A000CABF43 /* Tile Diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */; };
 		B59640811D5FE84400CABF43 /* Tile Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B59640801D5FE84400CABF43 /* Tile Normal.png */; };
+		B5A6A0C01FB245CA00839C2A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A6A0BE1FB245CA00839C2A /* Fabric.framework */; };
+		B5A6A0C11FB245CA00839C2A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A6A0BF1FB245CA00839C2A /* Crashlytics.framework */; };
 		B5A949EB1F5C586A004C0530 /* BunakenUnderwater.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5359C921D4810FA00A9C236 /* BunakenUnderwater.ttf */; };
 		B5A949EF1F5C5875004C0530 /* Marble.scn in Resources */ = {isa = PBXBuildFile; fileRef = B596407A1D5FC9DC00CABF43 /* Marble.scn */; };
 		B5A949F11F5C5879004C0530 /* Plane.scn in Resources */ = {isa = PBXBuildFile; fileRef = B524A9E21F0BF0CF0072189F /* Plane.scn */; };
@@ -126,6 +128,8 @@
 		B596407A1D5FC9DC00CABF43 /* Marble.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Marble.scn; sourceTree = "<group>"; };
 		B596407C1D5FD8A000CABF43 /* Tile Diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile Diffuse.png"; sourceTree = "<group>"; };
 		B59640801D5FE84400CABF43 /* Tile Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile Normal.png"; sourceTree = "<group>"; };
+		B5A6A0BE1FB245CA00839C2A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		B5A6A0BF1FB245CA00839C2A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B5A949F31F5C5901004C0530 /* ScoreSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSingleton.swift; sourceTree = "<group>"; };
 		B5A949F61F5C5E46004C0530 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5B6827B1D981997005924C7 /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A6A0C11FB245CA00839C2A /* Crashlytics.framework in Frameworks */,
+				B5A6A0C01FB245CA00839C2A /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +252,7 @@
 			children = (
 				B5FE7EDC1F5C57E7001BAC21 /* Source */,
 				B5FE7EDB1F5C57DC001BAC21 /* Assets */,
+				B5A6A0BD1FB245CA00839C2A /* Frameworks */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -371,6 +378,15 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		B5A6A0BD1FB245CA00839C2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5A6A0BE1FB245CA00839C2A /* Fabric.framework */,
+				B5A6A0BF1FB245CA00839C2A /* Crashlytics.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		B5FE7EDA1F5C5774001BAC21 /* Marble */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +468,7 @@
 				B5688B371F58BEEB00A4F780 /* Sources */,
 				B5688B381F58BEEB00A4F780 /* Frameworks */,
 				B5688B391F58BEEB00A4F780 /* Resources */,
+				B5A6A0BC1FB2447E00839C2A /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -584,6 +601,20 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    fabricBuildSecretFilePath=\"${PROJECT_DIR}/../private/fabric/fabric_build_secret.txt\"\n\n    if [ -e \"${fabricBuildSecretFilePath}\" ]; then\n        ./Marbles/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b `cat \"${fabricBuildSecretFilePath}\"`\n    fi\nfi";
 		};
+		B5A6A0BC1FB2447E00839C2A /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    fabricBuildSecretFilePath=\"${PROJECT_DIR}/../private/fabric/fabric_build_secret.txt\"\n\n    if [ -e \"${fabricBuildSecretFilePath}\" ]; then\n        ./Marbles/Common/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b `cat \"${fabricBuildSecretFilePath}\"`\n    fi\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -663,6 +694,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = X7G47FFC9G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Marbles/Common/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Marbles/Mac/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -689,6 +724,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X7G47FFC9G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Marbles/Common/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Marbles/Mac/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
