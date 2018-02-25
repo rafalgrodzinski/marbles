@@ -711,7 +711,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marblesmac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Marbles;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
@@ -740,7 +740,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.unalignedbyte.marblesmac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Marbles;
 				SDKROOT = macosx;
 			};
 			name = Release;
