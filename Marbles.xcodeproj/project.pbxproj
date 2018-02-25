@@ -18,6 +18,8 @@
 		B540A8401D97DDDF00941F5D /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540A83F1D97DDDF00941F5D /* TipJarViewController.swift */; };
 		B551789B2042EB9A0021F0FD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55178992042EB9A0021F0FD /* Fabric.framework */; };
 		B551789C2042EB9A0021F0FD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B551789A2042EB9A0021F0FD /* Crashlytics.framework */; };
+		B55178A02042EE120021F0FD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B551789E2042EE110021F0FD /* Fabric.framework */; };
+		B55178A12042EE120021F0FD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B551789F2042EE110021F0FD /* Crashlytics.framework */; };
 		B5521EEE1CD01D8600244B9C /* SceneKitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EED1CD01D8600244B9C /* SceneKitGame.swift */; };
 		B5521EF01CD0206200244B9C /* SceneKitMarble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */; };
 		B5521EF21CD0207100244B9C /* SceneKitMarbleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */; };
@@ -92,6 +94,9 @@
 		B54946FC1EF80D1A009261DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B55178992042EB9A0021F0FD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B551789A2042EB9A0021F0FD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		B551789E2042EE110021F0FD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		B551789F2042EE110021F0FD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		B55178A22042EFD00021F0FD /* Marbles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Marbles.entitlements; sourceTree = "<group>"; };
 		B5521EED1CD01D8600244B9C /* SceneKitGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitGame.swift; sourceTree = "<group>"; };
 		B5521EEF1CD0206200244B9C /* SceneKitMarble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarble.swift; sourceTree = "<group>"; };
 		B5521EF11CD0207100244B9C /* SceneKitMarbleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneKitMarbleFactory.swift; sourceTree = "<group>"; };
@@ -101,7 +106,6 @@
 		B5688B3F1F58BEEB00A4F780 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		B5688B411F58BEEB00A4F780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5688B461F58BEEB00A4F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5688B471F58BEEB00A4F780 /* Marbles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Marbles.entitlements; sourceTree = "<group>"; };
 		B5688B501F58C11700A4F780 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B56B2D9E1CD92FF3006B5F2F /* PathFinderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderProtocol.swift; sourceTree = "<group>"; };
 		B56B2DA01CD9316D006B5F2F /* PathFinderA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFinderA.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55178A12042EE120021F0FD /* Crashlytics.framework in Frameworks */,
+				B55178A02042EE120021F0FD /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +169,15 @@
 			children = (
 				B55178992042EB9A0021F0FD /* Fabric.framework */,
 				B551789A2042EB9A0021F0FD /* Crashlytics.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		B551789D2042EE110021F0FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B551789E2042EE110021F0FD /* Fabric.framework */,
+				B551789F2042EE110021F0FD /* Crashlytics.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -194,6 +209,7 @@
 				B5688B4F1F58C04600A4F780 /* Source */,
 				B5688B4E1F58C01800A4F780 /* Assets */,
 				B5688B4D1F58BFCE00A4F780 /* Supporting Files */,
+				B551789D2042EE110021F0FD /* Frameworks */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -201,7 +217,7 @@
 		B5688B4D1F58BFCE00A4F780 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B5688B471F58BEEB00A4F780 /* Marbles.entitlements */,
+				B55178A22042EFD00021F0FD /* Marbles.entitlements */,
 				B5688B461F58BEEB00A4F780 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -605,7 +621,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    fabricBuildSecretFilePath=\"${PROJECT_DIR}/../private/fabric/fabric_build_secret.txt\"\n\n    if [ -e \"${fabricBuildSecretFilePath}\" ]; then\n        ./Marbles/Common/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b `cat \"${fabricBuildSecretFilePath}\"`\n    fi\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    fabricBuildSecretFilePath=\"${PROJECT_DIR}/../private/fabric/fabric_build_secret.txt\"\n\n    if [ -e \"${fabricBuildSecretFilePath}\" ]; then\n        ./Marbles/Mac/Frameworks/Fabric.framework/run a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b `cat \"${fabricBuildSecretFilePath}\"`\n    fi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -680,7 +696,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Marbles/Mac/Supporting Files/Marbles.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "${SRCROOT}/Marbles/Mac/Supporting Files/Marbles.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -688,7 +704,7 @@
 				DEVELOPMENT_TEAM = X7G47FFC9G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Marbles/Common/Frameworks",
+					"$(PROJECT_DIR)/Marbles/Mac/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Marbles/Mac/Supporting Files/Info.plist";
@@ -710,14 +726,14 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Marbles/Mac/Supporting Files/Marbles.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "${SRCROOT}/Marbles/Mac/Supporting Files/Marbles.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X7G47FFC9G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Marbles/Common/Frameworks",
+					"$(PROJECT_DIR)/Marbles/Mac/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Marbles/Mac/Supporting Files/Info.plist";
