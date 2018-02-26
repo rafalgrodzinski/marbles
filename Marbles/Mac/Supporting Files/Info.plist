@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>0</string>
+	<string>1</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -44,19 +44,5 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-    <key>Fabric</key>
-    <dict>
-        <key>APIKey</key>
-        <string>a021a108c4f7af7ac61e5074ce2ce6b5b0729c4b</string>
-        <key>Kits</key>
-        <array>
-            <dict>
-                <key>KitInfo</key>
-                <dict/>
-                <key>KitName</key>
-                <string>Crashlytics</string>
-            </dict>
-        </array>
-    </dict>
 </dict>
 </plist>

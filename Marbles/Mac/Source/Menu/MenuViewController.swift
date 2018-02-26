@@ -92,11 +92,11 @@ class MenuViewController: NSViewController {
         titleShadow.shadowOffset = NSSize(width: 2, height: -2)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let titleAttributes: [NSAttributedStringKey : AnyObject] = [NSAttributedStringKey.font            : NSFont(name: "BunakenUnderwater", size: 28.0)!,
-                                                                    NSAttributedStringKey.foregroundColor : NSColor.white,
-                                                                    NSAttributedStringKey.shadow          : titleShadow,
-                                                                    NSAttributedStringKey.paragraphStyle  : paragraphStyle]
-        button.attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
+
+        button.attributedTitle = NSAttributedString(string: title, attributes: [.font            : NSFont(name: "BunakenUnderwater", size: 28.0)!,
+                                                                                .foregroundColor : NSColor.white,
+                                                                                .shadow          : titleShadow,
+                                                                                .paragraphStyle  : paragraphStyle])
     }
 
     private func updateHighScoreLabel()
