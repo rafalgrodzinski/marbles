@@ -11,10 +11,17 @@ import Fabric
 import Crashlytics
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ notification: Notification) {
+class AppDelegate: NSObject, NSApplicationDelegate
+{
+    func applicationDidFinishLaunching(_ notification: Notification)
+    {
         #if !DEBUG
             Fabric.with([Crashlytics.self])
         #endif
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool
+    {
+        return true
     }
 }
