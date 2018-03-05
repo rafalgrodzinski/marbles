@@ -24,6 +24,8 @@ class Field
     // MARK: - Initialization -
     init(size: Size, colorsCount: Int, marblesPerSpawn: Int, lineLength: Int, marbleFactory: MarbleFactory)
     {
+        assert(size.width >= marblesPerSpawn && size.height >= marblesPerSpawn)
+
         self.size = size
         self.colorsCount = colorsCount
         self.marblesPerSpawn = marblesPerSpawn
