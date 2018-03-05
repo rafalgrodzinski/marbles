@@ -29,11 +29,11 @@ open class GameOverPopup: SKNode
         super.init()
 
         // Background
-        /*let path = UIBezierPath(rect: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)).cgPath
-        let background = SKShapeNode(path: path, centered: true)
+        let backgroundRect = CGRect(x: -size.width * 0.5, y: -size.height * 0.5, width: size.width, height: size.height)
+        let background = SKShapeNode(rect: backgroundRect)
         background.fillColor = Color.color(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
         background.strokeColor = Color.clear
-        self.addChild(background)*/
+        self.addChild(background)
 
         // Setup restart button
         let restartButton = Button(defaultTexture: SKTexture(imageNamed: "Restart Button"))
