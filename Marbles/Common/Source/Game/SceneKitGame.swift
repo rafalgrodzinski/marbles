@@ -259,7 +259,10 @@ class SceneKitGame: Game
         self.gameOverPopup = GameOverPopup(size: overlayScene.size)
         self.gameOverPopup.position = CGPoint(x: overlayScene.frame.midX, y: overlayScene.frame.midY)
         self.gameOverPopup.restartCallback = { [weak self] in self?.startGame() }
-        self.gameOverPopup.quitCallback = { [weak self] in self?.quitCallback!() }
+        self.gameOverPopup.quitCallback = { [weak self] in
+            (self?.view as? SCNView)?.scene?.isPaused = true
+            self?.quitCallback!()
+        }
         overlayScene.addChild(self.gameOverPopup)
     }
 
