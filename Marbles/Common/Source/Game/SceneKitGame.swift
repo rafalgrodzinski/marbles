@@ -34,7 +34,8 @@ class SceneKitGame: Game
                           y: self._tileSize.y * FloatType(self.gameScale),
                           z: self._tileSize.z * FloatType(self.gameScale))
     }
-    fileprivate let fieldMoveDuration: Float = 0.4
+    fileprivate let minMoveDuration: Float = 0.4
+    fileprivate let maxMoveDuration: Float = 1.6
 
     lazy var tilePrototype: SCNNode = {
         let tileNode = SCNNode()
@@ -432,6 +433,9 @@ class SceneKitGame: Game
 
         var previousFieldPosition = fieldPath.first!
 
+        let totalDuration = min(minMoveDuration * Float(fieldPath.count), maxMoveDuration)
+        let fieldMoveDuration = totalDuration / Float(fieldPath.count)
+
         for (index, position) in fieldPath.enumerated() where index != 0 {
             // Rotation
             let radius = FloatType((scnMarble.node.geometry as! SCNSphere).radius) * FloatType(gameScale)
@@ -480,11 +484,11 @@ class SceneKitGame: Game
             }
 
             // Actions
-            let waitAction = SCNAction.wait(duration: TimeInterval(self.fieldMoveDuration) * TimeInterval(index-1))
+            let waitAction = SCNAction.wait(duration: TimeInterval(fieldMoveDuration) * TimeInterval(index-1))
 
             let animAct = SCNAction.run { (node:SCNNode) in
                 SCNTransaction.begin()
-                SCNTransaction.animationDuration = TimeInterval(self.fieldMoveDuration)
+                SCNTransaction.animationDuration = TimeInterval(fieldMoveDuration)
                 SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: timingFunction)
                 node.transform = SCNMatrix4FromGLKMatrix4(newRotationMatrix)
                 node.position = newPosition
@@ -492,7 +496,7 @@ class SceneKitGame: Game
                 SCNTransaction.commit()
             }
 
-            let lastWaitAction = SCNAction.wait(duration: TimeInterval(index == fieldPath.count-1 ? self.fieldMoveDuration : 0.0))
+            let lastWaitAction = SCNAction.wait(duration: TimeInterval(index == fieldPath.count-1 ? fieldMoveDuration : 0.0))
 
             let runBlockAction = SCNAction.run { (node: SCNNode) in if index == fieldPath.count-1 { finished() } }
 
