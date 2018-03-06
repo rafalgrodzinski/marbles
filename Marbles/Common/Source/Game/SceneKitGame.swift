@@ -42,6 +42,7 @@ class SceneKitGame: Game
         tileNode.geometry = SCNBox(width: CGFloat(self.tileSize.x), height: CGFloat(self.tileSize.y),
                                    length: CGFloat(self.tileSize.z), chamferRadius: 0.0)
         tileNode.geometry?.materials.first?.diffuse.contents = "Tile Diffuse"
+        tileNode.geometry?.materials.first?.specular.contents = "Tile Diffuse"
         tileNode.geometry?.materials.first?.normal.contents = "Tile Normal"
         tileNode.geometry?.materials.first?.normal.intensity = 0.5
         tileNode.physicsBody = SCNPhysicsBody.static()
