@@ -25,8 +25,16 @@ class MenuViewController: NSViewController {
     override func viewDidLoad()
     {
         updateHighScoreLabel()
+        setupFonts()
         setupLogoColorUpdateTimer()
         setupForNewGame()
+    }
+
+    private func setupFonts()
+    {
+        logoLabel.font = NSFont(name: "BunakenUnderwater", size: logoLabel.font!.pointSize)
+        topButton.font = NSFont(name: "BunakenUnderwater", size: topButton.font!.pointSize)
+        bottomButton.font = NSFont(name: "BunakenUnderwater", size: bottomButton.font!.pointSize)
     }
 
     private func setupGame(field: Field?, drawnMarbleColors: [Int]?)

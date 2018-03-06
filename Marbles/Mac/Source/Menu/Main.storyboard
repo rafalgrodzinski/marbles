@@ -120,13 +120,13 @@
                                 <rect key="frame" x="0.0" y="335" width="480" height="150"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gEZ-iu-unj" userLabel="Logo Label">
-                                        <rect key="frame" x="-2" y="44" width="484" height="62"/>
+                                        <rect key="frame" x="-2" y="37" width="484" height="77"/>
                                         <shadow key="shadow" blurRadius="2">
                                             <size key="offset" width="2" height="2"/>
                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </shadow>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Marbles" id="gfl-kt-0S3">
-                                            <font key="font" size="64" name="BunakenUnderwater"/>
+                                            <font key="font" metaFont="system" size="64"/>
                                             <color key="textColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" red="0.32000000000000001" green="0.77600000000000002" blue="0.123" alpha="0.0" colorSpace="calibratedRGB"/>
                                         </textFieldCell>
@@ -147,7 +147,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="square" title="Top Button" bezelStyle="shadowlessSquare" image="Button" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="8pm-Lo-QDR">
                                     <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" size="28" name="BunakenUnderwater"/>
+                                    <font key="font" metaFont="system" size="28"/>
                                 </buttonCell>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Fxh-kL-dIq" userLabel="Bottom Button">
@@ -158,7 +158,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="square" title="Bottom Button" bezelStyle="shadowlessSquare" image="Button" imagePosition="overlaps" alignment="center" inset="2" id="Crl-zi-1Of">
                                     <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" size="28" name="BunakenUnderwater"/>
+                                    <font key="font" metaFont="system" size="28"/>
                                 </buttonCell>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Od1-Wn-RGq">
